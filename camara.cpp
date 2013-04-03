@@ -22,9 +22,9 @@ void Camara::seguir(Uint32 sx, Uint32 sy) {
   if(y < 0) y = 0;
 }
 
-void Camara::seguir(Cosa *cosa) {
-  x = cosa->obX() - ancho/2;
-  y = cosa->obY() - alto/2;
+void Camara::seguir(Objeto *obj) {
+  x = obj->obX() - ancho/2;
+  y = obj->obY() - alto/2;
   if(x < 0) x = 0;
   if(y < 0) y = 0;
 }

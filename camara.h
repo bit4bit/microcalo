@@ -2,7 +2,7 @@
 #define CAMARA_H
 
 #include <SDL/SDL.h>
-#include "cosa.h"
+#include "objeto.h"
 class Camara
 {
  protected:
@@ -16,7 +16,7 @@ class Camara
   static Camara* instancia();
 
   void seguir(Uint32, Uint32);
-  void seguir(Cosa *cosa);
+  void seguir(Objeto *cosa);
   SDL_Rect obRect();
 
   Uint32 x;

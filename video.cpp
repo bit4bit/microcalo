@@ -10,9 +10,12 @@ Video::Video() {
     std::cerr << "Fallo iniciar SDL:" << SDL_GetError() << std::endl;
     exit(EXIT_FAILURE);
   }
-
+  //@todo lo ideal es poder usar la resolucion de 320x240
+  //y reescalar imagenes
+  ancho = 640;
+  alto = 480;
   atexit(SDL_Quit); //@todo terminar todo el programa
-  s_pantalla = SDL_SetVideoMode(640, 480, 16, SDL_DOUBLEBUF|SDL_HWSURFACE); //@todo ??como se libera al destr objeto
+  s_pantalla = SDL_SetVideoMode(ancho, alto, 16, SDL_DOUBLEBUF|SDL_HWSURFACE); //@todo ??como se libera al destr objeto
   if(s_pantalla == NULL) {
     std::cerr << "Fallo asignar video: " << SDL_GetError() << std::endl;
     exit(EXIT_FAILURE);

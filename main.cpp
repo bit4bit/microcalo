@@ -25,6 +25,8 @@ int main(int argc, char **argv)
     Compositor::obTeclado()->actualizar(SDL_GetKeyState(NULL));
     if(Compositor::obTeclado()->presionado(SDLK_q))
       salir = true;
+    if(Compositor::obTeclado()->presionado(SDLK_f))
+      Compositor::obVideo()->toggleFullScreen();
 
     escenario.actualizar();
     Compositor::obVideo()->actualizar();

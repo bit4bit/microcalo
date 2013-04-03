@@ -6,6 +6,8 @@
  *de los jugadores.
  */
 
+#include <SDL/SDL.h>
+#include <vector>
 #include "escenario.h"
 #include "vehiculo.h"
 
@@ -18,6 +20,9 @@ class EscenarioCarrera : public Escenario
   virtual void dibujar();
   
  private:
+  std::vector<Objeto*> objetos;
+  //std::vector<PuntoPaso*> puntos_de_paso;
+  
   SDL_Surface *fondo; //imagen de fondo por defecto, se usa para redibujados
   Vehiculo* vehiculo;
 };

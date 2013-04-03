@@ -23,16 +23,10 @@ class Cosa
   virtual void agregar(Cosa*);
   virtual void remover(Cosa*);
   
-  Uint32 obX() { return escenario_x; }
-  Uint32 obY() { return escenario_y; }
+
  protected:
   Cosa(Uint32);
 
-  Uint32 escenario_x;
-  Uint32 escenario_y;
-  Uint32 pantalla_x;
-  Uint32 pantalla_y;
-  
  private:
   Uint32 id;
 

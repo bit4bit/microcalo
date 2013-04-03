@@ -7,7 +7,7 @@
 #include "vehiculo.h"
 
 
-Vehiculo::Vehiculo(Uint32 id): Cosa(id){
+Vehiculo::Vehiculo(Uint32 id): Objeto(id){
   ancho = 50;
   alto = 50;
   max_vel = 15;
@@ -32,9 +32,6 @@ Vehiculo::Vehiculo(Uint32 id): Cosa(id){
 }
 
 Vehiculo::~Vehiculo(){
-}
-
-void Vehiculo::desdeDirectorio(const char* ruta){
 }
 
 
@@ -94,8 +91,8 @@ void Vehiculo::dibujar() {
   sr.x = ancho * (nangulo / 4);
   sr.y = 0;
   sr.w = ancho; sr.h = alto;
-  dr.x = pantalla_x - ancho/2;
-  dr.y = pantalla_y - alto/2;
+  dr.x = pantalla_x - ancho/2; //se centra
+  dr.y = pantalla_y - alto/2; //se centra
   dr.w = ancho; dr.w = alto;
 
   Compositor::obVideo()->blit(s_actual, &sr, &dr);

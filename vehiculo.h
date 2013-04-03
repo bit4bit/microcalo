@@ -2,7 +2,7 @@
 #define VEHICULO_H
 
 #include <SDL/SDL.h>
-#include "cosa.h"
+#include "objeto.h"
 
 /**
  *El vehiculo para el jugador
@@ -12,7 +12,7 @@
  *para facilitar la creacion de los vehiculos
  */
 
-class Vehiculo : public Cosa
+class Vehiculo : public Objeto
 {
  public:
   Vehiculo(Uint32 id);
@@ -20,13 +20,6 @@ class Vehiculo : public Cosa
   virtual void actualizar();
   virtual void dibujar();
   
-  /**
-   *Busca en directoria imagenes
-   *archivos de configuracion del vehiculo
-   */
-  void desdeDirectorio(const char*);
-
-
   int ancho;
   int alto;
   float max_vel;
