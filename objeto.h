@@ -23,7 +23,7 @@ class Objeto : public Cosa
   Uint32 obX() { return escenario_x; }
   Uint32 obY() { return escenario_y; }
   Uint32 obXCentro() { return escenario_x - ancho/2;}
-  Uint32 obYCentro() { return escenacio_y - alto/2;}
+  Uint32 obYCentro() { return escenario_y - alto/2;}
   Uint32 obXPantalla();
   Uint32 obYPantalla();
   Uint32 obAncho() { return ancho; }

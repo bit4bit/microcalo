@@ -10,6 +10,7 @@
 #include "cosa.h"
 #include "recurso.h"
 #include "camara.h"
+#include "colision.h"
 
 class Compositor
 {
@@ -25,6 +26,7 @@ class Compositor
   static Teclado *obTeclado() { return Teclado::instancia(); }
   static Recurso *obRecurso() { return Recurso::instancia(); }
   static Camara *obCamara() { return Camara::instancia(); }
+  static Colision *obColision() { return Colision::instancia(); }
 };
 
 #endif

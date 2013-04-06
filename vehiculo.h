@@ -3,6 +3,7 @@
 
 #include <SDL/SDL.h>
 #include "objeto.h"
+#include "vehiculo_tipo.h"
 
 /**
  *El vehiculo para el jugador
@@ -20,20 +21,9 @@ class Vehiculo : public Objeto
   virtual void actualizar();
   virtual void dibujar();
   
-  int ancho;
-  int alto;
-  float max_vel;
-  float min_vel;
-  float def_accel;
-  float def_retro;
-  float def_giro;
-  float def_giro_frenando;
-  
+  VehiculoTipo tipo; 
  protected:
-  SDL_Surface *s_actual;
-  SDL_Surface *s_andando;
-  SDL_Surface *s_cayendo;
-  SDL_Surface *s_saltando;
+
 
   float vel;
   float accel;

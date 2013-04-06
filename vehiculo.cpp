@@ -8,18 +8,11 @@
 
 
 Vehiculo::Vehiculo(Uint32 id): Objeto(id){
-  ancho = 50;
-  alto = 50;
-  max_vel = 15;
-  min_vel = -10;
-  def_accel = 1;
-  def_retro = -1;
-  def_giro = 10;
-  def_giro_frenando = 7;
-  s_andando = Compositor::obRecurso()->cargarImagen("./data/car1.png");
-  s_cayendo = Compositor::obRecurso()->cargarImagen("./data/car1.png");
-  s_saltando = Compositor::obRecurso()->cargarImagen("./data/car1.png");
-  s_actual = s_andando;
+  //@todo se debe inicializar un tipo de vehiculo
+
+  s_objeto = tipo.s_andando;
+  ancho = tipo.ancho;
+  alto = tipo.alto;
 
   angulo = accel = vel = 0;
   t_accelerar = SDLK_t;
@@ -37,11 +30,11 @@ Vehiculo::~Vehiculo(){
 
 void Vehiculo::actualizar() {
   double reloj_escala = Compositor::obReloj()->escala();
-  float giro = def_giro;
+  float giro = tipo.def_giro;
   accel = 0;
 
   if(Compositor::obTeclado()->presionado(t_accelerar) == true)
-    accel = def_accel;
+    accel = tipo.def_accel;
   
 
   if(accel) 
@@ -50,8 +43,8 @@ void Vehiculo::actualizar() {
     }
   else
     {
-      vel -= def_accel * reloj_escala;
-      giro = def_giro_frenando;
+      vel -= tipo.def_accel * reloj_escala;
+      giro = tipo.def_giro_frenando;
       if(vel < 0) vel = 0;
     }
   //std::cerr << "accel:" << accel << " vel:" << vel << std::endl;
@@ -69,7 +62,7 @@ void Vehiculo::actualizar() {
   if(Compositor::obTeclado()->presionado(t_retroceder))
     vel *= 0.1;
   
-  if(vel > max_vel) vel = max_vel;
+  if(vel > tipo.max_vel) vel = tipo.max_vel;
   
   escenario_x += vel * cos(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
   escenario_y += vel * -sin(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
@@ -88,12 +81,12 @@ void Vehiculo::dibujar() {
   
   int nangulo = angulo;
   if(nangulo < 0)  angulo = 360;
-  sr.x = ancho * (nangulo / 4);
+  sr.x = tipo.ancho * (nangulo / 4);
   sr.y = 0;
-  sr.w = ancho; sr.h = alto;
-  dr.x = pantalla_x - ancho/2; //se centra
-  dr.y = pantalla_y - alto/2; //se centra
-  dr.w = ancho; dr.w = alto;
+  sr.w = tipo.ancho; sr.h = tipo.alto;
+  dr.x = pantalla_x - tipo.ancho/2; //se centra
+  dr.y = pantalla_y - tipo.alto/2; //se centra
+  dr.w = tipo.ancho; dr.w = tipo.alto;
 
-  Compositor::obVideo()->blit(s_actual, &sr, &dr);
+  Compositor::obVideo()->blit(s_objeto, &sr, &dr);
 }
