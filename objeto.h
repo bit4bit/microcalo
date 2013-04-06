@@ -28,6 +28,8 @@ class Objeto : public Cosa
   Uint32 obYPantalla();
   Uint32 obAncho() { return ancho; }
   Uint32 obAlto() { return alto; }
+  void *obData() { return data; }
+  void asignarData(void *_data) { data = _data;}
  protected:
   Uint32 ancho;
   Uint32 alto;
@@ -39,6 +41,8 @@ class Objeto : public Cosa
 
   //@todo lo ideal es que puedan haber algunos animados
   SDL_Surface *s_objeto; /*imagen del objeto*/
+ private:
+  void *data;
 };
 
 #endif
