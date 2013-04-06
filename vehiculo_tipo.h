@@ -4,6 +4,13 @@
 #include <SDL/SDL.h>
 #include <string>
 
+/**
+ *Representa un tipo de vehiculo
+ *carro, camiones, volquetas
+ *sus propiedas y representacion en imaganes.
+ *@todo hacer que el tipo pueda agregar efectos
+ *al vehiculo..
+ */
 class VehiculoTipo
 {
  public:

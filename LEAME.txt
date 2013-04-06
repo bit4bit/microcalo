@@ -1,0 +1,16 @@
+
+
+COMO DAR LA RUTA A SEGUIR?
+La primera idea que se me ocurre es una lista enlaza de puntos donde
+se siga la distancia del vehiculo al proximo punto a seguir..
+
+v -> (P1).. (P2) .. (P3) 
+
+si esta distancia se agranda entonces se aleja del punto o bien intenta 
+cortar la ruta.
+
+por cada punto se tiene una distancia  maxima de alejamiento y una distancia
+maxima de acercamiento, para determinar segun el tipo de punto cuanto se debe
+acercar o bien cuanto es lo maximo que se puede alejar.
+
+esta es la que voy a implementar. :)

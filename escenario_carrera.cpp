@@ -29,15 +29,7 @@ void EscenarioCarrera::actualizar() {
   Compositor::obCamara()->seguir(cv);
 
   for(std::vector<Objeto*>::iterator it = objetos.begin(); it != objetos.end(); ++it){
-    if(
-       (vehiculo->obX() >= (*it)->obX() && vehiculo->obX() <= (*it)->obX() + (*it)->obAncho())
-       &&
-       (vehiculo->obX() + vehiculo->obAncho() >= (*it)->obX() && vehiculo->obX() + vehiculo->obAncho() <= (*it)->obX() + (*it)->obAncho())
-       &&
-       (vehiculo->obY() >= (*it)->obY() && vehiculo->obY() <= (*it)->obY() + (*it)->obAlto())
-       &&
-       (vehiculo->obY() + vehiculo->obAlto() >= (*it)->obY() && vehiculo->obY() + vehiculo->obAlto() <= (*it)->obY() + (*it)->obAlto())
-       )
+    if(Compositor::obColision()->entreObjetos((Objeto *)vehiculo, (*it)))
       {
 	std::cout << "Colisiando..." << std::endl;
       }

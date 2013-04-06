@@ -14,4 +14,17 @@ Colision* Colision::instancia() {
 
 
 bool Colision::entreObjetos(Objeto *obja, Objeto *objb){
+  if(
+       (obja->obX() >= objb->obX() && obja->obX() <= objb->obX() + objb->obAncho())
+       &&
+       (obja->obX() + obja->obAncho() >= objb->obX() && obja->obX() + obja->obAncho() <= objb->obX() + objb->obAncho())
+       &&
+       (obja->obY() >= objb->obY() && obja->obY() <= objb->obY() + objb->obAlto())
+       &&
+       (obja->obY() + obja->obAlto() >= objb->obY() && obja->obY() + obja->obAlto() <= objb->obY() + objb->obAlto())
+       )
+      {
+	return true;
+      }
+  return false;
 }

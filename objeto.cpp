@@ -34,8 +34,8 @@ void Objeto::dibujar() {
   SDL_Rect sr, dr;
 
 
-  pantalla_x = obXCentro() - Compositor::obCamara()->x;
-  pantalla_y = obYCentro() - Compositor::obCamara()->y;
+  pantalla_x = obX() - Compositor::obCamara()->x;
+  pantalla_y = obY() - Compositor::obCamara()->y;
 
   //solo se dibuja cuando este en pantalla
   if(
