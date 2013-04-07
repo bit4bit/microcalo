@@ -36,3 +36,39 @@ void Video::actualizar() {
 void Video::dibujar() {
   SDL_Flip(s_pantalla);
 }
+
+
+/**SDL**/
+SDL_Surface* Video::createSurface(Uint32 w, Uint32 h) {
+    /* Create a 32-bit surface with the bytes of each pixel in R,G,B,A order,
+       as expected by OpenGL for textures */
+    SDL_Surface *surface;
+    Uint32 rmask, gmask, bmask, amask;
+
+    /* SDL interprets each pixel as a 32-bit number, so our masks must depend
+       on the endianness (byte order) of the machine */
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+    rmask = 0xff000000;
+    gmask = 0x00ff0000;
+    bmask = 0x0000ff00;
+    amask = 0x000000ff;
+#else
+    rmask = 0x000000ff;
+    gmask = 0x0000ff00;
+    bmask = 0x00ff0000;
+    amask = 0xff000000;
+#endif
+
+    surface = SDL_CreateRGBSurface(SDL_HWSURFACE, w, h, 32,
+                                   rmask, gmask, bmask, amask);
+    if(surface == NULL) {
+      return NULL;
+      //fprintf(stderr, "CreateRGBSurface failed: %s\n", SDL_GetError());
+      //exit(1);
+    }
+    //SDL_Surface* tmp = displayFormat(surface);
+    //SDL_FreeSurface(surface);
+    //return tmp;
+    return surface;
+  }
+

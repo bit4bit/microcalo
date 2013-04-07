@@ -16,9 +16,10 @@ class PuntoPaso
  public:
   PuntoPaso(Uint32 x, Uint32 y, Uint32 distAlejamiento, Uint32 distAcerca);
   
+  Objeto *obObjeto();
   bool distanciaPermitida(Objeto *);
   bool estaCerca(Objeto *);
-
+  
  private:
   Uint32 escenario_x;
   Uint32 escenario_y;

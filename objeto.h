@@ -14,6 +14,7 @@ class Objeto : public Cosa
 {
  public:
   Objeto(Uint32 _id);
+  Objeto(Uint32 _id, Uint32 x, Uint32 y);
   virtual ~Objeto();
   virtual void actualizar();
   virtual void dibujar();
@@ -28,8 +29,13 @@ class Objeto : public Cosa
   Uint32 obYPantalla();
   Uint32 obAncho() { return ancho; }
   Uint32 obAlto() { return alto; }
+  bool enPantalla();
+  SDL_Surface *obSurface() { return s_objeto; }
   void *obData() { return data; }
   void asignarData(void *_data) { data = _data;}
+  void asignarDPantallaX(Uint32 v) { dpantalla_x = v; }
+  void asignarDPantallaY(Uint32 v) { dpantalla_y = v; }
+  void asignarSurface(SDL_Surface *s) { s_objeto = s; ancho = s->w; alto = s->h; }
  protected:
   Uint32 ancho;
   Uint32 alto;
@@ -38,7 +44,8 @@ class Objeto : public Cosa
   Uint32 escenario_y; //ezquina arriba izquierda
   Uint32 pantalla_x;
   Uint32 pantalla_y;
-
+  Uint32 dpantalla_x; //desplaza spot para dibujado
+  Uint32 dpantalla_y; //desplaza spat para dibujado
   //@todo lo ideal es que puedan haber algunos animados
   SDL_Surface *s_objeto; /*imagen del objeto*/
  private:

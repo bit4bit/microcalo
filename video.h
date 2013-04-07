@@ -27,9 +27,15 @@ class Video
     return alto;
   }
 
+  Uint32 mapRGB(Uint8 r, Uint8 g, Uint8 b) {
+    return SDL_MapRGB(s_pantalla->format, r, g, b);
+  }
+
   SDL_Surface* displayFormat(SDL_Surface *s) {
     return SDL_DisplayFormat(s);
   }
+
+  SDL_Surface* createSurface(Uint32 w, Uint32 h);  
 
   int toggleFullScreen() {
     return SDL_WM_ToggleFullScreen(s_pantalla);
