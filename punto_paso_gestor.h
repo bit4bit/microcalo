@@ -19,12 +19,16 @@ class PuntoPasoGestor
  private:
   std::map<Objeto*, std::vector<PuntoPaso*> > objPuntos;
   std::map<Objeto*, Uint32> objPuntosPos;
+  std::map<Objeto*, PuntoPaso*> objPuntoActual;
+  std::map<Objeto*, PuntoPaso*> objPuntoSiguiente;
  public:
   PuntoPasoGestor();
 
   void anidarPuntoPaso(Objeto *, PuntoPaso *);
   void anidarPuntoPaso(Objeto *, Uint32, Uint32, Uint32, Uint32);
   PuntoPaso* puntoPasoA(Objeto *, Uint32);
+  PuntoPaso* puntoPasoA(Objeto *);
+  bool continuadoPuntoPasoA(Objeto *);
   PuntoPaso* primerPuntoPaso(Objeto *);
   PuntoPaso* ultimoPuntoPaso(Objeto *);
   Uint32 tamano(Objeto *);
