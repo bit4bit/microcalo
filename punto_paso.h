@@ -20,6 +20,7 @@ class PuntoPaso
   bool distanciaPermitida(Objeto *);
   bool estaCerca(Objeto *);
   
+  PuntoPaso *siguiente;
  private:
   Uint32 escenario_x;
   Uint32 escenario_y;

@@ -10,7 +10,7 @@
 #include <vector>
 #include "escenario.h"
 #include "vehiculo.h"
-#include "punto_paso.h"
+#include "punto_paso_gestor.h"
 
 class EscenarioCarrera : public Escenario
 {
@@ -22,7 +22,7 @@ class EscenarioCarrera : public Escenario
   
  private:
   std::vector<Objeto*> objetos;
-  std::vector<PuntoPaso*> puntos_de_paso;
+  PuntoPasoGestor puntos_de_paso;
   
   SDL_Surface *fondo; //imagen de fondo por defecto, se usa para redibujados
   Vehiculo* vehiculo;

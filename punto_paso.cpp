@@ -6,7 +6,8 @@
 
 PuntoPaso::PuntoPaso(Uint32 x, Uint32 y, Uint32 distAleja, Uint32 distAcerca) :
   escenario_x(x), escenario_y(y),
-  dist_alejamiento(distAleja), dist_acercamiento(distAcerca)
+  dist_alejamiento(distAleja), dist_acercamiento(distAcerca),
+  siguiente(NULL)
 {
 }
 
