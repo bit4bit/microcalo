@@ -1,3 +1,4 @@
+#include "cspa.h"
 #include "punto_paso_gestor.h"
 #include <iostream>
 
@@ -14,8 +15,8 @@ void PuntoPasoGestor::anidarPuntoPaso(Objeto *obj, PuntoPaso *pp)
 void PuntoPasoGestor::anidarPuntoPaso(Objeto *obj, Uint32 x, Uint32 y, Uint32 dist_aleja, Uint32 dist_acerca)
 {
   PuntoPaso *pt = new PuntoPaso(x, y , dist_aleja, dist_acerca);
-   if(objPuntos[obj].size() > 0)
-     objPuntos[obj].at(objPuntos[obj].size() - 1)->siguiente = pt;
+   si(objPuntos[obj].size() > 0)
+     objPuntos[obj].at(objPuntos[obj].size() - 1)->siguientePuntoPaso = pt;
 
 
   objPuntos[obj].push_back(pt);
@@ -31,63 +32,63 @@ void PuntoPasoGestor::anidarPuntoPaso(Objeto *obj, Uint32 x, Uint32 y, Uint32 di
 bool PuntoPasoGestor::continuadoPuntoPasoA(Objeto *obj)
 {
   PuntoPaso *pp = puntoPasoA(obj);
-  if(!objPuntoActual[obj]) {
+  si(!objPuntoActual[obj]) {
     objPuntoActual[obj] = primerPuntoPaso(obj);
     objPuntoSiguiente[obj] = NULL;
   }
   //se pasa al siguiente punto al salir del actual
-  if(objPuntoSiguiente[obj] != NULL && !objPuntoActual[obj]->distanciaPermitida(obj)) {
+  si(objPuntoSiguiente[obj] != NULL && !objPuntoActual[obj]->distanciaPermitida(obj)) {
     objPuntoActual[obj] = objPuntoSiguiente[obj];
     objPuntoSiguiente[obj] = NULL;
-    return true;
-  }else if(pp) {
-    if(pp == objPuntoActual[obj]) {
+    retorna true;
+  }aunque si(pp) {
+    si(pp == objPuntoActual[obj]) {
       //se actualiza el punto a seguir
-      if(objPuntoSiguiente[obj] == NULL){
-	objPuntoSiguiente[obj] = pp->siguiente;
+      si(objPuntoSiguiente[obj] == NULL){
+	objPuntoSiguiente[obj] = pp->siguientePuntoPaso;
       }
-
-      return true;
-    }if(pp != objPuntoActual[obj]) {
-      return false;
+      
+      retorna true;
+    }si(pp != objPuntoActual[obj]) {
+      retorna false;
     }
 
   }
 
 
-  return true;
+  retorna true;
 }
 
 PuntoPaso* PuntoPasoGestor::primerPuntoPaso(Objeto *obj)
 {
-  return objPuntos[obj].at(0);
+  retorna objPuntos[obj].at(0);
 }
 
 PuntoPaso* PuntoPasoGestor::ultimoPuntoPaso(Objeto *obj)
 {
-  return objPuntos[obj].at(objPuntos[obj].size() - 1);
+  retorna objPuntos[obj].at(objPuntos[obj].size() - 1);
 }
 
 PuntoPaso* PuntoPasoGestor::puntoPasoA(Objeto *obj, Uint32 pos)
 {
-  return objPuntos[obj].at(pos);
+  retorna objPuntos[obj].at(pos);
 }
 
 PuntoPaso* PuntoPasoGestor::puntoPasoA(Objeto *obj)
 {
   int pi = 0;
   PuntoPaso *pp = NULL;
-  if(objPuntos[obj].size() < 1) return NULL;
-  for(pi = 0; pi < objPuntos[obj].size(); ++pi)
+  si(objPuntos[obj].size() < 1) retorna NULL;
+  cada(pi = 0; pi < objPuntos[obj].size(); ++pi)
     {
       pp = objPuntos[obj].at(pi);
-      if(pp->distanciaPermitida(obj))
-	return pp;
+      si(pp->distanciaPermitida(obj))
+	retorna pp;
     }
-  return NULL;
+  retorna NULL;
 }
 
 Uint32 PuntoPasoGestor::tamano(Objeto *obj)
 {
-  return objPuntos[obj].size();
+  retorna objPuntos[obj].size();
 }

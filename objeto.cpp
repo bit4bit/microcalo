@@ -1,3 +1,4 @@
+#include "cspa.h"
 #include "objeto.h"
 #include "compositor.h"
 
@@ -28,7 +29,7 @@ Objeto* Objeto::desdeImagen(const char *ruta, Uint32 _id, Uint32 x, Uint32 y)
   obj->escenario_y = y;
   obj->ancho = obj->s_objeto->w;
   obj->alto = obj->s_objeto->h;
-  return obj;
+  retorna obj;
 }
 
 
@@ -36,7 +37,7 @@ void Objeto::actualizar() {
 }
 
 bool Objeto::enPantalla() {
-if(
+si(
    (obXPantalla() < 5 && obXPantalla() + obAncho() < 5)
 		   ||
    (obXPantalla() > Compositor::obVideo()->obAncho() && obXPantalla() + obAncho() > Compositor::obVideo()->obAncho())
@@ -44,8 +45,8 @@ if(
 		      
    || (obYPantalla() > Compositor::obVideo()->obAlto() && obYPantalla()  + obAlto() > Compositor::obVideo()->obAlto())
      )
-  return false;
- return true;
+  retorna false;
+ retorna true;
 }
 /**
  *Dibuja objeto desde el centro
@@ -60,8 +61,8 @@ void Objeto::dibujar() {
   
 
   //solo se dibuja cuando este en pantalla
-  if(!enPantalla())
-    return;
+  si(!enPantalla())
+    retorna;
   //std::cout << "ox:" << pantalla_x << " oy:" << pantalla_y << std::endl;
   sr.x = 0;
   sr.y = 0;
@@ -74,5 +75,5 @@ void Objeto::dibujar() {
 }
 
 
-Uint32 Objeto::obXPantalla() { return (obX() - dpantalla_x) - Compositor::obCamara()->x;}
-Uint32 Objeto::obYPantalla() { return (obY() - dpantalla_y) - Compositor::obCamara()->y;}
+Uint32 Objeto::obXPantalla() { retorna (obX() - dpantalla_x) - Compositor::obCamara()->x;}
+Uint32 Objeto::obYPantalla() { retorna (obY() - dpantalla_y) - Compositor::obCamara()->y;}

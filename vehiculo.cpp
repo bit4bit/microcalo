@@ -1,3 +1,4 @@
+#include "cspa.h"
 #include <iostream>
 #include <cmath>
 
@@ -33,43 +34,43 @@ void Vehiculo::actualizar() {
   float giro = tipo.def_giro;
   accel = 0;
 
-  if(Compositor::obTeclado()->presionado(t_accelerar) == true)
+  si(Compositor::obTeclado()->presionado(t_accelerar) == true)
     accel = tipo.def_accel;
   
 
-  if(accel) 
+  si(accel) 
     {
       vel += accel * reloj_escala;
     }
-  else
+  aunque
     {
       vel -= tipo.def_accel * reloj_escala;
       giro = tipo.def_giro_frenando;
-      if(vel < 0) vel = 0;
+      si(vel < 0) vel = 0;
     }
   //std::cerr << "accel:" << accel << " vel:" << vel << std::endl;
   
-  if(vel) 
+  si(vel) 
     {
-      if(Compositor::obTeclado()->presionado(t_izquierda))
+      si(Compositor::obTeclado()->presionado(t_izquierda))
 	angulo += giro  * reloj_escala;
-      if(Compositor::obTeclado()->presionado(t_derecha))
+      si(Compositor::obTeclado()->presionado(t_derecha))
 	angulo -= giro * reloj_escala;
-      if(angulo < 0) angulo += 360;
-      if(angulo >= 360) angulo -= 360;
+      si(angulo < 0) angulo += 360;
+      si(angulo >= 360) angulo -= 360;
     }
 
-  if(Compositor::obTeclado()->presionado(t_retroceder))
+  si(Compositor::obTeclado()->presionado(t_retroceder))
     vel *= 0.1;
   
-  if(vel > tipo.max_vel) vel = tipo.max_vel;
+  si(vel > tipo.max_vel) vel = tipo.max_vel;
   
   escenario_x += vel * cos(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
   escenario_y += vel * -sin(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
   //std::cerr << "escenario x: " << escenario_x << " escenario_y:" << escenario_y << std::endl;
-  if(escenario_x < 0) escenario_x = 0;
+  si(escenario_x < 0) escenario_x = 0;
   //@todo detener ancho escenario
-  if(escenario_y < 0) escenario_y = 0;
+  si(escenario_y < 0) escenario_y = 0;
   //@todo detener alto escenario
 }
 
@@ -80,7 +81,7 @@ void Vehiculo::dibujar() {
   pantalla_y = escenario_y - Compositor::obCamara()->y;
   
   int nangulo = angulo;
-  if(nangulo < 0)  angulo = 360;
+  si(nangulo < 0)  angulo = 360;
   sr.x = tipo.ancho * (nangulo / 4);
   sr.y = 0;
   sr.w = tipo.ancho; sr.h = tipo.alto;

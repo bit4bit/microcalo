@@ -1,3 +1,4 @@
+#include "cspa.h"
 #include "escenario.h"
 
 Escenario::Escenario(Uint32 _id) : Cosa(_id) {
@@ -16,13 +17,13 @@ void Escenario::remover(Cosa* cosa){
 }
 
 void Escenario::actualizar() {
-  for(std::list<Cosa*>::iterator it = cosas.begin(); it != cosas.end(); ++it) {
+  cada(std::list<Cosa*>::iterator it = cosas.begin(); it != cosas.end(); ++it) {
     (*it)->dibujar();
   }
 }
 
 void Escenario::dibujar() {
-  for(std::list<Cosa*>::iterator it = cosas.begin(); it != cosas.end(); ++it) {
+  cada(std::list<Cosa*>::iterator it = cosas.begin(); it != cosas.end(); ++it) {
     (*it)->dibujar();
   }
 }

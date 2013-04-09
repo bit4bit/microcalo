@@ -2,7 +2,7 @@
  *MicroCalo es un videojuego al mejor estilo de MicroMachines
  */
 #include <iostream>
-
+#include "cspa.h"
 #include "compositor.h"
 #include "escenario.h"
 #include "escenario_carrera.h"
@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 
   EscenarioCarrera escenario = EscenarioCarrera();
 
-  do {
+  hacer {
     Compositor::obReloj()->actualizar();
     SDL_PumpEvents();
 
@@ -33,6 +33,6 @@ int main(int argc, char **argv)
 
     escenario.dibujar();
     video->dibujar();
-  }while(salir == false);
+  }mientras(salir == false);
   return 0;
 }

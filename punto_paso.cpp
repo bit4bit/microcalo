@@ -1,3 +1,4 @@
+#include "cspa.h"
 #include "punto_paso.h"
 #include <cmath>
 
@@ -7,7 +8,7 @@
 PuntoPaso::PuntoPaso(Uint32 x, Uint32 y, Uint32 distAleja, Uint32 distAcerca) :
   escenario_x(x), escenario_y(y),
   dist_alejamiento(distAleja), dist_acercamiento(distAcerca),
-  siguiente(NULL)
+  siguientePuntoPaso(NULL)
 {
 }
 
@@ -17,9 +18,9 @@ bool PuntoPaso::distanciaPermitida(Objeto *obj)
   double dist = sqrt( (obj->obX() - escenario_x) * (obj->obX() - escenario_x)
 		      +
 		      (obj->obY() - escenario_y) * (obj->obY() - escenario_y));
-  if(dist > dist_alejamiento)
-    return false;
-  return true;
+  si(dist > dist_alejamiento)
+    retorna false;
+  retorna true;
 }
 
 bool PuntoPaso::estaCerca(Objeto *obj)
@@ -27,9 +28,9 @@ bool PuntoPaso::estaCerca(Objeto *obj)
  double dist = sqrt( (obj->obX() - escenario_x) * (obj->obX() - escenario_x)
 		     +
 		     (obj->obY() - escenario_y) * (obj->obY() - escenario_y));
- if(dist <= dist_acercamiento)
-   return true;
- return false;
+ si(dist <= dist_acercamiento)
+   retorna true;
+ retorna false;
 }
 
 
@@ -46,5 +47,5 @@ Objeto* PuntoPaso::obObjeto()
   obj->asignarDPantallaY(obj->obAlto()/2);
   circleColor(tmp, tmp->w / 2, tmp->h / 2, dist_alejamiento, SDL_MapRGBA(tmp->format, 255, 0, 0, 255));
   circleColor(tmp, tmp->w / 2, tmp->h / 2, dist_acercamiento, SDL_MapRGBA(tmp->format, 255, 255, 255, 255));
-  return obj;
+  retorna obj;
 }

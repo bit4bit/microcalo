@@ -1,3 +1,4 @@
+#include "cspa.h"
 #include <iostream>
 
 #include <SDL/SDL.h>
@@ -13,20 +14,20 @@ Recurso::Recurso(){
 }
 
 Recurso* Recurso::instancia() {
-  if(_self == 0) {
+  si(_self == 0) {
     _self = new Recurso;
   }
-  return _self;
+  retorna _self;
 }
 
 SDL_Surface* Recurso::cargarImagen(const char *ruta) {
   SDL_Surface *tmp, *ret;
   tmp = IMG_Load(ruta);
-  if(tmp == NULL) {
+  si(tmp == NULL) {
     std::cerr << "Fallo cargar imagen: " << ruta << std::endl;
-    return NULL;
+    retorna NULL;
   }
   ret = SDL_DisplayFormatAlpha(tmp);
   SDL_FreeSurface(tmp);
-  return ret;
+  retorna ret;
 }
