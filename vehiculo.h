@@ -33,6 +33,7 @@ class Vehiculo : public Objeto
   void retroceder() {retrocederP = true;}
   void girarIzquierda() {izquierdaP = true;}
   void girarDerecha() {derechaP = true;}
+  void choque(); //efecto de choque
  protected:
   bool acelerarP;
   bool retrocederP;

@@ -91,7 +91,7 @@ void Vehiculo::actualizar() {
   //@todo detener alto escenario
   //reinicia estado de movimiento
   acelerarP = retrocederP = izquierdaP = derechaP = false;
-  regularALimites();
+  //regularALimites();
 }
 
 
@@ -110,4 +110,8 @@ void Vehiculo::dibujar() {
   dr.w = tipo.ancho; dr.w = tipo.alto;
 
   Compositor::obVideo()->blit(s_objeto, &sr, &dr);
+}
+
+void Vehiculo::choque() {
+  vel *= -1;
 }

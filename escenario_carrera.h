@@ -7,6 +7,7 @@
  */
 
 #include <SDL/SDL.h>
+
 #include <vector>
 #include "escenario.h"
 #include "vehiculo.h"
@@ -27,7 +28,8 @@ class EscenarioCarrera : public Escenario
   std::vector<Objeto*> objetos;
   PuntoPasoGestor puntos_de_paso;
   
-  SDL_Surface *fondo; //imagen de fondo por defecto, se usa para redibujados
+  Objeto* fondo; //imagen de fondo por defecto, se usa para redibujados
+
   Vehiculo* vehiculo;
   std::vector<Vehiculo*> vehiculos;
   std::vector<Jugador*> jugadores;

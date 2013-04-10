@@ -5,7 +5,7 @@
 #include <SDL/SDL_image.h>
 #include "compositor.h"
 #include "recurso.h"
-
+#include <SDL/sge.h>
 
 
 Recurso* Recurso::_self = 0;
@@ -30,4 +30,23 @@ SDL_Surface* Recurso::cargarImagen(const char *ruta) {
   ret = SDL_DisplayFormatAlpha(tmp);
   SDL_FreeSurface(tmp);
   retorna ret;
+}
+
+SDL_Surface* Recurso::cargarImagen(const char *ruta, Uint32 key) {
+  SDL_Surface *tmp = IMG_Load(ruta);
+  if(!tmp) return NULL;
+  SDL_SetColorKey(tmp, SDL_SRCCOLORKEY, key);
+  SDL_Surface *rtmp = SDL_DisplayFormat(tmp);
+  SDL_FreeSurface(tmp);
+  retorna rtmp;
+}
+
+
+SDL_Surface* Recurso::cargarImagen(const char *ruta, Uint32 x, Uint32 y) {
+  SDL_Surface *tmp = IMG_Load(ruta);
+  if(!tmp) return NULL;
+  SDL_SetColorKey(tmp, SDL_SRCCOLORKEY, sge_GetPixel(tmp, x, y));
+  SDL_Surface *rtmp = SDL_DisplayFormat(tmp);
+  SDL_FreeSurface(tmp);
+  retorna rtmp;
 }
