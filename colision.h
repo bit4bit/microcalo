@@ -15,6 +15,7 @@ class Colision
   static Colision* instancia();
   
   bool entreObjetos(Objeto *obja, Objeto *objb);
+  bool limitePantalla(Objeto *obj);
 };
 
 #endif

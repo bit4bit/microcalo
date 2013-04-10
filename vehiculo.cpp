@@ -21,6 +21,20 @@ Vehiculo::Vehiculo(Uint32 id): Objeto(id){
   escenario_x = escenario_y = 100;
   pantalla_x = pantalla_y = 0;
 }
+Vehiculo::Vehiculo(Uint32 id, Uint32 x, Uint32 y): Objeto(id){
+  //@todo se debe inicializar un tipo de vehiculo
+
+  s_objeto = tipo.s_andando;
+  ancho = tipo.ancho;
+  alto = tipo.alto;
+
+  angulo = accel = vel = 0;
+  acelerarP = retrocederP = izquierdaP = derechaP = false;
+
+  escenario_x = x;
+  escenario_y = y;
+  pantalla_x = pantalla_y = 0;
+}
 
 Vehiculo::~Vehiculo(){
 }

@@ -16,7 +16,7 @@ EscenarioCarrera::EscenarioCarrera() : Escenario(1) {
   Jugador *jg = new Jugador("1", new ControlTeclado(SDLK_t, SDLK_n, SDLK_a, SDLK_o), vehiculo);
   jugadores.push_back(jg);
   vehiculos.push_back(vehiculo);
-  vehiculo = new Vehiculo(2);
+  vehiculo = new Vehiculo(2, 100, 200);
   jg = new Jugador("2", new ControlMando(0), vehiculo);
   jugadores.push_back(jg);
   vehiculos.push_back(vehiculo);
@@ -70,6 +70,8 @@ void EscenarioCarrera::actualizar() {
   xMin = xMax = yMin = yMax = 0;
   for(std::vector<Jugador*>::iterator it = jugadores.begin(); it != jugadores.end(); ++it) {
     (*it)->actualizar();
+    if(Compositor::obColision()->limitePantalla((*it)->obVehiculo()))
+      std::cout << "colision con limite de pantalla:" << (*it)->nombre << std::endl;
   }
 
   for(std::vector<Vehiculo*>::iterator it = vehiculos.begin(); it != vehiculos.end(); ++it) {
@@ -82,6 +84,7 @@ void EscenarioCarrera::actualizar() {
       yMin = (*it)->obY();
     if((*it)->obY() > yMax || yMax == 0)
       yMax = (*it)->obY();
+
   }
   //propuesta de movimiento de la camara:
   //medir distancia entre los 2 vehiculos y ubicar la camara

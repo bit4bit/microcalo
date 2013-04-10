@@ -12,7 +12,7 @@ VehiculoTipo::VehiculoTipo()
   min_vel = -10;
   def_accel = 1;
   def_retro = -1;
-  def_giro = 10;
+  def_giro = 4; //cantidad de grados de la imagen
   def_giro_frenando = 7;
 
   s_andando = Compositor::obRecurso()->cargarImagen("./data/car1.png");

@@ -29,3 +29,8 @@ bool Colision::entreObjetos(Objeto *obja, Objeto *objb){
       }
   retorna false;
 }
+
+
+bool Colision::limitePantalla(Objeto *obj) {
+  return !obj->enPantalla();
+}

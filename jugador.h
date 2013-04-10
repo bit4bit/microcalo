@@ -11,6 +11,7 @@ class Jugador
   Jugador(const char* nombre, IControlTipo *ctipo, Vehiculo *);
   void actualizar();
   IControlTipo *obControlTipo() { return ctipo; }
+  Vehiculo *obVehiculo() { return vehiculo;}
   std::string nombre;  
  private:
   IControlTipo *ctipo;

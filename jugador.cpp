@@ -1,7 +1,7 @@
 #include "jugador.h"
 
 Jugador::Jugador(const char *_nombre, IControlTipo *_ctipo, Vehiculo *_veh) {
-  nombre.append(nombre);
+  nombre.assign(_nombre);
   ctipo = _ctipo;
   vehiculo = _veh;
 }
