@@ -116,3 +116,8 @@ Uint32 PuntoPasoGestor::tamano()
 {
   retorna tamano(&defObjeto);
 }
+
+PuntoPaso* PuntoPasoGestor::obPuntoPasoActual(Objeto* obj)
+{
+  retorna objPuntoActual[obj];
+}

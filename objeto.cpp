@@ -75,5 +75,14 @@ void Objeto::dibujar() {
 }
 
 
-Uint32 Objeto::obXPantalla() { retorna (obX() - dpantalla_x) - Compositor::obCamara()->x;}
-Uint32 Objeto::obYPantalla() { retorna (obY() - dpantalla_y) - Compositor::obCamara()->y;}
+Sint32 Objeto::obXPantalla() { retorna (obX() - dpantalla_x) - Compositor::obCamara()->x;}
+Sint32 Objeto::obYPantalla() { retorna (obY() - dpantalla_y) - Compositor::obCamara()->y;}
+
+void Objeto::regularALimites() {
+  si(escenario_x < 0) escenario_x = 0;
+  si(escenario_y < 0) escenario_y = 0;
+  si(limite_x && limite_y) {
+    si(escenario_x > limite_x + obAncho()) escenario_x = limite_x - obAncho() - 1;
+    si(escenario_y > limite_y + obAlto()) escenario_y = limite_y - obAlto() - 1;
+  }
+}

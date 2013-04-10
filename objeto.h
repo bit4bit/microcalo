@@ -21,12 +21,12 @@ class Objeto : public Cosa
   
   static Objeto* desdeImagen(const char *ruta, Uint32 _id, Uint32 x, Uint32 y);
 
-  Uint32 obX() { return escenario_x; }
-  Uint32 obY() { return escenario_y; }
-  Uint32 obXCentro() { return escenario_x - ancho/2;}
-  Uint32 obYCentro() { return escenario_y - alto/2;}
-  Uint32 obXPantalla();
-  Uint32 obYPantalla();
+  Sint32 obX() { return escenario_x; }
+  Sint32 obY() { return escenario_y; }
+  Sint32 obXCentro() { return escenario_x - ancho/2;}
+  Sint32 obYCentro() { return escenario_y - alto/2;}
+  Sint32 obXPantalla();
+  Sint32 obYPantalla();
   Uint32 obAncho() { return ancho; }
   Uint32 obAlto() { return alto; }
   bool enPantalla();
@@ -36,17 +36,24 @@ class Objeto : public Cosa
   void asignarDPantallaX(Uint32 v) { dpantalla_x = v; }
   void asignarDPantallaY(Uint32 v) { dpantalla_y = v; }
   void asignarSurface(SDL_Surface *s) { s_objeto = s; ancho = s->w; alto = s->h; }
-  void moverXY(Uint32 _x, Uint32 _y) { escenario_x = _x; escenario_y = _y; }
+  void moverXY(Uint32 _x, Uint32 _y) { 
+    escenario_x = _x; escenario_y = _y; 
+
+  }
+  void regularALimites();
+  void asignarLimites(Sint32 _x, Sint32 _y) { limite_x = _x; limite_y = _y;}
  protected:
   Uint32 ancho;
   Uint32 alto;
 
-  Uint32 escenario_x; //ezquina arriba izquerda
-  Uint32 escenario_y; //ezquina arriba izquierda
-  Uint32 pantalla_x;
-  Uint32 pantalla_y;
-  Uint32 dpantalla_x; //desplaza spot para dibujado
-  Uint32 dpantalla_y; //desplaza spat para dibujado
+  Sint32 escenario_x; //ezquina arriba izquerda
+  Sint32 escenario_y; //ezquina arriba izquierda
+  Sint32 pantalla_x;
+  Sint32 pantalla_y;
+  Sint32 dpantalla_x; //desplaza spot para dibujado
+  Sint32 dpantalla_y; //desplaza spat para dibujado
+  Sint32 limite_x;
+  Sint32 limite_y;
   //@todo lo ideal es que puedan haber algunos animados
   SDL_Surface *s_objeto; /*imagen del objeto*/
  private:

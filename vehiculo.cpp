@@ -21,14 +21,16 @@ Vehiculo::Vehiculo(Uint32 id): Objeto(id){
   escenario_x = escenario_y = 100;
   pantalla_x = pantalla_y = 0;
 }
-Vehiculo::Vehiculo(Uint32 id, Uint32 x, Uint32 y): Objeto(id){
+Vehiculo::Vehiculo(Uint32 id, Uint32 x, Uint32 y, Uint32 _angulo): Objeto(id){
   //@todo se debe inicializar un tipo de vehiculo
 
   s_objeto = tipo.s_andando;
   ancho = tipo.ancho;
   alto = tipo.alto;
 
+
   angulo = accel = vel = 0;
+  angulo = _angulo;
   acelerarP = retrocederP = izquierdaP = derechaP = false;
 
   escenario_x = x;
@@ -47,9 +49,8 @@ void Vehiculo::actualizar() {
 
   si(acelerarP == true)
     accel = tipo.def_accel;
-  
-  si(retrocederP == true && vel < 1)
-    accel = -(tipo.def_accel/2);
+
+
 
   si(accel) 
     {
@@ -61,6 +62,8 @@ void Vehiculo::actualizar() {
       giro = tipo.def_giro_frenando;
       si(vel < 0) vel = 0;
     }
+
+
   //std::cerr << "accel:" << accel << " vel:" << vel << std::endl;
   
   si(vel) 
@@ -73,8 +76,9 @@ void Vehiculo::actualizar() {
       si(angulo >= 360) angulo -= 360;
     }
 
+  //frena.. como retroceder??
   si(retrocederP)
-    vel *= 0.1;
+    vel *= 0.9;
   
   si(vel > tipo.max_vel) vel = tipo.max_vel;
   
@@ -87,6 +91,7 @@ void Vehiculo::actualizar() {
   //@todo detener alto escenario
   //reinicia estado de movimiento
   acelerarP = retrocederP = izquierdaP = derechaP = false;
+  regularALimites();
 }
 
 

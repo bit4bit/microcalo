@@ -26,6 +26,10 @@ class VehiculoTipo
   float def_giro;
   float def_giro_frenando;
 
+  /**
+   *son 90 columnas de 50x50  desde 0 horizonal mirando derecha
+   *girando en el sentido contrario a las agujas del reloj
+   */
   SDL_Surface *s_actual;
   SDL_Surface *s_andando;
   SDL_Surface *s_cayendo;

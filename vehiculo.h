@@ -18,7 +18,7 @@ class Vehiculo : public Objeto
 {
  public:
   Vehiculo(Uint32 id);
-  Vehiculo(Uint32 id, Uint32, Uint32);
+  Vehiculo(Uint32 id, Uint32, Uint32, Uint32);
   virtual ~Vehiculo();
   virtual void actualizar();
   virtual void dibujar();

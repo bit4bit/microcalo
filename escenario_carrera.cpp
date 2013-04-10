@@ -12,19 +12,18 @@
 EscenarioCarrera::EscenarioCarrera() : Escenario(1) {
   
   fondo = Compositor::obRecurso()->cargarImagen(DATA_DIR "/map1.png");
-  vehiculo = new Vehiculo(2);
-  Jugador *jg = new Jugador("1", new ControlTeclado(SDLK_t, SDLK_n, SDLK_a, SDLK_o), vehiculo);
-  jugadores.push_back(jg);
-  vehiculos.push_back(vehiculo);
-  vehiculo = new Vehiculo(2, 100, 200);
-  jg = new Jugador("2", new ControlMando(0), vehiculo);
-  jugadores.push_back(jg);
-  vehiculos.push_back(vehiculo);
+  //vehiculo = new Vehiculo(2);
+  //Jugador *jg = new Jugador("1", new ControlTeclado(SDLK_t, SDLK_n, SDLK_a, SDLK_o), vehiculo);
+  //agregarJugador(jg);
+  vehiculo = new Vehiculo(2, 100, 200, 45);
+  Jugador *jg = new Jugador("2", new ControlMando(0), vehiculo);
+  agregarJugador(jg);
 
   Compositor::obCamara()->ancho = Compositor::obVideo()->obAncho(); //@todo debe ser de la pantalla
   Compositor::obCamara()->alto = Compositor::obVideo()->obAlto();
+  Compositor::obCamara()->asignarLimites(fondo->w, fondo->h);
   objetos.push_back(Objeto::desdeImagen(DATA_DIR "/obj1.png",3, 700, 700));
-  Objeto *cv = vehiculo;
+
   puntos_de_paso.anidarPuntoPaso(180, 200, 200, 50);
   puntos_de_paso.anidarPuntoPaso(1240, 200, 200, 50);
   puntos_de_paso.anidarPuntoPaso(1700, 400, 200, 50);
@@ -36,6 +35,7 @@ EscenarioCarrera::EscenarioCarrera() : Escenario(1) {
   Uint32 pi = 0;
   PuntoPaso* pp = NULL;
   
+  //depurar
   for( pp = puntos_de_paso.primerPuntoPaso(); pi < puntos_de_paso.tamano(); ++pi) {
     pp = puntos_de_paso.puntoPasoA(pi);
     objetos.push_back(pp->obObjeto());
@@ -87,8 +87,13 @@ void EscenarioCarrera::actualizar() {
 
     //lleva continudad de puntos
     Objeto *cv = static_cast<Objeto*>(*it);
-    if(!puntos_de_paso.continuadoPuntoPasoA(cv))
+    //devuelve el vehiculo al punto de paso que seguia
+    //si se salta alguno
+    if(!puntos_de_paso.continuadoPuntoPasoA(cv)) {
       std::cout << "hey tramposx..." << std::endl;
+      PuntoPaso *pp = puntos_de_paso.obPuntoPasoActual(cv);
+      cv->moverXY(pp->obX(), pp->obY());
+    }
     PuntoPaso *ptf = puntos_de_paso.puntoPasoA(cv);
     PuntoPaso *ptff =  puntos_de_paso.ultimoPuntoPaso();
     if( ptf && ptff && ptf  == ptff)
@@ -99,7 +104,7 @@ void EscenarioCarrera::actualizar() {
   //en el centro de esta distancia..para mas vehiculos
   //tomo sus posiciones minimas y maximas y calculo medios
   camara.moverXY(xMin + abs(xMin - xMax)/2, abs(yMin - yMax)/2 + yMax);
-  Compositor::obCamara()->seguir(&camara);
+  Compositor::obCamara()->seguir(vehiculos.at(0));
 
   /*for(std::vector<Objeto*>::iterator it = objetos.begin(); it != objetos.end(); ++it){
     if(Compositor::obColision()->entreObjetos(static_cast<Objeto *>(vehiculo), (*it)))
@@ -129,4 +134,11 @@ void EscenarioCarrera::dibujar() {
     (*it)->dibujar();
   }
 
+}
+
+
+void EscenarioCarrera::agregarJugador(Jugador *jg)
+{
+  jugadores.push_back(jg);
+  vehiculos.push_back(jg->obVehiculo());
 }

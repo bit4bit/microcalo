@@ -28,6 +28,7 @@ class PuntoPasoGestor
   void anidarPuntoPaso(Objeto *, PuntoPaso *);
   void anidarPuntoPaso(Objeto *, Uint32, Uint32, Uint32, Uint32);
   void anidarPuntoPaso(Uint32 x, Uint32 y, Uint32 dist_aleja, Uint32 dist_acerca);
+  PuntoPaso* obPuntoPasoActual(Objeto *);
   PuntoPaso* puntoPasoA(Objeto *, Uint32);
   PuntoPaso* puntoPasoA(Objeto *);
   PuntoPaso* puntoPasoA(Uint32);

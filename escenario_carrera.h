@@ -21,6 +21,8 @@ class EscenarioCarrera : public Escenario
   virtual void actualizar();
   virtual void dibujar();
   
+  void agregarJugador(Jugador *jg);
+
  private:
   std::vector<Objeto*> objetos;
   PuntoPasoGestor puntos_de_paso;
