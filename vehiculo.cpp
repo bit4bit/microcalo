@@ -16,10 +16,7 @@ Vehiculo::Vehiculo(Uint32 id): Objeto(id){
   alto = tipo.alto;
 
   angulo = accel = vel = 0;
-  t_accelerar = SDLK_t;
-  t_retroceder = SDLK_n;
-  t_izquierda = SDLK_a;
-  t_derecha = SDLK_o;
+  acelerarP = retrocederP = izquierdaP = derechaP = false;
 
   escenario_x = escenario_y = 100;
   pantalla_x = pantalla_y = 0;
@@ -34,7 +31,7 @@ void Vehiculo::actualizar() {
   float giro = tipo.def_giro;
   accel = 0;
 
-  si(Compositor::obTeclado()->presionado(t_accelerar) == true)
+  si(acelerarP == true)
     accel = tipo.def_accel;
   
 
@@ -52,15 +49,15 @@ void Vehiculo::actualizar() {
   
   si(vel) 
     {
-      si(Compositor::obTeclado()->presionado(t_izquierda))
+      si(izquierdaP)
 	angulo += giro  * reloj_escala;
-      si(Compositor::obTeclado()->presionado(t_derecha))
+      si(derechaP)
 	angulo -= giro * reloj_escala;
       si(angulo < 0) angulo += 360;
       si(angulo >= 360) angulo -= 360;
     }
 
-  si(Compositor::obTeclado()->presionado(t_retroceder))
+  si(retrocederP)
     vel *= 0.1;
   
   si(vel > tipo.max_vel) vel = tipo.max_vel;
@@ -72,6 +69,8 @@ void Vehiculo::actualizar() {
   //@todo detener ancho escenario
   si(escenario_y < 0) escenario_y = 0;
   //@todo detener alto escenario
+  //reinicia estado de movimiento
+  acelerarP = retrocederP = izquierdaP = derechaP = false;
 }
 
 

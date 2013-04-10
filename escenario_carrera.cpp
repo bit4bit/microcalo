@@ -13,10 +13,6 @@ EscenarioCarrera::EscenarioCarrera() : Escenario(1) {
   vehiculo = new Vehiculo(2);
   vehiculos.push_back(vehiculo);
   vehiculo = new Vehiculo(2);
-  vehiculo->t_accelerar = SDLK_d;
-  vehiculo->t_retroceder = SDLK_h;
-  vehiculo->t_izquierda = SDLK_e;
-  vehiculo->t_derecha = SDLK_u;
   vehiculos.push_back(vehiculo);
 
   Compositor::obCamara()->ancho = Compositor::obVideo()->obAncho(); //@todo debe ser de la pantalla
@@ -61,7 +57,8 @@ void EscenarioCarrera::actualizar() {
   int xMin, xMax, yMin, yMax;
 
   xMin = xMax = yMin = yMax = 0;
-
+  if(Compositor::obTeclado()->presionado(SDLK_t))
+    vehiculos[0]->acelerar();
 
   for(std::vector<Vehiculo*>::iterator it = vehiculos.begin(); it != vehiculos.end(); ++it) {
     (*it)->actualizar();

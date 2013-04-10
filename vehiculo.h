@@ -27,12 +27,16 @@ class Vehiculo : public Objeto
   float obAngulo() { return angulo; }
   VehiculoTipo tipo; 
   //@todo separa entrada .. debe ser mas abstracto
-  Uint8 t_accelerar;
-  Uint8 t_retroceder;
-  Uint8 t_izquierda;
-  Uint8 t_derecha;
+  //llamar antes de actualizar
+  void acelerar() {acelerarP = true;}
+  void retroceder() {retrocederP = true;}
+  void girarIzquierda() {izquierdaP = true;}
+  void girarDerecha() {derechaP = true;}
  protected:
-
+  bool acelerarP;
+  bool retrocederP;
+  bool izquierdaP;
+  bool derechaP;
 
   float vel;
   float accel;
