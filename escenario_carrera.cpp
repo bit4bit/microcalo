@@ -18,9 +18,9 @@ EscenarioCarrera::EscenarioCarrera() : Escenario(1) {
   //Jugador *jg = new Jugador("1", new ControlTeclado(SDLK_t, SDLK_n, SDLK_a, SDLK_o), vehiculo);
   //agregarJugador(jg);
   vehiculo = new Vehiculo(2, 100, 200, 45);
-  SDL_Surface* tmp = Compositor::obVideo()->createSurface(100, 100);
+  SDL_Surface* tmp = Compositor::obVideo()->createSurface(25, 25);
   SDL_FillRect(tmp, NULL, 0);
-  sge_FilledCircle(tmp, 25, 25, 50, 9999);
+  sge_FilledCircle(tmp, 10, 10, 20, 9999);
   //inconvienties con la colision del vehiculo ya que la imagen es inmesas
   Compositor::obColision()->crearMapaColisionImagen(vehiculo, tmp);
   SDL_FreeSurface(tmp);
@@ -77,8 +77,7 @@ void EscenarioCarrera::actualizar() {
   Objeto camara(99);
   int xMin, xMax, yMin, yMax;
 
-  if(Compositor::obColision()->entreObjetosPorMapa(vehiculos.at(0), fondo))
-    vehiculos.at(0)->choque();
+
   xMin = xMax = yMin = yMax = 0;
   for(std::vector<Jugador*>::iterator it = jugadores.begin(); it != jugadores.end(); ++it) {
     (*it)->actualizar();
@@ -127,7 +126,8 @@ void EscenarioCarrera::actualizar() {
     (*it)->actualizar();
     }*/
   
-
+  if(Compositor::obColision()->entreObjetosPorMapa(vehiculos.at(0), fondo))
+    vehiculos.at(0)->choque();
   
 }
 

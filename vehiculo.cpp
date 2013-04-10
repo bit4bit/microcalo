@@ -113,5 +113,5 @@ void Vehiculo::dibujar() {
 }
 
 void Vehiculo::choque() {
-  vel *= -1;
+  vel *= -0.9;
 }

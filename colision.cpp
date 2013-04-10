@@ -63,7 +63,7 @@ bool Colision::entreObjetosPorMapa(Objeto *obja, Objeto *objb)
   si(!colision_map[obja]) retorna false; 
   si(!colision_map[objb]) retorna false;
 
-  bool v = sge_cmcheck(colision_map[obja], obja->obX(), obja->obY(), colision_map[objb], objb->obX(), objb->obY()) == 1 ? true : false;
+  bool v = sge_cmcheck(colision_map[obja], obja->obXCentro(), obja->obYCentro(), colision_map[objb], objb->obX(), objb->obY()) == 1 ? true : false;
   std::cout << "colmap.x:" << sge_get_cx() << " colmap.y: " << sge_get_cy() << std::endl;
   retorna v;
 }

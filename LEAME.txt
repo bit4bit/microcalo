@@ -1,5 +1,6 @@
 
 
+8 ABRIL 2013
 COMO DAR LA RUTA A SEGUIR?
 La primera idea que se me ocurre es una lista enlaza de puntos donde
 se siga la distancia del vehiculo al proximo punto a seguir..
@@ -14,3 +15,9 @@ maxima de acercamiento, para determinar segun el tipo de punto cuanto se debe
 acercar o bien cuanto es lo maximo que se puede alejar.
 
 esta es la que voy a implementar. :)
+
+
+10 ABRIL 2013
+Todo va funcionando, pero ahora el inconvientes con la colision de los objetos del escenario,
+he intentado usar SGE para colision..pero no me da bien.. voy entonces
+a usar objetos para escenario y colisionar con estos.
