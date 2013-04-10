@@ -34,6 +34,8 @@ void Vehiculo::actualizar() {
   si(acelerarP == true)
     accel = tipo.def_accel;
   
+  si(retrocederP == true && vel < 1)
+    accel = -(tipo.def_accel/2);
 
   si(accel) 
     {

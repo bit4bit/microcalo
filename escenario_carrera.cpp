@@ -4,6 +4,8 @@
 #include "escenario_carrera.h"
 #include "objeto.h"
 #include "punto_paso.h"
+#include "control_teclado.h"
+#include "control_mando.h"
 
 #define DATA_DIR "./data"
 
@@ -11,8 +13,12 @@ EscenarioCarrera::EscenarioCarrera() : Escenario(1) {
   
   fondo = Compositor::obRecurso()->cargarImagen(DATA_DIR "/map1.png");
   vehiculo = new Vehiculo(2);
+  Jugador *jg = new Jugador("1", new ControlTeclado(SDLK_t, SDLK_n, SDLK_a, SDLK_o), vehiculo);
+  jugadores.push_back(jg);
   vehiculos.push_back(vehiculo);
   vehiculo = new Vehiculo(2);
+  jg = new Jugador("2", new ControlMando(0), vehiculo);
+  jugadores.push_back(jg);
   vehiculos.push_back(vehiculo);
 
   Compositor::obCamara()->ancho = Compositor::obVideo()->obAncho(); //@todo debe ser de la pantalla
@@ -50,6 +56,11 @@ EscenarioCarrera::~EscenarioCarrera() {
   for(std::vector<Vehiculo*>::iterator it = vehiculos.begin(); it != vehiculos.end(); ++it) {
     delete (*it);
   }
+
+  for(std::vector<Jugador*>::iterator it = jugadores.begin(); it != jugadores.end(); ++it) {
+    delete (*it)->obControlTipo();
+    delete (*it);
+  }
 }
 
 void EscenarioCarrera::actualizar() {
@@ -57,8 +68,9 @@ void EscenarioCarrera::actualizar() {
   int xMin, xMax, yMin, yMax;
 
   xMin = xMax = yMin = yMax = 0;
-  if(Compositor::obTeclado()->presionado(SDLK_t))
-    vehiculos[0]->acelerar();
+  for(std::vector<Jugador*>::iterator it = jugadores.begin(); it != jugadores.end(); ++it) {
+    (*it)->actualizar();
+  }
 
   for(std::vector<Vehiculo*>::iterator it = vehiculos.begin(); it != vehiculos.end(); ++it) {
     (*it)->actualizar();

@@ -11,6 +11,7 @@
 #include "recurso.h"
 #include "camara.h"
 #include "colision.h"
+#include "mando.h"
 
 class Compositor
 {
@@ -24,6 +25,7 @@ class Compositor
   static Audio *obAudio() { return Audio::instancia(); }
   static Reloj *obReloj() { return Reloj::instancia(); }
   static Teclado *obTeclado() { return Teclado::instancia(); }
+  static Mando* obMando() { return Mando::instancia(); }
   static Recurso *obRecurso() { return Recurso::instancia(); }
   static Camara *obCamara() { return Camara::instancia(); }
   static Colision *obColision() { return Colision::instancia(); }
