@@ -13,6 +13,7 @@
  *para facilitar la creacion de los vehiculos
  */
 
+
 class Vehiculo : public Objeto
 {
  public:
@@ -20,8 +21,16 @@ class Vehiculo : public Objeto
   virtual ~Vehiculo();
   virtual void actualizar();
   virtual void dibujar();
-  
+
+  float obVel() { return vel; }
+  float obAccel() { return accel; }
+  float obAngulo() { return angulo; }
   VehiculoTipo tipo; 
+  //@todo separa entrada .. debe ser mas abstracto
+  Uint8 t_accelerar;
+  Uint8 t_retroceder;
+  Uint8 t_izquierda;
+  Uint8 t_derecha;
  protected:
 
 
@@ -29,9 +38,6 @@ class Vehiculo : public Objeto
   float accel;
   float angulo;
   
-  Uint8 t_accelerar;
-  Uint8 t_retroceder;
-  Uint8 t_izquierda;
-  Uint8 t_derecha;
+
 };
 #endif

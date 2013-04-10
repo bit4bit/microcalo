@@ -36,6 +36,7 @@ class Objeto : public Cosa
   void asignarDPantallaX(Uint32 v) { dpantalla_x = v; }
   void asignarDPantallaY(Uint32 v) { dpantalla_y = v; }
   void asignarSurface(SDL_Surface *s) { s_objeto = s; ancho = s->w; alto = s->h; }
+  void moverXY(Uint32 _x, Uint32 _y) { escenario_x = _x; escenario_y = _y; }
  protected:
   Uint32 ancho;
   Uint32 alto;

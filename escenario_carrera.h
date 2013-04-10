@@ -26,6 +26,7 @@ class EscenarioCarrera : public Escenario
   
   SDL_Surface *fondo; //imagen de fondo por defecto, se usa para redibujados
   Vehiculo* vehiculo;
+  std::vector<Vehiculo*> vehiculos;
 };
 
 #endif
