@@ -2,7 +2,7 @@
 #include "punto_paso_gestor.h"
 #include <iostream>
 
-PuntoPasoGestor::PuntoPasoGestor()
+PuntoPasoGestor::PuntoPasoGestor() : defObjeto(9999)
 {
 }
 
@@ -22,6 +22,11 @@ void PuntoPasoGestor::anidarPuntoPaso(Objeto *obj, Uint32 x, Uint32 y, Uint32 di
   objPuntos[obj].push_back(pt);
 }
 
+void PuntoPasoGestor::anidarPuntoPaso(Uint32 x, Uint32 y, Uint32 dist_aleja, Uint32 dist_acerca)
+{
+  anidarPuntoPaso(&defObjeto, x, y , dist_aleja, dist_acerca);
+}
+
 /**
  *lleva continuidad entre puntos para el objeto dado
  *y retorna true mientres este siguiendo los puntos
@@ -33,7 +38,7 @@ bool PuntoPasoGestor::continuadoPuntoPasoA(Objeto *obj)
 {
   PuntoPaso *pp = puntoPasoA(obj);
   si(!objPuntoActual[obj]) {
-    objPuntoActual[obj] = primerPuntoPaso(obj);
+    objPuntoActual[obj] = primerPuntoPaso(&defObjeto);
     objPuntoSiguiente[obj] = NULL;
   }
   //se pasa al siguiente punto al salir del actual
@@ -64,9 +69,19 @@ PuntoPaso* PuntoPasoGestor::primerPuntoPaso(Objeto *obj)
   retorna objPuntos[obj].at(0);
 }
 
+PuntoPaso* PuntoPasoGestor::primerPuntoPaso()
+{
+  retorna primerPuntoPaso(&defObjeto);
+}
+
 PuntoPaso* PuntoPasoGestor::ultimoPuntoPaso(Objeto *obj)
 {
   retorna objPuntos[obj].at(objPuntos[obj].size() - 1);
+}
+
+PuntoPaso* PuntoPasoGestor::ultimoPuntoPaso()
+{
+  retorna ultimoPuntoPaso(&defObjeto);
 }
 
 PuntoPaso* PuntoPasoGestor::puntoPasoA(Objeto *obj, Uint32 pos)
@@ -74,14 +89,18 @@ PuntoPaso* PuntoPasoGestor::puntoPasoA(Objeto *obj, Uint32 pos)
   retorna objPuntos[obj].at(pos);
 }
 
+PuntoPaso* PuntoPasoGestor::puntoPasoA(Uint32 pos)
+{
+  retorna objPuntos[&defObjeto].at(pos);
+}
 PuntoPaso* PuntoPasoGestor::puntoPasoA(Objeto *obj)
 {
   int pi = 0;
   PuntoPaso *pp = NULL;
-  si(objPuntos[obj].size() < 1) retorna NULL;
-  cada(pi = 0; pi < objPuntos[obj].size(); ++pi)
+  si(objPuntos[&defObjeto].size() < 1) retorna NULL;
+  cada(pi = 0; pi < objPuntos[&defObjeto].size(); ++pi)
     {
-      pp = objPuntos[obj].at(pi);
+      pp = objPuntos[&defObjeto].at(pi);
       si(pp->distanciaPermitida(obj))
 	retorna pp;
     }
@@ -91,4 +110,9 @@ PuntoPaso* PuntoPasoGestor::puntoPasoA(Objeto *obj)
 Uint32 PuntoPasoGestor::tamano(Objeto *obj)
 {
   retorna objPuntos[obj].size();
+}
+
+Uint32 PuntoPasoGestor::tamano()
+{
+  retorna tamano(&defObjeto);
 }

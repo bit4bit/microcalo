@@ -25,21 +25,21 @@ EscenarioCarrera::EscenarioCarrera() : Escenario(1) {
   Compositor::obCamara()->alto = Compositor::obVideo()->obAlto();
   objetos.push_back(Objeto::desdeImagen(DATA_DIR "/obj1.png",3, 700, 700));
   Objeto *cv = vehiculo;
-  puntos_de_paso.anidarPuntoPaso(cv, 180, 200, 200, 50);
-  puntos_de_paso.anidarPuntoPaso(cv, 1240, 200, 200, 50);
-  puntos_de_paso.anidarPuntoPaso(cv, 1700, 400, 200, 50);
-  puntos_de_paso.anidarPuntoPaso(cv, 950, 700, 200, 50);
-  puntos_de_paso.anidarPuntoPaso(cv, 180, 680, 200, 50);
-  puntos_de_paso.anidarPuntoPaso(cv, 180, 1280, 200, 50);
-  puntos_de_paso.anidarPuntoPaso(cv, 310, 1680, 200, 50);
-  puntos_de_paso.anidarPuntoPaso(cv, 1580, 1850, 200, 50);
+  puntos_de_paso.anidarPuntoPaso(180, 200, 200, 50);
+  puntos_de_paso.anidarPuntoPaso(1240, 200, 200, 50);
+  puntos_de_paso.anidarPuntoPaso(1700, 400, 200, 50);
+  puntos_de_paso.anidarPuntoPaso(950, 700, 200, 50);
+  puntos_de_paso.anidarPuntoPaso(180, 680, 200, 50);
+  puntos_de_paso.anidarPuntoPaso(180, 1280, 200, 50);
+  puntos_de_paso.anidarPuntoPaso(310, 1680, 200, 50);
+  puntos_de_paso.anidarPuntoPaso(1580, 1850, 200, 50);
   Uint32 pi = 0;
   PuntoPaso* pp = NULL;
   
-  /*for( pp = puntos_de_paso.primerPuntoPaso(cv); pi < puntos_de_paso.tamano(cv); ++pi) {
-    pp = puntos_de_paso.puntoPasoA(cv, pi);
+  for( pp = puntos_de_paso.primerPuntoPaso(); pi < puntos_de_paso.tamano(); ++pi) {
+    pp = puntos_de_paso.puntoPasoA(pi);
     objetos.push_back(pp->obObjeto());
-    }*/
+    }
 
   std::cerr << "Creado escenario carrera" << std::endl;
 }
@@ -85,6 +85,14 @@ void EscenarioCarrera::actualizar() {
     if((*it)->obY() > yMax || yMax == 0)
       yMax = (*it)->obY();
 
+    //lleva continudad de puntos
+    Objeto *cv = static_cast<Objeto*>(*it);
+    if(!puntos_de_paso.continuadoPuntoPasoA(cv))
+      std::cout << "hey tramposx..." << std::endl;
+    PuntoPaso *ptf = puntos_de_paso.puntoPasoA(cv);
+    PuntoPaso *ptff =  puntos_de_paso.ultimoPuntoPaso();
+    if( ptf && ptff && ptf  == ptff)
+      std::cout << "bien termino correctamente.." << std::endl;
   }
   //propuesta de movimiento de la camara:
   //medir distancia entre los 2 vehiculos y ubicar la camara
@@ -102,14 +110,9 @@ void EscenarioCarrera::actualizar() {
     (*it)->actualizar();
     }*/
   
-  //lleva continudad de puntos
-  /*if(!puntos_de_paso.continuadoPuntoPasoA(cv))
-    std::cout << "hey tramposx..." << std::endl;
-  PuntoPaso *ptf = puntos_de_paso.puntoPasoA(cv);
-  PuntoPaso *ptff =  puntos_de_paso.ultimoPuntoPaso(cv);
-  if( ptf && ptff && ptf  == ptff)
-    std::cout << "bien termino correctamente.." << std::endl;
-  */
+
+  
+  
 }
 
 void EscenarioCarrera::dibujar() {
