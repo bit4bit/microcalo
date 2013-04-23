@@ -2,6 +2,7 @@
 #include "colision.h"
 #include <cassert>
 #include <iostream>
+#include <cmath>
 
 Colision* Colision::_self = 0;
 
@@ -24,21 +25,50 @@ Colision* Colision::instancia() {
 
 
 bool Colision::entreObjetos(Objeto *obja, Objeto *objb){
-  si(
-       (obja->obX() >= objb->obX() && obja->obX() <= objb->obX() + objb->obAncho())
-       &&
-       (obja->obX() + obja->obAncho() >= objb->obX() && obja->obX() + obja->obAncho() <= objb->obX() + objb->obAncho())
-       &&
-       (obja->obY() >= objb->obY() && obja->obY() <= objb->obY() + objb->obAlto())
-       &&
-       (obja->obY() + obja->obAlto() >= objb->obY() && obja->obY() + obja->obAlto() <= objb->obY() + objb->obAlto())
-       )
-      {
-	retorna true;
-      }
-  retorna false;
+  //debo agregar que cuando no este en direccion del objeto de colision
+  //no colisione
+  double distAB = sqrt(
+		       pow(obja->obX() - objb->obX(), 2) +
+		       pow(obja->obY() - objb->obY(), 2)
+		       );
+  std::cout << "B.x:" << objb->obX() << "\tB.y:" << objb->obY() << std::endl;
+  std::cout << "A.x:" << obja->obX() << "\tA.y:" << obja->obY() << std::endl;
+  std::cout << "DistAB:" << distAB << std::endl;
+  si(distAB <=  obja->obAncho()/ 2 + objb->obAncho()/2)
+    return true;
+  return false;
+  //http://lazyfoo.net/SDL_tutorials/lesson17/index.php
+  int leftA, leftB; int rightA, rightB; int topA, topB; int bottomA, bottomB;
+  //Calculate the sides of rect A 
+  leftA = obja->obX(); rightA = obja->obX()  + obja->obAncho(); 
+  topA = obja->obY(); bottomA = obja->obY() + obja->obAlto(); 
+
+
+  //Calculate the sides of rect B 
+  leftB = objb->obX(); rightB = objb->obX() + objb->obAncho(); 
+  topB = objb->obY(); bottomB = objb->obY() + objb->obAlto();
+
+  std::cout << "objA.left:" << leftA << " objA.right:" << rightA << " objA.top:" << topA << " objA.bottom:" << bottomA << std::endl;
+    std::cout << "objB.left:" << leftB << " objB.right:" << rightB << " objB.top:" << topB << " objB.bottom:" << bottomB << std::endl;
+  //If any of the sides from A are outside of B 
+  if( bottomA < topB ) { return false; } 
+  if( topA > bottomB ) { return false; } 
+  if( rightA < leftB ) { return false; } 
+  if( leftA > rightB ) { return false; } 
+  //If none of the sides from A are outside B return true;
+  std::cout << "colision" << std::endl;
+  retorna true;
 }
 
+bool Colision::entreObjetos(Objeto *obja, std::vector<Objeto*>& objs) {
+  if(!obja->enPantalla()) retorna false;
+  for(std::vector<Objeto*>::const_iterator it = objs.begin(); it != objs.end(); ++it) {
+    if(entreObjetos(obja, (*it)))
+      return true;
+  }
+  return false;
+
+}
 
 bool Colision::limitePantalla(Objeto *obj) {
   return !obj->enPantalla();

@@ -5,6 +5,7 @@
 #include <SDL/SDL.h>
 #include "objeto.h"
 #include <map>
+#include <vector>
 
 class Colision
 {
@@ -20,6 +21,7 @@ class Colision
   static Colision* instancia();
   
   bool entreObjetos(Objeto *obja, Objeto *objb);
+  bool entreObjetos(Objeto *obja, std::vector<Objeto*>& objs);
   bool limitePantalla(Objeto *obj);
   void crearMapaColision(Objeto *obj);
   void crearMapaColisionImagen(Objeto *obj, SDL_Surface *s);

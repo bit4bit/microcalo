@@ -21,3 +21,12 @@ esta es la que voy a implementar. :)
 Todo va funcionando, pero ahora el inconvientes con la colision de los objetos del escenario,
 he intentado usar SGE para colision..pero no me da bien.. voy entonces
 a usar objetos para escenario y colisionar con estos.
+
+*Tengo un carajo de problema con colision con rectangulos.. el lado izquierdo y superior funcionan
+al pelo.pero los otros dos lados nada??
+
+
+12 ABRIL 2013
+Hablando con mi amigo martin, surgio la idea de hacer un video juego
+con carros de bomberos apagando incendios, que se pueda jugar
+para muchas personas.

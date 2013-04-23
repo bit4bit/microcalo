@@ -14,9 +14,9 @@ EscenarioCarrera::EscenarioCarrera() : Escenario(1) {
 
   fondo = Objeto::desdeImagen(DATA_DIR "/map1col.png", 9999, 0, 0);
   Compositor::obColision()->crearMapaColisionImagen(fondo, Compositor::obRecurso()->cargarImagen(DATA_DIR "/map1col.png", 0, 0));
-  //vehiculo = new Vehiculo(2);
-  //Jugador *jg = new Jugador("1", new ControlTeclado(SDLK_t, SDLK_n, SDLK_a, SDLK_o), vehiculo);
-  //agregarJugador(jg);
+  vehiculo = new Vehiculo(2);
+  Jugador *jg1 = new Jugador("1", new ControlTeclado(SDLK_t, SDLK_n, SDLK_a, SDLK_o), vehiculo);
+  agregarJugador(jg1);
   vehiculo = new Vehiculo(2, 100, 200, 45);
   SDL_Surface* tmp = Compositor::obVideo()->createSurface(25, 25);
   SDL_FillRect(tmp, NULL, 0);
@@ -26,15 +26,15 @@ EscenarioCarrera::EscenarioCarrera() : Escenario(1) {
   SDL_FreeSurface(tmp);
 
 
-  Jugador *jg = new Jugador("2", new ControlMando(0), vehiculo);
+  /*Jugador *jg = new Jugador("2", new ControlMando(0), vehiculo);
   agregarJugador(jg);
-
+  */
   Compositor::obCamara()->ancho = Compositor::obVideo()->obAncho(); //@todo debe ser de la pantalla
   Compositor::obCamara()->alto = Compositor::obVideo()->obAlto();
   Compositor::obCamara()->asignarLimites(fondo->obAncho(), fondo->obAlto());
   objetos.push_back(Objeto::desdeImagen(DATA_DIR "/obj1.png",3, 700, 700));
 
-  puntos_de_paso.anidarPuntoPaso(180, 200, 200, 50);
+  puntos_de_paso.anidarPuntoPaso(1280, 200, 200, 50);
   /*puntos_de_paso.anidarPuntoPaso(1240, 200, 200, 50);
   puntos_de_paso.anidarPuntoPaso(1700, 400, 200, 50);
   puntos_de_paso.anidarPuntoPaso(950, 700, 200, 50);
@@ -46,11 +46,11 @@ EscenarioCarrera::EscenarioCarrera() : Escenario(1) {
   PuntoPaso* pp = NULL;
   
   //depurar
-  for( pp = puntos_de_paso.primerPuntoPaso(); pi < puntos_de_paso.tamano(); ++pi) {
+  /*for( pp = puntos_de_paso.primerPuntoPaso(); pi < puntos_de_paso.tamano(); ++pi) {
     pp = puntos_de_paso.puntoPasoA(pi);
     objetos.push_back(pp->obObjeto());
     }
-
+  */
   std::cerr << "Creado escenario carrera" << std::endl;
 }
 
@@ -79,12 +79,18 @@ void EscenarioCarrera::actualizar() {
 
 
   xMin = xMax = yMin = yMax = 0;
+
+
   for(std::vector<Jugador*>::iterator it = jugadores.begin(); it != jugadores.end(); ++it) {
     (*it)->actualizar();
+    //cuando toca limites de pantalla o camara
     if(Compositor::obColision()->limitePantalla((*it)->obVehiculo()))
       std::cout << "colision con limite de pantalla:" << (*it)->nombre << std::endl;
   }
 
+  if(Compositor::obColision()->entreObjetos(vehiculos.at(0), objetos)) {
+    vehiculos.at(0)->choqueRetroceder();
+  }
   for(std::vector<Vehiculo*>::iterator it = vehiculos.begin(); it != vehiculos.end(); ++it) {
     (*it)->actualizar();
     if((*it)->obX() < xMin || xMin == 0)
@@ -126,9 +132,12 @@ void EscenarioCarrera::actualizar() {
     (*it)->actualizar();
     }*/
   
-  if(Compositor::obColision()->entreObjetosPorMapa(vehiculos.at(0), fondo))
-    vehiculos.at(0)->choque();
-  
+  /*
+  if(Compositor::obColision()->entreObjetosPorMapa(vehiculos.at(0), fondo)) {
+    while(Compositor::obColision()->entreObjetosPorMapa(vehiculos.at(0), fondo)) {
+      vehiculos.at(0)->choqueRetroceder();
+    }
+    }*/
 }
 
 void EscenarioCarrera::dibujar() {

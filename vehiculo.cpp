@@ -1,3 +1,10 @@
+/**
+ *
+ *@date 23 ABRIL 2013
+ *he tenido muchos problemas con el sistema de colision y el vehiculo
+ *he cambiado el sistema de colision para trabjar con circunferencias
+ *ya que con cajas no me daba la colision muy bien.
+ */
 #include "cspa.h"
 #include <iostream>
 #include <cmath>
@@ -17,7 +24,7 @@ Vehiculo::Vehiculo(Uint32 id): Objeto(id){
 
   angulo = accel = vel = 0;
   acelerarP = retrocederP = izquierdaP = derechaP = false;
-
+  choqueP = false;
   escenario_x = escenario_y = 100;
   pantalla_x = pantalla_y = 0;
 }
@@ -46,17 +53,27 @@ void Vehiculo::actualizar() {
   double reloj_escala = Compositor::obReloj()->escala();
   float giro = tipo.def_giro;
   accel = 0;
+  
+  si(choqueP)
+  {
+    //se permite dar reversa cuando colisione
+    si(!retrocederP)
+    {
+      choqueP = acelerarP = retrocederP = izquierdaP = derechaP = false;
+      return;
+    }
+
+  }
 
   si(acelerarP == true)
     accel = tipo.def_accel;
-
-
+ 
 
   si(accel) 
     {
       vel += accel * reloj_escala;
     }
-  aunque
+  aunque si(!retrocederP)
     {
       vel -= tipo.def_accel * reloj_escala;
       giro = tipo.def_giro_frenando;
@@ -65,8 +82,8 @@ void Vehiculo::actualizar() {
 
 
   //std::cerr << "accel:" << accel << " vel:" << vel << std::endl;
-  
-  si(vel) 
+
+  si(vel != 0) 
     {
       si(izquierdaP)
 	angulo += giro  * reloj_escala;
@@ -77,22 +94,28 @@ void Vehiculo::actualizar() {
     }
 
   //frena.. como retroceder??
+  //si(retrocederP)
+  //vel *= 0.9;
   si(retrocederP)
-    vel *= 0.9;
-  
+  {
+    vel = -abs(tipo.def_retro);
+  }
   si(vel > tipo.max_vel) vel = tipo.max_vel;
+
+
+  
   
   escenario_x += vel * cos(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
-  escenario_y += vel * -sin(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
+  escenario_y -= vel * sin(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
+
+  std::cout << "Vehiculo angulo:" << angulo << "\tvel: " << vel << std::endl;
   //std::cerr << "escenario x: " << escenario_x << " escenario_y:" << escenario_y << std::endl;
-  si(escenario_x < 0) escenario_x = 0;
-  //@todo detener ancho escenario
-  si(escenario_y < 0) escenario_y = 0;
-  //@todo detener alto escenario
   //reinicia estado de movimiento
-  acelerarP = retrocederP = izquierdaP = derechaP = false;
-  //regularALimites();
+
+  choqueP = acelerarP = retrocederP = izquierdaP = derechaP = false;
+  regularALimites();
 }
+
 
 
 void Vehiculo::dibujar() {
@@ -113,5 +136,27 @@ void Vehiculo::dibujar() {
 }
 
 void Vehiculo::choque() {
-  vel *= -0.9;
+  std::cout << "efecto choque" << std::endl;
+  choqueRetroceder();
+}
+
+void Vehiculo::choqueRetroceder() {
+  double reloj_escala = Compositor::obReloj()->escala();
+  bool enReversa = false;
+  si(vel < 0)
+    enReversa = true;
+  si(!choqueP)
+  {
+    vel = abs(vel) * -1;
+  }
+  pero
+  {
+    vel = abs(vel) - (tipo.def_accel * 0.9 * reloj_escala);
+  }
+  if(enReversa)
+    vel *= -1;
+
+  escenario_x += vel * cos(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
+  escenario_y += vel * -sin(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
+  choqueP = true;
 }

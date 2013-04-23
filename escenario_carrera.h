@@ -26,6 +26,7 @@ class EscenarioCarrera : public Escenario
 
  private:
   std::vector<Objeto*> objetos;
+
   PuntoPasoGestor puntos_de_paso;
   
   Objeto* fondo; //imagen de fondo por defecto, se usa para redibujados
