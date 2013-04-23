@@ -6,6 +6,7 @@
 #include "objeto.h"
 #include <map>
 #include <vector>
+#include "colision_util.h"
 
 class Colision
 {
@@ -22,10 +23,18 @@ class Colision
   
   bool entreObjetos(Objeto *obja, Objeto *objb);
   bool entreObjetos(Objeto *obja, std::vector<Objeto*>& objs);
+  bool entreObjetosPorMapa(Objeto *obja, Objeto *objb);
+  bool entreObjetosCircular(Objeto *obja, Objeto *objb);
+  bool entreObjetosCircular(Objeto *obja, std::vector<Objeto*>& objs);
   bool limitePantalla(Objeto *obj);
   void crearMapaColision(Objeto *obj);
   void crearMapaColisionImagen(Objeto *obj, SDL_Surface *s);
-  bool entreObjetosPorMapa(Objeto *obja, Objeto *objb);
+
+
+  //para depurar..ver en pantalla
+  void dibujar();
+
+  
 };
 
 #endif

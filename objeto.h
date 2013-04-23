@@ -4,6 +4,9 @@
 #include <SDL/SDL.h>
 #include "cosa.h"
 
+#include <vector>
+#include "colision_util.h"
+
 
 /**
  *El objeto representa
@@ -23,8 +26,8 @@ class Objeto : public Cosa
 
   Sint32 obX() { return escenario_x; }
   Sint32 obY() { return escenario_y; }
-  Sint32 obXCentro() { return escenario_x - ancho/2;}
-  Sint32 obYCentro() { return escenario_y - alto/2;}
+  Sint32 obXCentro() { return escenario_x + ancho/2;}
+  Sint32 obYCentro() { return escenario_y + alto/2;}
   Sint32 obXPantalla();
   Sint32 obYPantalla();
   Uint32 obAncho() { return ancho; }
@@ -42,6 +45,12 @@ class Objeto : public Cosa
   }
   void regularALimites();
   void asignarLimites(Sint32 _x, Sint32 _y) { limite_x = _x; limite_y = _y;}
+
+  //sistema de colision a objetos
+  //cada objeto debe actualizar posicion y mantener esto
+  std::vector<Circular> colision_circular;
+  void asignarColisionCircular(int x, int y, int radio);
+  bool depurar;
  protected:
   Uint32 ancho;
   Uint32 alto;
@@ -56,8 +65,11 @@ class Objeto : public Cosa
   Sint32 limite_y;
   //@todo lo ideal es que puedan haber algunos animados
   SDL_Surface *s_objeto; /*imagen del objeto*/
+
+  void dibujarDepurar();
  private:
   void *data;
+
 };
 
 #endif

@@ -45,6 +45,7 @@ class Vehiculo : public Objeto
   float accel;
   float angulo;
   
-
+ private:
+  void actualizarPosicion();
 };
 #endif

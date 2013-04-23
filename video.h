@@ -2,6 +2,7 @@
 #define VIDEO_H
 
 #include <SDL/SDL.h>
+#include <SDL/sge.h>
 
 class Video
 {
@@ -18,6 +19,7 @@ class Video
   static Video* instancia();
   void actualizar();
   void dibujar();
+  SDL_Surface* obSurface() { return s_pantalla; }
 
   Uint16 obAncho() {
     return ancho;
@@ -48,6 +50,12 @@ class Video
   int blit(SDL_Surface *s, SDL_Rect *srect, SDL_Rect *drect) {
     return SDL_BlitSurface(s, srect, s_pantalla, drect);
   }
+
+  void circle(SDL_Surface *s, Sint16 x, Sint16 y, Sint16 r, Uint32 color)
+  {
+    sge_Circle(s, x, y, r, color);
+  }
+  
 };
 
 #endif

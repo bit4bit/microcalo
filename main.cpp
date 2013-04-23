@@ -16,7 +16,8 @@ int main(int argc, char **argv)
   Video* video = Compositor::obVideo(); //se inicializa vide
   Compositor::obMando();
   EscenarioCarrera escenario = EscenarioCarrera();
-
+  Colision *colision = Compositor::obColision();
+  Compositor::obRecurso();
   hacer {
     Compositor::obReloj()->actualizar();
     SDL_PumpEvents();
@@ -33,6 +34,7 @@ int main(int argc, char **argv)
 
     escenario.dibujar();
     video->dibujar();
+    colision->dibujar();
   }mientras(salir == false);
   return 0;
 }

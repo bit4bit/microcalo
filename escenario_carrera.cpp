@@ -12,18 +12,16 @@
 EscenarioCarrera::EscenarioCarrera() : Escenario(1) {
   
 
-  fondo = Objeto::desdeImagen(DATA_DIR "/map1col.png", 9999, 0, 0);
-  Compositor::obColision()->crearMapaColisionImagen(fondo, Compositor::obRecurso()->cargarImagen(DATA_DIR "/map1col.png", 0, 0));
+  fondo = Objeto::desdeImagen(DATA_DIR "/map1.png", 9999, 0, 0);
+  //@todo si no llamo esto antes de asignar limites
+  //el alto queda en 0..porque???????
+  fondo->obAncho(); fondo->obAlto();
+
   vehiculo = new Vehiculo(2);
-  Jugador *jg1 = new Jugador("1", new ControlTeclado(SDLK_t, SDLK_n, SDLK_a, SDLK_o), vehiculo);
+  vehiculo->asignarColisionCircular(vehiculo->obXCentro(), vehiculo->obYCentro(), vehiculo->obAncho()/2);
+  vehiculo->depurar = true;
+  Jugador *jg1 = new Jugador("jugador 1", new ControlTeclado(SDLK_t, SDLK_n, SDLK_a, SDLK_o), vehiculo);
   agregarJugador(jg1);
-  vehiculo = new Vehiculo(2, 100, 200, 45);
-  SDL_Surface* tmp = Compositor::obVideo()->createSurface(25, 25);
-  SDL_FillRect(tmp, NULL, 0);
-  sge_FilledCircle(tmp, 10, 10, 20, 9999);
-  //inconvienties con la colision del vehiculo ya que la imagen es inmesas
-  Compositor::obColision()->crearMapaColisionImagen(vehiculo, tmp);
-  SDL_FreeSurface(tmp);
 
 
   /*Jugador *jg = new Jugador("2", new ControlMando(0), vehiculo);
@@ -32,7 +30,10 @@ EscenarioCarrera::EscenarioCarrera() : Escenario(1) {
   Compositor::obCamara()->ancho = Compositor::obVideo()->obAncho(); //@todo debe ser de la pantalla
   Compositor::obCamara()->alto = Compositor::obVideo()->obAlto();
   Compositor::obCamara()->asignarLimites(fondo->obAncho(), fondo->obAlto());
-  objetos.push_back(Objeto::desdeImagen(DATA_DIR "/obj1.png",3, 700, 700));
+  Objeto *obj = Objeto::desdeImagen(DATA_DIR "/obj1.png",3, 700, 700);
+  obj->asignarColisionCircular(obj->obXCentro(), obj->obYCentro(), obj->obAncho()/2);
+  obj->depurar = true;
+  objetos.push_back(obj);
 
   puntos_de_paso.anidarPuntoPaso(1280, 200, 200, 50);
   /*puntos_de_paso.anidarPuntoPaso(1240, 200, 200, 50);
@@ -88,7 +89,7 @@ void EscenarioCarrera::actualizar() {
       std::cout << "colision con limite de pantalla:" << (*it)->nombre << std::endl;
   }
 
-  if(Compositor::obColision()->entreObjetos(vehiculos.at(0), objetos)) {
+  if(Compositor::obColision()->entreObjetosCircular(vehiculos.at(0), objetos)) {
     vehiculos.at(0)->choqueRetroceder();
   }
   for(std::vector<Vehiculo*>::iterator it = vehiculos.begin(); it != vehiculos.end(); ++it) {

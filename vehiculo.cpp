@@ -104,11 +104,9 @@ void Vehiculo::actualizar() {
 
 
   
-  
-  escenario_x += vel * cos(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
-  escenario_y -= vel * sin(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
+  actualizarPosicion();
 
-  std::cout << "Vehiculo angulo:" << angulo << "\tvel: " << vel << std::endl;
+  //std::cout << "Vehiculo angulo:" << angulo << "\tvel: " << vel << std::endl;
   //std::cerr << "escenario x: " << escenario_x << " escenario_y:" << escenario_y << std::endl;
   //reinicia estado de movimiento
 
@@ -128,15 +126,19 @@ void Vehiculo::dibujar() {
   sr.x = tipo.ancho * (nangulo / 4);
   sr.y = 0;
   sr.w = tipo.ancho; sr.h = tipo.alto;
-  dr.x = pantalla_x - tipo.ancho/2; //se centra
-  dr.y = pantalla_y - tipo.alto/2; //se centra
+  //dr.x = pantalla_x - tipo.ancho/2; //se centra
+  //dr.y = pantalla_y - tipo.alto/2; //se centra
+  dr.x = pantalla_x;
+  dr.y = pantalla_y;
   dr.w = tipo.ancho; dr.w = tipo.alto;
 
+
   Compositor::obVideo()->blit(s_objeto, &sr, &dr);
+  dibujarDepurar();
 }
 
 void Vehiculo::choque() {
-  std::cout << "efecto choque" << std::endl;
+  //std::cout << "efecto choque" << std::endl;
   choqueRetroceder();
 }
 
@@ -156,7 +158,19 @@ void Vehiculo::choqueRetroceder() {
   if(enReversa)
     vel *= -1;
 
-  escenario_x += vel * cos(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
-  escenario_y += vel * -sin(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
+  actualizarPosicion();
   choqueP = true;
+}
+
+void Vehiculo::actualizarPosicion() {
+  float ix, iy;
+  ix = vel * cos(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
+  iy = vel * -sin(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
+  escenario_x += ix;
+  escenario_y += iy;
+  
+  cada(std::vector<Circular>::iterator it = colision_circular.begin(); it != colision_circular.end(); ++it)
+  {
+    (*it).x += ix; (*it).y += iy;
+  }
 }
