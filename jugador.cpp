@@ -19,4 +19,11 @@ void Jugador::actualizar() {
 
   if(ctipo->girarDerecha())
     vehiculo->girarDerecha();
+
+  vehiculo->actualizar();
+}
+
+void Jugador::dibujar()
+{
+  vehiculo->dibujar();
 }

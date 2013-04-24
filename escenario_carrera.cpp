@@ -23,10 +23,12 @@ EscenarioCarrera::EscenarioCarrera() : Escenario(1) {
   Jugador *jg1 = new Jugador("jugador 1", new ControlTeclado(SDLK_t, SDLK_n, SDLK_a, SDLK_o), vehiculo);
   agregarJugador(jg1);
 
-
-  /*Jugador *jg = new Jugador("2", new ControlMando(0), vehiculo);
+  vehiculo = new Vehiculo(2, 100,  300, 0);
+  vehiculo->asignarColisionCircular(vehiculo->obXCentro(), vehiculo->obYCentro(), vehiculo->obAncho()/2);
+  vehiculo->depurar = true;
+  Jugador *jg = new Jugador("jugador 2", new ControlMando(0), vehiculo);
   agregarJugador(jg);
-  */
+  
   Compositor::obCamara()->ancho = Compositor::obVideo()->obAncho(); //@todo debe ser de la pantalla
   Compositor::obCamara()->alto = Compositor::obVideo()->obAlto();
   Compositor::obCamara()->asignarLimites(fondo->obAncho(), fondo->obAlto());
@@ -59,17 +61,13 @@ EscenarioCarrera::~EscenarioCarrera() {
   for(std::vector<Objeto*>::iterator it = objetos.begin(); it != objetos.end(); ++it){
     if((*it)->obData() != NULL)
       delete (*it)->obData();
-
-    delete (*it);
-  }
-
-
-  for(std::vector<Vehiculo*>::iterator it = vehiculos.begin(); it != vehiculos.end(); ++it) {
+    
     delete (*it);
   }
 
   for(std::vector<Jugador*>::iterator it = jugadores.begin(); it != jugadores.end(); ++it) {
     delete (*it)->obControlTipo();
+    delete (*it)->obVehiculo();
     delete (*it);
   }
 }
@@ -77,8 +75,9 @@ EscenarioCarrera::~EscenarioCarrera() {
 void EscenarioCarrera::actualizar() {
   Objeto camara(99);
   int xMin, xMax, yMin, yMax;
+  Vehiculo *vehiculo = NULL;
 
-
+  //desplazamiento de la camar en base a los jugadores
   xMin = xMax = yMin = yMax = 0;
 
 
@@ -87,24 +86,19 @@ void EscenarioCarrera::actualizar() {
     //cuando toca limites de pantalla o camara
     if(Compositor::obColision()->limitePantalla((*it)->obVehiculo()))
       std::cout << "colision con limite de pantalla:" << (*it)->nombre << std::endl;
-  }
+    vehiculo = (*it)->obVehiculo();
+    if(vehiculo->obX() < xMin || xMin == 0)
+      xMin = vehiculo->obX();
+    if(vehiculo->obX() > xMax || xMax == 0)
+      xMax = vehiculo->obX();
+    if(vehiculo->obY() < yMin || yMin == 0)
+      yMin = vehiculo->obY();
+    if(vehiculo->obY() > yMax || yMax == 0)
+      yMax = vehiculo->obY();
 
-  if(Compositor::obColision()->entreObjetosCircular(vehiculos.at(0), objetos)) {
-    vehiculos.at(0)->choqueRetroceder();
-  }
-  for(std::vector<Vehiculo*>::iterator it = vehiculos.begin(); it != vehiculos.end(); ++it) {
-    (*it)->actualizar();
-    if((*it)->obX() < xMin || xMin == 0)
-      xMin = (*it)->obX();
-    if((*it)->obX() > xMax || xMax == 0)
-      xMax = (*it)->obX();
-    if((*it)->obY() < yMin || yMin == 0)
-      yMin = (*it)->obY();
-    if((*it)->obY() > yMax || yMax == 0)
-      yMax = (*it)->obY();
 
     //lleva continudad de puntos
-    Objeto *cv = static_cast<Objeto*>(*it);
+    Objeto *cv = static_cast<Objeto*>(vehiculo);
     //devuelve el vehiculo al punto de paso que seguia
     //si se salta alguno
     if(!puntos_de_paso.continuadoPuntoPasoA(cv)) {
@@ -114,15 +108,22 @@ void EscenarioCarrera::actualizar() {
     }
     PuntoPaso *ptf = puntos_de_paso.puntoPasoA(cv);
     PuntoPaso *ptff =  puntos_de_paso.ultimoPuntoPaso();
-    if( ptf && ptff && ptf  == ptff)
-      std::cout << "bien termino correctamente.." << std::endl;
+    /*if( ptf && ptff && ptf  == ptff)
+      std::cout << "bien termino correctamente.." << std::endl;*/
+
+    if(Compositor::obColision()->entreObjetosCircular(vehiculo, objetos)) {
+      vehiculo->choqueRetroceder();
+    }    
   }
+
+
   //propuesta de movimiento de la camara:
   //medir distancia entre los 2 vehiculos y ubicar la camara
   //en el centro de esta distancia..para mas vehiculos
   //tomo sus posiciones minimas y maximas y calculo medios
   camara.moverXY(xMin + abs(xMin - xMax)/2, abs(yMin - yMax)/2 + yMax);
-  Compositor::obCamara()->seguir(vehiculos.at(0));
+  //Compositor::obCamara()->seguir(xMin + abs(xMin - xMax)/2, abs(yMin - yMax)/2 + yMax);
+  Compositor::obCamara()->seguir(&camara);
 
   /*for(std::vector<Objeto*>::iterator it = objetos.begin(); it != objetos.end(); ++it){
     if(Compositor::obColision()->entreObjetos(static_cast<Objeto *>(vehiculo), (*it)))
@@ -151,7 +152,7 @@ void EscenarioCarrera::dibujar() {
     (*it)->dibujar();
   }
 
-  for(std::vector<Vehiculo*>::iterator it = vehiculos.begin(); it != vehiculos.end(); ++it) {
+  for(std::vector<Jugador*>::iterator it = jugadores.begin(); it != jugadores.end(); ++it) {
     (*it)->dibujar();
   }
 
@@ -161,5 +162,4 @@ void EscenarioCarrera::dibujar() {
 void EscenarioCarrera::agregarJugador(Jugador *jg)
 {
   jugadores.push_back(jg);
-  vehiculos.push_back(jg->obVehiculo());
 }

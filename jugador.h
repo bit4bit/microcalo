@@ -10,8 +10,10 @@ class Jugador
  public:
   Jugador(const char* nombre, IControlTipo *ctipo, Vehiculo *);
   void actualizar();
+  void dibujar();
   IControlTipo *obControlTipo() { return ctipo; }
   Vehiculo *obVehiculo() { return vehiculo;}
+
   std::string nombre;  
  private:
   IControlTipo *ctipo;
