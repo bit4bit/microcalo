@@ -1,0 +1,5 @@
+* 23 ABRIL 2013
+- en multi jugador se sale del escenario
+- al iniciar la camar no se adecua a los jugadores
+- error al saltarse punto de paso. no retorna al ultimo sino al
+   siguiente.

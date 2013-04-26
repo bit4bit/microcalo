@@ -53,7 +53,7 @@ void Vehiculo::actualizar() {
   double reloj_escala = Compositor::obReloj()->escala();
   float giro = tipo.def_giro;
   accel = 0;
-  
+
   si(choqueP)
   {
     //se permite dar reversa cuando colisione
