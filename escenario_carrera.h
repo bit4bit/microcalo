@@ -9,6 +9,7 @@
 #include <SDL/SDL.h>
 
 #include <vector>
+#include <string>
 #include "escenario.h"
 #include "vehiculo.h"
 #include "punto_paso_gestor.h"
@@ -17,6 +18,7 @@
 class EscenarioCarrera : public Escenario
 {
  public:
+  static EscenarioCarrera* cargarDesdeScript(std::string ruta);
   EscenarioCarrera();
   virtual ~EscenarioCarrera();
   virtual void actualizar();

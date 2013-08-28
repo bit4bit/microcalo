@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <string>
 #include "compositor.h"
 #include "escenario_carrera.h"
 #include "objeto.h"
@@ -8,6 +9,10 @@
 #include "control_mando.h"
 #include <SDL/sge.h>
 #define DATA_DIR "./data"
+
+EscenarioCarrera* EscenarioCarrera::cargarDesdeScript(std::string ruta) {
+  return NULL;
+}
 
 EscenarioCarrera::EscenarioCarrera() : Escenario(1) {
   
