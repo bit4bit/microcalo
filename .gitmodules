@@ -1,0 +1,3 @@
+[submodule "vendor/tinyxml-git"]
+	path = vendor/tinyxml-git
+	url = git://git.code.sf.net/p/tinyxml/git
