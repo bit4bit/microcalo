@@ -5,7 +5,8 @@
 #include <list>
 #include "cosa.h"
 
-
+#define ID_ESCENARIO_CARRERA 1
+#define ID_ESCENARIO_INTRO 2
 /**
  *El escenario representa el mapa
  *la camara, el espacio donde se desplazan los vehiculos

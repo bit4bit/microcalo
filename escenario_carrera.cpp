@@ -19,7 +19,7 @@ EscenarioCarrera* EscenarioCarrera::cargarDesdeScript(std::string ruta) {
   return NULL;
 }
 
-EscenarioCarrera::EscenarioCarrera() : Escenario(1) {
+EscenarioCarrera::EscenarioCarrera() : Escenario(ID_ESCENARIO_CARRERA) {
   
 
   fondo = Objeto::desdeImagen(DATA_DIR "/map1.png", 9999, 0, 0);
