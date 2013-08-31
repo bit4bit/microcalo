@@ -33,6 +33,8 @@ class EscenarioIntro : public Escenario
   void agregarComando(EscenarioIntroComando *comando);
  private:
   std::queue<EscenarioIntroComando*> comandos;
+  int pausar;
+  int pausar_cont;
 };
 
 #endif

@@ -22,6 +22,7 @@ int main(int argc, char **argv)
 
   Video* video = Compositor::obVideo(); //se inicializa vide
   Compositor::obMando();
+  Compositor::obTexto();
   EscenarioIntro escenario_intro= EscenarioIntro();
   Escenario *escenario = (Escenario*)&escenario_intro;
   script_cargar_escenario_intro(&escenario_intro);

@@ -23,6 +23,7 @@ class Reloj
 
   void actualizar();
   double escala();
+  Uint32 diff();
 };
 
 #endif

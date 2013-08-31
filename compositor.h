@@ -12,6 +12,7 @@
 #include "camara.h"
 #include "colision.h"
 #include "mando.h"
+#include "texto.h"
 
 class Compositor
 {
@@ -29,6 +30,7 @@ class Compositor
   static Recurso *obRecurso() { return Recurso::instancia(); }
   static Camara *obCamara() { return Camara::instancia(); }
   static Colision *obColision() { return Colision::instancia(); }
+  static Texto *obTexto() { return Texto::instancia(); }
 };
 
 #endif

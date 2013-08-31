@@ -23,3 +23,7 @@ void Reloj::actualizar() {
 double Reloj::escala() {
   return (double)(actual - inicia) / 30.0; //30.0 FPS
 }
+
+Uint32 Reloj::diff() {
+  return (SDL_GetTicks() - inicia);
+}
