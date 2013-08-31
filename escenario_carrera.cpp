@@ -8,8 +8,13 @@
 #include "control_teclado.h"
 #include "control_mando.h"
 #include <SDL/sge.h>
+
+
 #define DATA_DIR "./data"
 
+/**
+ *Carga el escenario desde un script(guile)
+ */
 EscenarioCarrera* EscenarioCarrera::cargarDesdeScript(std::string ruta) {
   return NULL;
 }

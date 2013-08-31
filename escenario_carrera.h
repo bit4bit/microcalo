@@ -15,6 +15,7 @@
 #include "punto_paso_gestor.h"
 #include "jugador.h"
 
+
 class EscenarioCarrera : public Escenario
 {
  public:

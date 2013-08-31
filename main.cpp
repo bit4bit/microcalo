@@ -1,7 +1,9 @@
 /**
  *MicroCalo es un videojuego al mejor estilo de MicroMachines
  */
+
 #include <iostream>
+#include <libguile.h>
 #include "cspa.h"
 #include "compositor.h"
 #include "escenario.h"
