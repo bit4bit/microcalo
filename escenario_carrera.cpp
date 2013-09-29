@@ -30,15 +30,17 @@ EscenarioCarrera::EscenarioCarrera() : Escenario(ID_ESCENARIO_CARRERA) {
   vehiculo = new Vehiculo(2);
   vehiculo->asignarColisionCircular(vehiculo->obXCentro(), vehiculo->obYCentro(), vehiculo->obAncho()/2);
   vehiculo->depurar = true;
-  Jugador *jg1 = new Jugador("jugador 1", new ControlTeclado(SDLK_t, SDLK_n, SDLK_a, SDLK_o), vehiculo);
+  Jugador *jg1 = new Jugador("jugador 1", new ControlMando(0), vehiculo);
   agregarJugador(jg1);
 
+  /*
   vehiculo = new Vehiculo(2, 100,  300, 0);
   vehiculo->asignarColisionCircular(vehiculo->obXCentro(), vehiculo->obYCentro(), vehiculo->obAncho()/2);
   vehiculo->depurar = true;
   Jugador *jg = new Jugador("jugador 2", new ControlMando(0), vehiculo);
   agregarJugador(jg);
-  
+  */
+
   Compositor::obCamara()->ancho = Compositor::obVideo()->obAncho(); //@todo debe ser de la pantalla
   Compositor::obCamara()->alto = Compositor::obVideo()->obAlto();
   Compositor::obCamara()->asignarLimites(fondo->obAncho(), fondo->obAlto());

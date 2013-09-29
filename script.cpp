@@ -12,8 +12,8 @@
 
 
 
-void script_cargar_escenario_intro(EscenarioIntro *escenario_intro) {
-   SCM comandos = scm_variable_ref(scm_c_lookup("escenario-intro"));
+void script_cargar_escenario_intro(EscenarioIntro *escenario_intro, const char *scm_var) {
+   SCM comandos = scm_variable_ref(scm_c_lookup(scm_var));
  
    while(SCM_FALSEP(scm_null_p(comandos))) {
      SCM scm_value = SCM_CAR(comandos);

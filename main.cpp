@@ -24,9 +24,10 @@ int main(int argc, char **argv)
   Compositor::obMando();
   Compositor::obTexto();
   EscenarioIntro escenario_intro= EscenarioIntro();
-  Escenario *escenario = (Escenario*)&escenario_intro;
-  script_cargar_escenario_intro(&escenario_intro);
-  //EscenarioCarrera escenario = EscenarioCarrera();
+  //Escenario *escenario = (Escenario*)&escenario_intro;
+  //script_cargar_escenario_intro(&escenario_intro, "escenario-intro");
+  EscenarioCarrera escenarioC = EscenarioCarrera();
+  Escenario *escenario = (Escenario*)&escenarioC;
 
   Colision *colision = Compositor::obColision();
   Compositor::obRecurso();

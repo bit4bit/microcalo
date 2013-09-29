@@ -7,3 +7,10 @@
 			  (pausa "10")
 			  )
   )
+
+(define escenario-creditos '(
+			     (texto "desarrollador bit4bit")
+			     (pausa "2")
+			     (texto "2013")
+			     )
+  )

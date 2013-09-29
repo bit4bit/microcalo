@@ -5,7 +5,7 @@
 
 extern "C" {
   void* iniciar_script(void *data);
-  void script_cargar_escenario_intro(EscenarioIntro *escenario_intro);
+  void script_cargar_escenario_intro(EscenarioIntro *escenario_intro, const char *scm_var);
 }
 
 #endif

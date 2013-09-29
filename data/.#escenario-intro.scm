@@ -1,1 +1,0 @@
-bit4bit@computador.7440:1377960157

@@ -19,8 +19,9 @@ class EscenarioIntroComando
 };
 
 /**
- *Escenario donde se muestra introduccion al video juego
- *o bien presentacion.
+ *Escenario donde se muestra escenas de animacion al video juego
+ *o bien de presentacion.
+ *@todo musica y soundfx
  */
 class EscenarioIntro : public Escenario
 {
