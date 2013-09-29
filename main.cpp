@@ -46,8 +46,9 @@ int main(int argc, char **argv)
     Compositor::obVideo()->actualizar();
 
     escenario->dibujar();
-    video->dibujar();
     colision->dibujar();
+    video->dibujar();
+
   }mientras(salir == false);
   return 0;
 }

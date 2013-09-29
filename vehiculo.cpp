@@ -73,10 +73,11 @@ void Vehiculo::actualizar() {
     {
       vel += accel * reloj_escala;
     }
-  aunque si(!retrocederP)
+  //desacelera si no esta acelerando
+  aunque si(!retrocederP && choqueP == false )
     {
       vel -= tipo.def_accel * reloj_escala;
-      giro = tipo.def_giro_frenando;
+      //giro = tipo.def_giro_frenando;
       si(vel < 0) vel = 0;
     }
 
@@ -153,9 +154,9 @@ void Vehiculo::choqueRetroceder() {
   }
   pero
   {
-    vel = abs(vel) - (tipo.def_accel * 0.9 * reloj_escala);
+    // vel = abs(vel) - (tipo.def_accel * 0.9 * reloj_escala);
   }
-  if(enReversa)
+  si(enReversa)
     vel *= -1;
 
   actualizarPosicion();
@@ -163,7 +164,7 @@ void Vehiculo::choqueRetroceder() {
 }
 
 void Vehiculo::actualizarPosicion() {
-  float ix, iy;
+  int ix, iy;
   ix = vel * cos(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
   iy = vel * -sin(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
   escenario_x += ix;

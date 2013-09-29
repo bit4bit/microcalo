@@ -28,7 +28,7 @@ EscenarioCarrera::EscenarioCarrera() : Escenario(ID_ESCENARIO_CARRERA) {
   fondo->obAncho(); fondo->obAlto();
 
   vehiculo = new Vehiculo(2);
-  vehiculo->asignarColisionCircular(vehiculo->obXCentro(), vehiculo->obYCentro(), vehiculo->obAncho()/2);
+  vehiculo->asignarColisionCircular(vehiculo->obXCentro(), vehiculo->obYCentro(), vehiculo->obAncho()/4);
   vehiculo->depurar = true;
   Jugador *jg1 = new Jugador("jugador 1", new ControlMando(0), vehiculo);
   agregarJugador(jg1);
