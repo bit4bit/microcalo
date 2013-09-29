@@ -7,6 +7,7 @@
 #include "punto_paso.h"
 #include "control_teclado.h"
 #include "control_mando.h"
+#include "vehiculo.h"
 #include <SDL/sge.h>
 
 
@@ -27,6 +28,7 @@ EscenarioCarrera::EscenarioCarrera() : Escenario(ID_ESCENARIO_CARRERA) {
   //el alto queda en 0..porque???????
   fondo->obAncho(); fondo->obAlto();
 
+  Vehiculo *vehiculo = NULL;
   vehiculo = new Vehiculo(2);
   vehiculo->asignarColisionCircular(vehiculo->obXCentro(), vehiculo->obYCentro(), vehiculo->obAncho()/4);
   vehiculo->depurar = true;

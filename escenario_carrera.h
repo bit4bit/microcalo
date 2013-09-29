@@ -34,7 +34,6 @@ class EscenarioCarrera : public Escenario
   
   Objeto* fondo; //imagen de fondo por defecto, se usa para redibujados
 
-  Vehiculo* vehiculo;
   std::vector<Vehiculo*> vehiculos;
   std::vector<Jugador*> jugadores;
 };

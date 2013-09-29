@@ -1,5 +1,3 @@
-(display "hola")
-
 (define escenario-intro '(
 			  (texto "video juego similar micro-machines")
 			  (pausa "2")
@@ -14,3 +12,6 @@
 			     (texto "2013")
 			     )
   )
+
+(objeto-estatico
+ )
