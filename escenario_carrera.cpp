@@ -30,9 +30,9 @@ EscenarioCarrera::EscenarioCarrera() : Escenario(ID_ESCENARIO_CARRERA) {
 
   Vehiculo *vehiculo = NULL;
   vehiculo = new Vehiculo(2);
-  vehiculo->asignarColisionCircular(vehiculo->obXCentro(), vehiculo->obYCentro(), vehiculo->obAncho()/4);
+  vehiculo->asignarColisionCircular(vehiculo->obXCentro(), vehiculo->obYCentro(), vehiculo->obAncho()/2);
   vehiculo->depurar = true;
-  Jugador *jg1 = new Jugador("jugador 1", new ControlMando(0), vehiculo);
+  Jugador *jg1 = new Jugador("jugador 1", new ControlTeclado(SDLK_w, SDLK_m, SDLK_a, SDLK_o), vehiculo);
   agregarJugador(jg1);
 
   /*

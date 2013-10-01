@@ -13,6 +13,7 @@
 
 #include "compositor.h"
 #include "vehiculo.h"
+#include <SDL/SDL_rotozoom.h>
 
 
 Vehiculo::Vehiculo(Uint32 id): Objeto(id){
@@ -118,23 +119,28 @@ void Vehiculo::actualizar() {
 
 
 void Vehiculo::dibujar() {
-  SDL_Rect sr, dr;
+  SDL_Rect sr, dr;				       
+  SDL_Surface *tmp = NULL;
   pantalla_x = escenario_x - Compositor::obCamara()->x;
   pantalla_y = escenario_y - Compositor::obCamara()->y;
   
   int nangulo = angulo;
   si(nangulo < 0)  angulo = 360;
-  sr.x = tipo.ancho * (nangulo / 4);
-  sr.y = 0;
-  sr.w = tipo.ancho; sr.h = tipo.alto;
+  
+  //antiguo metodo de renderizado
+  //sr.x = tipo.ancho * (nangulo / 4);
+  //sr.y = 0;
+  //sr.w = tipo.ancho; sr.h = tipo.alto;
   //dr.x = pantalla_x - tipo.ancho/2; //se centra
   //dr.y = pantalla_y - tipo.alto/2; //se centra
-  dr.x = pantalla_x;
-  dr.y = pantalla_y;
+
   dr.w = tipo.ancho; dr.w = tipo.alto;
-
-
-  Compositor::obVideo()->blit(s_objeto, &sr, &dr);
+  tmp = rotozoomSurface(s_objeto, angulo, 1, 0);
+  dr.x = pantalla_x - ((tmp->w/2) - (s_objeto->w/2));
+  dr.y = pantalla_y - ((tmp->h/2) - (s_objeto->h/2));
+  Compositor::obVideo()->blit(tmp, NULL, &dr);
+  SDL_FreeSurface(tmp);
+  //Compositor::obVideo()->blit(s_objeto, &sr, &dr);
   dibujarDepurar();
 }
 

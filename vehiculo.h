@@ -4,7 +4,7 @@
 #include <SDL/SDL.h>
 #include "objeto.h"
 #include "vehiculo_tipo.h"
-
+#include <iostream>
 /**
  *El vehiculo para el jugador
  *hay diferentes tipos de vehiculos:
@@ -26,6 +26,10 @@ class Vehiculo : public Objeto
   float obVel() { return vel; }
   float obAccel() { return accel; }
   float obAngulo() { return angulo; }
+  Sint32 obXCentro() { return escenario_x + obAncho()/2;}
+  Sint32 obYCentro() { return escenario_y + obAlto()/2;}
+  Uint32 obAncho() { ancho = tipo.ancho; return ancho;}
+  Uint32 obAlto() { alto = tipo.alto; return alto;}
   VehiculoTipo tipo; 
   //@todo separa entrada .. debe ser mas abstracto
   //llamar antes de actualizar

@@ -112,5 +112,5 @@ void Objeto::regularALimites() {
 
 void Objeto::asignarColisionCircular(int x, int y, int radio)
 {
-  colision_circular.push_back(Circular(x,y,radio));
+  colision_circular.push_back(Circular(x, y,radio));
 }

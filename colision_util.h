@@ -4,8 +4,14 @@
 class Circular
 {
  public:
- Circular(int _x, int _y, int _radio) : x(_x), y(_y), radio(_radio)
+  /**
+   *se centra 
+   */
+  Circular(int _x, int _y, int _radio)
   {
+    x = _x;
+    y = _y;
+    radio = _radio;
   }
   int x;
   int y;
