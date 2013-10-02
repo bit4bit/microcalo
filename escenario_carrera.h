@@ -14,13 +14,13 @@
 #include "vehiculo.h"
 #include "punto_paso_gestor.h"
 #include "jugador.h"
-
+#include "tmx_render.h"
 
 class EscenarioCarrera : public Escenario
 {
  public:
   static EscenarioCarrera* cargarDesdeScript(std::string ruta);
-  EscenarioCarrera();
+  EscenarioCarrera(const char *archivo_tmx);
   virtual ~EscenarioCarrera();
   virtual void actualizar();
   virtual void dibujar();
@@ -28,11 +28,14 @@ class EscenarioCarrera : public Escenario
   void agregarJugador(Jugador *jg);
 
  private:
+
+
   std::vector<Objeto*> objetos;
 
   PuntoPasoGestor puntos_de_paso;
   
-  Objeto* fondo; //imagen de fondo por defecto, se usa para redibujados
+  TmxRender *tmxRender;
+  SDL_Surface* fondo;
 
   std::vector<Vehiculo*> vehiculos;
   std::vector<Jugador*> jugadores;

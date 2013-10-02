@@ -13,5 +13,17 @@
 			     )
   )
 
-(objeto-estatico
+(define escenarios '(
+		     (escenario "escenarios/ciudad.scm")
+		     )
  )
+
+(define vehiculos '(
+		    (
+		     (id 3)
+		     (tipo 'carro')
+		     (imagen "data/carro.xpm" 1 1)
+		     (animacion-andando (1))
+		     )
+		    )
+  )

@@ -11,6 +11,7 @@
 #include "escenario_carrera.h"
 #include "vehiculo.h"
 #include "script.h"
+#include "tmx_render.h"
 
 #define DEFAULT_SCRIPT "data/default.scm"
 
@@ -26,10 +27,12 @@ int main(int argc, char **argv)
   EscenarioIntro escenario_intro= EscenarioIntro();
   //Escenario *escenario = (Escenario*)&escenario_intro;
   //script_cargar_escenario_intro(&escenario_intro, "escenario-intro");
-  EscenarioCarrera escenarioC = EscenarioCarrera();
+  EscenarioCarrera escenarioC = EscenarioCarrera("data/mapa1.tmx");
   Escenario *escenario = (Escenario*)&escenarioC;
 
   Colision *colision = Compositor::obColision();
+  TmxRender *tmxRender = new TmxRender();
+    tmxRender->CargarDesdeArchivo("data/mapa1.tmx");
   Compositor::obRecurso();
   hacer {
     Compositor::obReloj()->actualizar();
@@ -44,11 +47,19 @@ int main(int argc, char **argv)
 
     escenario->actualizar();
     Compositor::obVideo()->actualizar();
-
+    
     escenario->dibujar();
     colision->dibujar();
+       
+    /*SDL_Rect srect;
+    srect.x = 10;
+    srect.y = 0;
+    srect.w = 640;
+    srect.h = 480;
+    tmxRender->blit("fondo", &srect, Compositor::obVideo()->obSurface(), NULL);
+    */
     video->dibujar();
-
+    
   }mientras(salir == false);
   return 0;
 }

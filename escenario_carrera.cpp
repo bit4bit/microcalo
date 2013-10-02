@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <string>
+#include <map>
 #include "compositor.h"
 #include "escenario_carrera.h"
 #include "objeto.h"
@@ -11,6 +12,8 @@
 #include <SDL/sge.h>
 
 
+#include "util.h"
+
 #define DATA_DIR "./data"
 
 /**
@@ -20,13 +23,15 @@ EscenarioCarrera* EscenarioCarrera::cargarDesdeScript(std::string ruta) {
   return NULL;
 }
 
-EscenarioCarrera::EscenarioCarrera() : Escenario(ID_ESCENARIO_CARRERA) {
-  
 
-  fondo = Objeto::desdeImagen(DATA_DIR "/map1.png", 9999, 0, 0);
+EscenarioCarrera::EscenarioCarrera(const char *archivo_tmx) : Escenario(ID_ESCENARIO_CARRERA) {
+  tmxRender = new TmxRender();
+  tmxRender->CargarDesdeArchivo(archivo_tmx);
+
+  //fondo = Objeto::desdeImagen(DATA_DIR "/map1.png", 9999, 0, 0);
   //@todo si no llamo esto antes de asignar limites
   //el alto queda en 0..porque???????
-  fondo->obAncho(); fondo->obAlto();
+  //fondo->obAncho(); fondo->obAlto();
 
   Vehiculo *vehiculo = NULL;
   vehiculo = new Vehiculo(2);
@@ -45,7 +50,7 @@ EscenarioCarrera::EscenarioCarrera() : Escenario(ID_ESCENARIO_CARRERA) {
 
   Compositor::obCamara()->ancho = Compositor::obVideo()->obAncho(); //@todo debe ser de la pantalla
   Compositor::obCamara()->alto = Compositor::obVideo()->obAlto();
-  Compositor::obCamara()->asignarLimites(fondo->obAncho(), fondo->obAlto());
+  Compositor::obCamara()->asignarLimites(tmxRender->obAncho(), tmxRender->obAlto());
   Objeto *obj = Objeto::desdeImagen(DATA_DIR "/obj1.png",3, 700, 700);
   obj->asignarColisionCircular(obj->obXCentro(), obj->obYCentro(), obj->obAncho()/2);
   obj->depurar = true;
@@ -72,6 +77,9 @@ EscenarioCarrera::EscenarioCarrera() : Escenario(ID_ESCENARIO_CARRERA) {
 }
 
 EscenarioCarrera::~EscenarioCarrera() {
+  if(tmxRender)
+    delete tmxRender;
+
   for(std::vector<Objeto*>::iterator it = objetos.begin(); it != objetos.end(); ++it){
     if((*it)->obData() != NULL)
       delete (*it)->obData();
@@ -159,8 +167,8 @@ void EscenarioCarrera::actualizar() {
 void EscenarioCarrera::dibujar() {
   SDL_Rect sr;
   sr = Compositor::obCamara()->obRect();
-  Compositor::obVideo()->blit(fondo->obSurface(), &sr, NULL);
-
+  //Compositor::obVideo()->blit(fondo, &sr, NULL);
+  tmxRender->blit("fondo", &sr, Compositor::obVideo()->obSurface(), NULL);
   
   for(std::vector<Objeto*>::iterator it = objetos.begin(); it != objetos.end(); ++it){
     (*it)->dibujar();
