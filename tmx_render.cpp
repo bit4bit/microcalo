@@ -51,8 +51,9 @@ bool TmxRender::CargarDesdeArchivo(const char *archivo)
       std::cerr << "Fallo leer imagen:" << ruta.c_str() << std::endl;
       return NULL;
     }
-
+    std::cout << "Cargado tileset:" << ruta << " con Gid:" << tileset->GetFirstGid() <<std::endl;
     s_tileset[tileset->GetFirstGid()] = tmp;
+    tmp = NULL;
   }
 
 
@@ -99,13 +100,12 @@ void TmxRender::blitTile(const char * capa, SDL_Rect *srect, SDL_Surface *dest, 
       for(int x = 0; x <= scols+1; ++x) {
 	int dx = x + sx; int dy = y + sy;
 
-	int CurTile = layer->GetTileId(dx,dy);	
-	const Tmx::Tileset *tileset = tmx->FindTileset(CurTile);
-
-	
-	if(CurTile == 0 || tileset == NULL) {
+	int CurTile = layer->GetTileId(dx,dy);		
+	if(CurTile == 0) {
 	  continue;
 	}
+	const Tmx::Tileset *tileset = tmx->GetTileset(layer->GetTileTilesetIndex(dx,dy));
+	
 	//std::cerr << "Tileid:" << CurTile << std::endl;
 	//std::cerr << "dx:" << dx << " dy:" << dy << std::endl;
 	SDL_Rect src,dst;
@@ -122,6 +122,7 @@ void TmxRender::blitTile(const char * capa, SDL_Rect *srect, SDL_Surface *dest, 
 	dst.w = tileset->GetTileWidth();
 	dst.h = tileset->GetTileHeight();
 	//std::cout << "dst x:" << dst.x << " .y:" << dst.y << " .w:" << dst.w << " .h:" << dst.h << std::endl;
+	//std::cout << tileset->GetName() << std::endl;
 	SDL_BlitSurface(s_tileset[tileset->GetFirstGid()],&src, imagen, &dst);
       }
     }

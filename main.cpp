@@ -31,8 +31,8 @@ int main(int argc, char **argv)
   Escenario *escenario = (Escenario*)&escenarioC;
 
   Colision *colision = Compositor::obColision();
-  TmxRender *tmxRender = new TmxRender();
-    tmxRender->CargarDesdeArchivo("data/mapa1.tmx");
+  //TmxRender *tmxRender = new TmxRender();
+  //tmxRender->CargarDesdeArchivo("data/mapa1.tmx");
   Compositor::obRecurso();
   hacer {
     Compositor::obReloj()->actualizar();

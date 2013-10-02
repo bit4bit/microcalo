@@ -3,6 +3,12 @@ svn:wc:ra_dav:version-url
 V 22
 /svn/!svn/ver/54/trunk
 END
+TmxParser.sln
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/!svn/ver/14/trunk/TmxParser.sln
+END
 LICENSE
 K 25
 svn:wc:ra_dav:version-url
@@ -26,10 +32,4 @@ K 25
 svn:wc:ra_dav:version-url
 V 37
 /svn/!svn/ver/47/trunk/Makefile.linux
-END
-TmxParser.sln
-K 25
-svn:wc:ra_dav:version-url
-V 36
-/svn/!svn/ver/14/trunk/TmxParser.sln
 END

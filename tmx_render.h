@@ -16,7 +16,7 @@ class TmxRender
   ~TmxRender();
 
   bool CargarDesdeArchivo(const char *archivo);
- 
+  Tmx::Map *obMap() { return tmx; }
   int obAlto() { return tmx->GetHeight() * tmx->GetTileHeight(); }
   int obAncho() { return tmx->GetWidth() * tmx->GetTileWidth();}
   /**

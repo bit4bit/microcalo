@@ -28,6 +28,27 @@ EscenarioCarrera::EscenarioCarrera(const char *archivo_tmx) : Escenario(ID_ESCEN
   tmxRender = new TmxRender();
   tmxRender->CargarDesdeArchivo(archivo_tmx);
 
+  for(int i=0; i < tmxRender->obMap()->GetNumLayers(); i++) {
+    const Tmx::Layer *layer = tmxRender->obMap()->GetLayer(i);
+    if(layer->GetName() != "colision") continue;
+    for(int y = 0; y < layer->GetHeight(); ++y) {
+      for(int x = 0; x < layer->GetWidth(); ++x) {
+	int CurTile = layer->GetTileId(x,y);
+	if(CurTile == 0) continue;
+	const Tmx::Tileset *tileset = tmxRender->obMap()->GetTileset(layer->GetTileTilesetIndex(x,y));
+	if(!tileset) continue;
+	const Tmx::Tile* tile = tileset->GetTile(CurTile);
+	if(!tile) continue;
+	std::cout << "x:" << x << " y:" << y << std::endl;
+	std::cout << "Id propiedad:" << tile->GetId() << std::endl;
+	std::cout << "Tipo:" << tile->GetProperties().GetLiteralProperty("tipo") << std:: endl;
+	Objeto *objt = Objeto::desdeImagen(DATA_DIR "/puntopaso.png",3, x * tmxRender->obMap()->GetTileWidth(), y * tmxRender->obMap()->GetTileHeight());
+	objt->asignarColisionCircular(objt->obXCentro(), objt->obYCentro(), objt->obAncho()/2);
+	objetos.push_back(objt);
+      }
+    }
+    break;
+  }
   //fondo = Objeto::desdeImagen(DATA_DIR "/map1.png", 9999, 0, 0);
   //@todo si no llamo esto antes de asignar limites
   //el alto queda en 0..porque???????
@@ -133,6 +154,9 @@ void EscenarioCarrera::actualizar() {
     /*if( ptf && ptff && ptf  == ptff)
       std::cout << "bien termino correctamente.." << std::endl;*/
 
+    //@todo esto es demasiado lento
+    //ya que hay objetos que son muro
+    //y por la cantidad jala mucho
     if(Compositor::obColision()->entreObjetosCircular(vehiculo, objetos)) {
       vehiculo->choqueRetroceder();
     }    
@@ -168,8 +192,8 @@ void EscenarioCarrera::dibujar() {
   SDL_Rect sr;
   sr = Compositor::obCamara()->obRect();
   //Compositor::obVideo()->blit(fondo, &sr, NULL);
-  tmxRender->blit("fondo", &sr, Compositor::obVideo()->obSurface(), NULL);
-  
+  // tmxRender->blit("fondo", &sr, Compositor::obVideo()->obSurface(), NULL);
+  tmxRender->blit("colision", &sr, Compositor::obVideo()->obSurface(), NULL);
   for(std::vector<Objeto*>::iterator it = objetos.begin(); it != objetos.end(); ++it){
     (*it)->dibujar();
   }
