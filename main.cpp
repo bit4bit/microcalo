@@ -21,6 +21,15 @@ int main(int argc, char **argv)
   Video* video = Compositor::obVideo(); //se inicializa vide
   Compositor::obMando();
   Compositor::obTexto();
+  Compositor::obConfiguracion();
+  Compositor::obScript();
+  Configuracion::bindingScript(Compositor::obScript()->obState());
+
+  Compositor::obScript()->leerScript("data/util.rb");
+  Compositor::obScript()->leerScript("data/configuracion.rb");
+
+  Compositor::cerrar();
+  return 0;
   EscenarioIntro escenario_intro= EscenarioIntro();
   //Escenario *escenario = (Escenario*)&escenario_intro;
   //script_cargar_escenario_intro(&escenario_intro, "escenario-intro");
@@ -28,6 +37,8 @@ int main(int argc, char **argv)
   Escenario *escenario = (Escenario*)&escenarioC;
 
   Colision *colision = Compositor::obColision();
+
+
   //TmxRender *tmxRender = new TmxRender();
   //tmxRender->CargarDesdeArchivo("data/mapa1.tmx");
   Compositor::obRecurso();

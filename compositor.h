@@ -2,7 +2,7 @@
 #define COMPOSITOR_H
 
 #include <SDL/SDL.h>
-
+#include <iostream>
 #include "video.h"
 #include "audio.h"
 #include "reloj.h"
@@ -13,15 +13,22 @@
 #include "colision.h"
 #include "mando.h"
 #include "texto.h"
+#include "configuracion.h"
+#include "script.h"
 
 class Compositor
 {
  protected:
   Compositor() {};
-
  private:
   
  public:
+  static void cerrar() {
+    std::cout << "Finalizando compositor" << std::endl;
+    Script *script = obScript();
+    if(script)
+      script->cerrar();
+  }
   static Video *obVideo() { return Video::instancia(); }
   static Audio *obAudio() { return Audio::instancia(); }
   static Reloj *obReloj() { return Reloj::instancia(); }
@@ -31,6 +38,8 @@ class Compositor
   static Camara *obCamara() { return Camara::instancia(); }
   static Colision *obColision() { return Colision::instancia(); }
   static Texto *obTexto() { return Texto::instancia(); }
+  static Configuracion* obConfiguracion() { return Configuracion::instancia(); }
+  static Script* obScript() { return Script::instancia();}
 };
 
 #endif
