@@ -17,8 +17,8 @@
 class Vehiculo : public Objeto
 {
  public:
-  Vehiculo(Uint32 id);
-  Vehiculo(Uint32 id, Uint32, Uint32, Uint32);
+  Vehiculo(Uint32 id, VehiculoTipo *);
+  Vehiculo(Uint32 id, VehiculoTipo *, Uint32, Uint32, Uint32);
   virtual ~Vehiculo();
   virtual void actualizar();
   virtual void dibujar();
@@ -28,9 +28,9 @@ class Vehiculo : public Objeto
   float obAngulo() { return angulo; }
   Sint32 obXCentro() { return escenario_x + obAncho()/2;}
   Sint32 obYCentro() { return escenario_y + obAlto()/2;}
-  Uint32 obAncho() { ancho = tipo.ancho; return ancho;}
-  Uint32 obAlto() { alto = tipo.alto; return alto;}
-  VehiculoTipo tipo; 
+  Uint32 obAncho() { ancho = tipo->obAncho(); return ancho;}
+  Uint32 obAlto() { alto = tipo->obAlto(); return alto;}
+
   //@todo separa entrada .. debe ser mas abstracto
   //llamar antes de actualizar
   void acelerar() {acelerarP = true;}
@@ -40,6 +40,7 @@ class Vehiculo : public Objeto
   void choque(); //efecto de choque
   void choqueRetroceder();
  protected:
+  VehiculoTipo* tipo; 
   bool acelerarP;
   bool retrocederP;
   bool izquierdaP;

@@ -1,11 +1,12 @@
 #include "vehiculo_tipo.h"
 #include "compositor.h"
+#include <mrubybind.h>
 
 VehiculoTipo::VehiculoTipo()
 {
   //@todo esto no debe quedar aqui
   //por ahora, hay que crear tipos de vehiculos
-  nombre.assign("Generico");
+  nombre.assign("notipo");
   ancho = 32;
   alto = 32;
   max_vel = 15;
@@ -15,8 +16,57 @@ VehiculoTipo::VehiculoTipo()
   def_giro = 4; //cantidad de grados de la imagen
   def_giro_frenando = 7;
 
-  s_andando = Compositor::obRecurso()->cargarImagen("./data/carro.xpm");
-  s_cayendo = Compositor::obRecurso()->cargarImagen("./data/car1.png");
-  s_saltando = Compositor::obRecurso()->cargarImagen("./data/car1.png");
+  s_vehiculo = NULL;
 }
+ 
+void VehiculoTipo::asignarSVehiculoDesdeArchivo(std::string ruta) 
+{
+  s_vehiculo = Compositor::obRecurso()->cargarImagen(ruta.c_str());
+}
+
+static VehiculoTipo* vehiculo_tipo_new(std::string nombre)
+{
+  VehiculoTipo *vt =  Compositor::obGestorVehiculoTipo()->crear(nombre);
+  std::cout << nombre <<std::endl;
+  return vt;
+}
+
+void VehiculoTipo::bindingScript(mrb_state *mrb) 
+{
+  mrubybind::MrubyBind b(mrb);
+  b.bind_class("VehiculoTipo", vehiculo_tipo_new);
   
+  b.bind_instance_method("VehiculoTipo", "nombre", &VehiculoTipo::obNombre);
+  b.bind_instance_method("VehiculoTipo", "nombre=", &VehiculoTipo::asignarNombre);
+  b.bind_instance_method("VehiculoTipo", "ancho", &VehiculoTipo::obAncho);
+  b.bind_instance_method("VehiculoTipo", "ancho=", &VehiculoTipo::asignarAncho);
+  
+  b.bind_instance_method("VehiculoTipo", "alto", &VehiculoTipo::obAlto);
+  b.bind_instance_method("VehiculoTipo", "alto=", &VehiculoTipo::asignarAlto);
+
+  b.bind_instance_method("VehiculoTipo", "max_vel", &VehiculoTipo::obMaxVel);
+  b.bind_instance_method("VehiculoTipo", "max_vel=", &VehiculoTipo::asignarMaxVel);
+
+  b.bind_instance_method("VehiculoTipo", "min_vel", &VehiculoTipo::obMinVel);
+  b.bind_instance_method("VehiculoTipo", "min_vel=", &VehiculoTipo::asignarMinVel);
+
+  b.bind_instance_method("VehiculoTipo", "def_accel", &VehiculoTipo::obDefAccel);
+  b.bind_instance_method("VehiculoTipo", "def_accel=", &VehiculoTipo::asignarDefAccel);
+
+  b.bind_instance_method("VehiculoTipo", "def_retro", &VehiculoTipo::obDefRetro);
+  b.bind_instance_method("VehiculoTipo", "def_retro=", &VehiculoTipo::asignarDefRetro);
+
+  b.bind_instance_method("VehiculoTipo", "def_giro", &VehiculoTipo::obDefGiro);
+  b.bind_instance_method("VehiculoTipo", "def_giro=", &VehiculoTipo::asignarDefGiro);
+
+  b.bind_instance_method("VehiculoTipo", "imagen=", &VehiculoTipo::asignarSVehiculoDesdeArchivo);
+}
+
+
+
+
+
+
+
+
+

@@ -16,12 +16,12 @@
 #include <SDL/SDL_rotozoom.h>
 
 
-Vehiculo::Vehiculo(Uint32 id): Objeto(id){
+Vehiculo::Vehiculo(Uint32 id, VehiculoTipo *_tipo): Objeto(id){
   //@todo se debe inicializar un tipo de vehiculo
-
-  s_objeto = tipo.s_andando;
-  ancho = tipo.ancho;
-  alto = tipo.alto;
+  tipo = _tipo;
+  s_objeto = tipo->obSVehiculo();
+  ancho = tipo->obAncho();
+  alto = tipo->obAlto();
 
   angulo = accel = vel = 0;
   acelerarP = retrocederP = izquierdaP = derechaP = false;
@@ -29,12 +29,12 @@ Vehiculo::Vehiculo(Uint32 id): Objeto(id){
   escenario_x = escenario_y = 100;
   pantalla_x = pantalla_y = 0;
 }
-Vehiculo::Vehiculo(Uint32 id, Uint32 x, Uint32 y, Uint32 _angulo): Objeto(id){
+Vehiculo::Vehiculo(Uint32 id, VehiculoTipo *_tipo, Uint32 x, Uint32 y, Uint32 _angulo): Objeto(id){
   //@todo se debe inicializar un tipo de vehiculo
-
-  s_objeto = tipo.s_andando;
-  ancho = tipo.ancho;
-  alto = tipo.alto;
+  tipo = _tipo;
+  s_objeto = tipo->obSVehiculo();
+  ancho = tipo->obAncho();
+  alto = tipo->obAlto();
 
 
   angulo = accel = vel = 0;
@@ -52,7 +52,7 @@ Vehiculo::~Vehiculo(){
 
 void Vehiculo::actualizar() {
   double reloj_escala = Compositor::obReloj()->escala();
-  float giro = tipo.def_giro;
+  float giro = tipo->obDefGiro();
   accel = 0;
 
   si(choqueP)
@@ -67,7 +67,7 @@ void Vehiculo::actualizar() {
   }
 
   si(acelerarP == true)
-    accel = tipo.def_accel;
+    accel = tipo->obDefAccel();
  
 
   si(accel) 
@@ -77,8 +77,8 @@ void Vehiculo::actualizar() {
   //desacelera si no esta acelerando
   aunque si(!retrocederP && choqueP == false )
     {
-      vel -= tipo.def_accel * reloj_escala;
-      //giro = tipo.def_giro_frenando;
+      vel -= tipo->obDefAccel() * reloj_escala;
+      //giro = tipo->def_giro_frenando;
       si(vel < 0) vel = 0;
     }
 
@@ -100,9 +100,9 @@ void Vehiculo::actualizar() {
   //vel *= 0.9;
   si(retrocederP)
   {
-    vel = -abs(tipo.def_retro);
+    vel = -abs(tipo->obDefRetro());
   }
-  si(vel > tipo.max_vel) vel = tipo.max_vel;
+  si(vel > tipo->obMaxVel()) vel = tipo->obMaxVel();
 
 
   
@@ -128,13 +128,13 @@ void Vehiculo::dibujar() {
   si(nangulo < 0)  angulo = 360;
   
   //antiguo metodo de renderizado
-  //sr.x = tipo.ancho * (nangulo / 4);
+  //sr.x = tipo->ancho * (nangulo / 4);
   //sr.y = 0;
-  //sr.w = tipo.ancho; sr.h = tipo.alto;
-  //dr.x = pantalla_x - tipo.ancho/2; //se centra
-  //dr.y = pantalla_y - tipo.alto/2; //se centra
+  //sr.w = tipo->ancho; sr.h = tipo->alto;
+  //dr.x = pantalla_x - tipo->ancho/2; //se centra
+  //dr.y = pantalla_y - tipo->alto/2; //se centra
 
-  dr.w = tipo.ancho; dr.w = tipo.alto;
+  dr.w = tipo->obAncho(); dr.w = tipo->obAlto();
   tmp = rotozoomSurface(s_objeto, angulo, 1, 0);
   dr.x = pantalla_x - ((tmp->w/2) - (s_objeto->w/2));
   dr.y = pantalla_y - ((tmp->h/2) - (s_objeto->h/2));
@@ -160,7 +160,7 @@ void Vehiculo::choqueRetroceder() {
   }
   pero
   {
-    // vel = abs(vel) - (tipo.def_accel * 0.9 * reloj_escala);
+    // vel = abs(vel) - (tipo->def_accel * 0.9 * reloj_escala);
   }
   si(enReversa)
     vel *= -1;
