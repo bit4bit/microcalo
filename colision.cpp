@@ -45,6 +45,32 @@ bool Colision::entreObjetosCircular(Objeto *obja, Objeto *objb)
   retorna false;
 }
 
+/**
+ *Verifica si hay colisicion de un Objeto con algun objeto
+ *desde una nueva posicion.
+ */
+bool Colision::entreObjetos(Objeto *obja, int nx, int ny, std::vector<Objeto*>& objs) {	
+  double distAB = 0;
+  cada(std::vector<Objeto*>::const_iterator itObjs = objs.begin(); itObjs != objs.end(); ++itObjs) {
+    Objeto *objb = *itObjs;
+    cada(std::vector<Circular>::iterator iter = obja->colision_circular.begin(); iter != obja->colision_circular.end(); ++iter) 
+      {
+	cada(std::vector<Circular>::iterator iterB = objb->colision_circular.begin(); iterB != objb->colision_circular.end(); ++iterB) 
+	{
+	  int xb = objb->obX();
+	  int yb = objb->obY();
+	  distAB = sqrt(
+			pow((nx + (*iter).x) - (xb + (*iterB).x), 2) +
+			pow((ny + (*iter).y) - (yb + (*iterB).y), 2)
+			);
+	  si(distAB <= (*iter).radio + (*iterB).radio)
+	    retorna true;
+	}
+    }
+  }
+  return false;
+}
+
 bool Colision::entreObjetos(Objeto *obja, Objeto *objb){
   double distAB = sqrt(
 		       pow(obja->obXCentro() - objb->obXCentro(), 2) +

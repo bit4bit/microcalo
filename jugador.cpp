@@ -1,4 +1,5 @@
 #include "jugador.h"
+#include <vector>
 
 Jugador::Jugador(const char *_nombre, IControlTipo *_ctipo, Vehiculo *_veh) {
   nombre.assign(_nombre);
@@ -7,7 +8,7 @@ Jugador::Jugador(const char *_nombre, IControlTipo *_ctipo, Vehiculo *_veh) {
 }
 
 
-void Jugador::actualizar() {
+void Jugador::actualizar(std::vector<Objeto*> &objetos) {
   if(ctipo->acelerar())
     vehiculo->acelerar();
   
@@ -20,7 +21,7 @@ void Jugador::actualizar() {
   if(ctipo->girarDerecha())
     vehiculo->girarDerecha();
 
-  vehiculo->actualizar();
+  vehiculo->actualizar(objetos);
 }
 
 void Jugador::dibujar()

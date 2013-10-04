@@ -8,6 +8,7 @@
 #include "cspa.h"
 #include <iostream>
 #include <cmath>
+#include <vector>
 
 #include <SDL/SDL.h>
 
@@ -50,7 +51,7 @@ Vehiculo::~Vehiculo(){
 }
 
 
-void Vehiculo::actualizar() {
+void Vehiculo::actualizar(std::vector<Objeto*>&objetos) {
   double reloj_escala = Compositor::obReloj()->escala();
   float giro = tipo->obDefGiro();
   accel = 0;
@@ -105,12 +106,16 @@ void Vehiculo::actualizar() {
   si(vel > tipo->obMaxVel()) vel = tipo->obMaxVel();
 
 
-  
-  actualizarPosicion();
-
-  //std::cout << "Vehiculo angulo:" << angulo << "\tvel: " << vel << std::endl;
-  //std::cerr << "escenario x: " << escenario_x << " escenario_y:" << escenario_y << std::endl;
-  //reinicia estado de movimiento
+  //antes de mover verifica colisiocn
+  int tx=0, ty=0;
+  calcularPosicion(tx, ty);
+  int nx = obX() + tx;
+  int ny = obY() + ty;
+  si(Compositor::obColision()->entreObjetos(this, nx, ny, objetos)) {
+    choqueP = true;
+  }aunque{
+    actualizarPosicion();
+  }
 
   choqueP = acelerarP = retrocederP = izquierdaP = derechaP = false;
   regularALimites();
@@ -164,20 +169,19 @@ void Vehiculo::choqueRetroceder() {
   }
   si(enReversa)
     vel *= -1;
-
   actualizarPosicion();
+ 
   choqueP = true;
 }
 
 void Vehiculo::actualizarPosicion() {
   int ix, iy;
-  ix = vel * cos(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
-  iy = vel * -sin(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
+  calcularPosicion(ix, iy);
   escenario_x += ix;
   escenario_y += iy;
-  
-  cada(std::vector<Circular>::iterator it = colision_circular.begin(); it != colision_circular.end(); ++it)
-  {
-    (*it).x += ix; (*it).y += iy;
-  }
+}
+
+void Vehiculo::calcularPosicion(int &x, int &y) {
+  x = vel * cos(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
+  y = vel * -sin(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
 }

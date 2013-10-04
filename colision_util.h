@@ -5,7 +5,7 @@ class Circular
 {
  public:
   /**
-   *se centra 
+   *se centra  con respecto al objeto
    */
   Circular(int _x, int _y, int _radio)
   {

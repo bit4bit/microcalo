@@ -91,8 +91,8 @@ void Objeto::dibujarDepurar() {
   cada(std::vector<Circular>::iterator it = colision_circular.begin(); it != colision_circular.end(); ++it) {
 
     Compositor::obVideo()->circle(Compositor::obVideo()->obSurface(),
-				  ((*it).x - Compositor::obCamara()->x),
-				  ((*it).y - Compositor::obCamara()->y), 
+				  ((obX() + (*it).x) - Compositor::obCamara()->x),
+				  ((obY()+ (*it).y) - Compositor::obCamara()->y), 
 				  (*it).radio, 9999);
   }
 }

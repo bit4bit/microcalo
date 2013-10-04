@@ -43,7 +43,7 @@ EscenarioCarrera::EscenarioCarrera(const char *archivo_tmx) : Escenario(ID_ESCEN
 	//	std::cout << "Id propiedad:" << tile->GetId() << std::endl;
 	//std::cout << "Tipo:" << tile->GetProperties().GetLiteralProperty("tipo") << std:: endl;
 	Objeto *objt = Objeto::desdeImagen(DATA_DIR "/puntopaso.png",3, x * tmxRender->obMap()->GetTileWidth(), y * tmxRender->obMap()->GetTileHeight());
-	objt->asignarColisionCircular(objt->obXCentro(), objt->obYCentro(), objt->obAncho()/2);
+	objt->asignarColisionCircular(objt->obAncho()/2, objt->obAncho()/2, objt->obAncho()/2);
 	objetos.push_back(objt);
       }
     }
@@ -57,8 +57,9 @@ EscenarioCarrera::EscenarioCarrera(const char *archivo_tmx) : Escenario(ID_ESCEN
   Vehiculo *vehiculo = NULL;
   
   vehiculo = new Vehiculo(2, Compositor::obGestorVehiculoTipo()->encontrar(std::string("rapido")));
-  vehiculo->asignarColisionCircular(vehiculo->obXCentro(), vehiculo->obYCentro(), vehiculo->obAncho()/2);
+  vehiculo->asignarColisionCircular(vehiculo->obAncho()/2, vehiculo->obAncho()/2, vehiculo->obAncho()/2);
   vehiculo->depurar = true;
+  vehiculo->asignarLimites(tmxRender->obAncho(), tmxRender->obAlto());
   Jugador *jg1 = new Jugador("jugador 1", new ControlTeclado(SDLK_w, SDLK_m, SDLK_a, SDLK_o), vehiculo);
   agregarJugador(jg1);
 
@@ -74,7 +75,7 @@ EscenarioCarrera::EscenarioCarrera(const char *archivo_tmx) : Escenario(ID_ESCEN
   Compositor::obCamara()->alto = Compositor::obVideo()->obAlto();
   Compositor::obCamara()->asignarLimites(tmxRender->obAncho(), tmxRender->obAlto());
   Objeto *obj = Objeto::desdeImagen(DATA_DIR "/obj1.png",3, 700, 700);
-  obj->asignarColisionCircular(obj->obXCentro(), obj->obYCentro(), obj->obAncho()/2);
+  obj->asignarColisionCircular(obj->obAncho()/2, obj->obAncho()/2, obj->obAncho()/2);
   obj->depurar = true;
   objetos.push_back(obj);
 
@@ -126,7 +127,7 @@ void EscenarioCarrera::actualizar() {
 
 
   for(std::vector<Jugador*>::iterator it = jugadores.begin(); it != jugadores.end(); ++it) {
-    (*it)->actualizar();
+    (*it)->actualizar(objetos);
     //cuando toca limites de pantalla o camara
     if(Compositor::obColision()->limitePantalla((*it)->obVehiculo()))
       std::cout << "colision con limite de pantalla:" << (*it)->nombre << std::endl;
@@ -158,9 +159,9 @@ void EscenarioCarrera::actualizar() {
     //@todo esto es demasiado lento
     //ya que hay objetos que son muro
     //y por la cantidad jala mucho
-    if(Compositor::obColision()->entreObjetosCircular(vehiculo, objetos)) {
-      vehiculo->choqueRetroceder();
-    }    
+    //if(Compositor::obColision()->entreObjetosCircular(vehiculo, objetos)) {
+    //  vehiculo->choqueRetroceder();
+    //}
   }
 
 

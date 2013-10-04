@@ -5,6 +5,8 @@
 #include "objeto.h"
 #include "vehiculo_tipo.h"
 #include <iostream>
+#include <vector>
+
 /**
  *El vehiculo para el jugador
  *hay diferentes tipos de vehiculos:
@@ -20,7 +22,7 @@ class Vehiculo : public Objeto
   Vehiculo(Uint32 id, VehiculoTipo *);
   Vehiculo(Uint32 id, VehiculoTipo *, Uint32, Uint32, Uint32);
   virtual ~Vehiculo();
-  virtual void actualizar();
+  virtual void actualizar(std::vector<Objeto*>&);
   virtual void dibujar();
 
   float obVel() { return vel; }
@@ -30,6 +32,7 @@ class Vehiculo : public Objeto
   Sint32 obYCentro() { return escenario_y + obAlto()/2;}
   Uint32 obAncho() { ancho = tipo->obAncho(); return ancho;}
   Uint32 obAlto() { alto = tipo->obAlto(); return alto;}
+
 
   //@todo separa entrada .. debe ser mas abstracto
   //llamar antes de actualizar
@@ -52,5 +55,6 @@ class Vehiculo : public Objeto
   
  private:
   void actualizarPosicion();
+  void calcularPosicion(int &x, int &y);
 };
 #endif

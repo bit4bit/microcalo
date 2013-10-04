@@ -23,6 +23,7 @@ class Colision
   
   bool entreObjetos(Objeto *obja, Objeto *objb);
   bool entreObjetos(Objeto *obja, std::vector<Objeto*>& objs);
+  bool entreObjetos(Objeto *obja, int nx, int ny, std::vector<Objeto*>& objs);
   bool entreObjetosPorMapa(Objeto *obja, Objeto *objb);
   bool entreObjetosCircular(Objeto *obja, Objeto *objb);
   bool entreObjetosCircular(Objeto *obja, std::vector<Objeto*>& objs);
