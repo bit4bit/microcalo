@@ -30,3 +30,12 @@ al pelo.pero los otros dos lados nada??
 Hablando con mi amigo martin, surgio la idea de hacer un video juego
 con carros de bomberos apagando incendios, que se pueda jugar
 para muchas personas.
+
+
+2 OCTUBRE 2013
+Le he estado trabajando, he decido utilzar tiled(tmx) para mapas y objetos, esto facilita
+del todo la creacion de los escenarios.
+Ya hay soporte para tmx, pero la colision con Objetos entre Objetos es muy cara, ya que los
+muros tambien son objetos y un escenario demasiado grande son demasiados objetos por verificar.
+He mirado en Flare-engine como hace la colision de los mapas, y este lo hace muy sencillo atraves
+de multiple arreglo x 2 de enteros.

@@ -3,14 +3,12 @@
  */
 
 #include <iostream>
-#include <libguile.h>
 #include "cspa.h"
 #include "compositor.h"
 #include "escenario.h"
 #include "escenario_intro.h"
 #include "escenario_carrera.h"
 #include "vehiculo.h"
-#include "script.h"
 #include "tmx_render.h"
 
 #define DEFAULT_SCRIPT "data/default.scm"
@@ -19,7 +17,6 @@ int main(int argc, char **argv)
 {
   SDL_Event ev;
   bool salir = false;
-  scm_with_guile(iniciar_script, (void*)DEFAULT_SCRIPT);
 
   Video* video = Compositor::obVideo(); //se inicializa vide
   Compositor::obMando();

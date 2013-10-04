@@ -1,3 +1,9 @@
 [submodule "vendor/tinyxml-git"]
 	path = vendor/tinyxml-git
 	url = git://git.code.sf.net/p/tinyxml/git
+[submodule "vendor/mrubybind"]
+	path = vendor/mrubybind
+	url = https://github.com/ktaobo/mrubybind.git
+[submodule "vendor/mruby"]
+	path = vendor/mruby
+	url = https://github.com/mruby/mruby.git

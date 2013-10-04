@@ -6,7 +6,6 @@
 #include <list>
 #include <vector>
 #include <queue>
-#include <libguile.h>
 #include "escenario.h"
 
 class EscenarioIntroComando
