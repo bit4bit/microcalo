@@ -56,6 +56,7 @@ class Video
     sge_Circle(s, x, y, r, color);
   }
   
+  const int BPP; //BIT X PIXEL
 };
 
 #endif

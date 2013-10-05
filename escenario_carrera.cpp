@@ -28,6 +28,9 @@ EscenarioCarrera::EscenarioCarrera(const char *archivo_tmx) : Escenario(ID_ESCEN
   tmxRender = new TmxRender();
   tmxRender->CargarDesdeArchivo(archivo_tmx);
 
+  //se crea mapa de colision con bloques para facilitar
+  //la colision en el escenario
+  int bloques_mapa[255][255];
   for(int i=0; i < tmxRender->obMap()->GetNumLayers(); i++) {
     const Tmx::Layer *layer = tmxRender->obMap()->GetLayer(i);
     if(layer->GetName() != "colision") continue;
@@ -39,24 +42,18 @@ EscenarioCarrera::EscenarioCarrera(const char *archivo_tmx) : Escenario(ID_ESCEN
 	if(!tileset) continue;
 	const Tmx::Tile* tile = tileset->GetTile(CurTile);
 	if(!tile) continue;
-	//	std::cout << "x:" << x << " y:" << y << std::endl;
-	//	std::cout << "Id propiedad:" << tile->GetId() << std::endl;
-	//std::cout << "Tipo:" << tile->GetProperties().GetLiteralProperty("tipo") << std:: endl;
-	Objeto *objt = Objeto::desdeImagen(DATA_DIR "/puntopaso.png",3, x * tmxRender->obMap()->GetTileWidth(), y * tmxRender->obMap()->GetTileHeight());
-	objt->asignarColisionCircular(objt->obAncho()/2, objt->obAncho()/2, objt->obAncho()/2);
-	objetos.push_back(objt);
+	if(tile->GetProperties().GetLiteralProperty("tipo") == "obstaculo")
+	  bloques_mapa[x][y] = 1;
       }
     }
     break;
   }
-  //fondo = Objeto::desdeImagen(DATA_DIR "/map1.png", 9999, 0, 0);
-  //@todo si no llamo esto antes de asignar limites
-  //el alto queda en 0..porque???????
-  //fondo->obAncho(); fondo->obAlto();
+  Compositor::obColision()->asignarBloqueMapa(bloques_mapa, tmxRender->obColumnas(), tmxRender->obFilas());
+
 
   Vehiculo *vehiculo = NULL;
   
-  vehiculo = new Vehiculo(2, Compositor::obGestorVehiculoTipo()->encontrar(std::string("rapido")));
+  vehiculo = new Vehiculo(2, Compositor::obGestorVehiculoTipo()->encontrar(std::string("rapido")), 330, 300, 0);
   vehiculo->asignarColisionCircular(vehiculo->obAncho()/2, vehiculo->obAncho()/2, vehiculo->obAncho()/2);
   vehiculo->depurar = true;
   vehiculo->asignarLimites(tmxRender->obAncho(), tmxRender->obAlto());
@@ -74,11 +71,11 @@ EscenarioCarrera::EscenarioCarrera(const char *archivo_tmx) : Escenario(ID_ESCEN
   Compositor::obCamara()->ancho = Compositor::obVideo()->obAncho(); //@todo debe ser de la pantalla
   Compositor::obCamara()->alto = Compositor::obVideo()->obAlto();
   Compositor::obCamara()->asignarLimites(tmxRender->obAncho(), tmxRender->obAlto());
-  Objeto *obj = Objeto::desdeImagen(DATA_DIR "/obj1.png",3, 700, 700);
+  /* Objeto *obj = Objeto::desdeImagen(DATA_DIR "/obj1.png",3, 700, 700);
   obj->asignarColisionCircular(obj->obAncho()/2, obj->obAncho()/2, obj->obAncho()/2);
   obj->depurar = true;
   objetos.push_back(obj);
-
+  */
   puntos_de_paso.anidarPuntoPaso(1280, 200, 200, 50);
   /*puntos_de_paso.anidarPuntoPaso(1240, 200, 200, 50);
   puntos_de_paso.anidarPuntoPaso(1700, 400, 200, 50);
@@ -193,9 +190,12 @@ void EscenarioCarrera::actualizar() {
 void EscenarioCarrera::dibujar() {
   SDL_Rect sr;
   sr = Compositor::obCamara()->obRect();
+
   //Compositor::obVideo()->blit(fondo, &sr, NULL);
   // tmxRender->blit("fondo", &sr, Compositor::obVideo()->obSurface(), NULL);
-  tmxRender->blit("colision", &sr, Compositor::obVideo()->obSurface(), NULL);
+  tmxRender->blit("fondo", &sr, Compositor::obVideo()->obSurface(), NULL, SDL_ALPHA_OPAQUE);
+  tmxRender->blit("objetos", &sr, Compositor::obVideo()->obSurface(), NULL, SDL_ALPHA_OPAQUE);
+
   for(std::vector<Objeto*>::iterator it = objetos.begin(); it != objetos.end(); ++it){
     (*it)->dibujar();
   }
@@ -203,6 +203,8 @@ void EscenarioCarrera::dibujar() {
   for(std::vector<Jugador*>::iterator it = jugadores.begin(); it != jugadores.end(); ++it) {
     (*it)->dibujar();
   }
+
+  tmxRender->blit("techo", &sr, Compositor::obVideo()->obSurface(), NULL, 125);
 
 }
 

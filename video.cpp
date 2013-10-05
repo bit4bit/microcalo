@@ -5,7 +5,9 @@
 
 Video* Video::_self = 0;
 
-Video::Video() {
+
+Video::Video(): BPP(32) {
+
   if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0) {
     std::cerr << "Fallo iniciar SDL:" << SDL_GetError() << std::endl;
     exit(EXIT_FAILURE);
@@ -15,11 +17,13 @@ Video::Video() {
   ancho = 640;
   alto = 480;
   atexit(SDL_Quit); //@todo terminar todo el programa
-  s_pantalla = SDL_SetVideoMode(ancho, alto, 16, SDL_DOUBLEBUF|SDL_HWSURFACE); //@todo ??como se libera al destr objeto
+  s_pantalla = SDL_SetVideoMode(ancho, alto, BPP, SDL_DOUBLEBUF|SDL_HWSURFACE); //@todo ??como se libera al destr objeto
   if(s_pantalla == NULL) {
     std::cerr << "Fallo asignar video: " << SDL_GetError() << std::endl;
     exit(EXIT_FAILURE);
   }
+
+  SDL_WM_SetCaption("Microcalo 2013",NULL);
 }
 
 Video* Video::instancia() {
@@ -56,10 +60,10 @@ SDL_Surface* Video::createSurface(Uint32 w, Uint32 h) {
     rmask = 0x000000ff;
     gmask = 0x0000ff00;
     bmask = 0x00ff0000;
-    amask = 0xff000000;
+    amask = 0x00000000;
 #endif
 
-    surface = SDL_CreateRGBSurface(SDL_HWSURFACE, w, h, 32,
+    surface = SDL_CreateRGBSurface(SDL_HWSURFACE|SDL_DOUBLEBUF|SDL_SRCALPHA, w, h, BPP,
                                    rmask, gmask, bmask, amask);
     if(surface == NULL) {
       return NULL;

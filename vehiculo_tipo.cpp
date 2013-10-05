@@ -21,7 +21,7 @@ VehiculoTipo::VehiculoTipo()
  
 void VehiculoTipo::asignarSVehiculoDesdeArchivo(std::string ruta) 
 {
-  s_vehiculo = Compositor::obRecurso()->cargarImagen(ruta.c_str());
+  s_vehiculo = Compositor::obRecurso()->cargarImagen(ruta.c_str(), true);
 }
 
 static VehiculoTipo* vehiculo_tipo_new(std::string nombre)

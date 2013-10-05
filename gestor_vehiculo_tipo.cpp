@@ -1,6 +1,6 @@
 #include "gestor_vehiculo_tipo.h"
 #include "compositor.h"
-
+#include <mruby.h>
 GestorVehiculoTipo* GestorVehiculoTipo::_self = 0;
 
 GestorVehiculoTipo* GestorVehiculoTipo::instancia() {
@@ -20,8 +20,11 @@ GestorVehiculoTipo::GestorVehiculoTipo() {
 
 GestorVehiculoTipo::~GestorVehiculoTipo() {
   for(iter_vehiculos = vehiculos.begin(); iter_vehiculos != vehiculos.end(); iter_vehiculos++){
-    if(iter_vehiculos->second)
-      delete iter_vehiculos->second;
+    if(iter_vehiculos->second){
+      //@todo COMO LIMPIAR LOS OBJETOS COMPARTIDOS CON MRUBY
+      //MRBUBY lo elimina??
+      //delete iter_vehiculos->second;
+    }
   }
 }
 

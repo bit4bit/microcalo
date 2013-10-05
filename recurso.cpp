@@ -20,14 +20,18 @@ Recurso* Recurso::instancia() {
   retorna _self;
 }
 
-SDL_Surface* Recurso::cargarImagen(const char *ruta) {
+SDL_Surface* Recurso::cargarImagen(const char *ruta, bool has_alpha) {
   SDL_Surface *tmp, *ret;
   tmp = IMG_Load(ruta);
   si(tmp == NULL) {
     std::cerr << "Fallo cargar imagen: " << ruta << std::endl;
     retorna NULL;
   }
-  ret = SDL_DisplayFormatAlpha(tmp);
+  if(!has_alpha)
+    ret = SDL_DisplayFormat(tmp);
+  else
+    ret = SDL_DisplayFormatAlpha(tmp);
+
   SDL_FreeSurface(tmp);
   retorna ret;
 }

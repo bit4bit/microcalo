@@ -18,8 +18,11 @@
 
 
 Vehiculo::Vehiculo(Uint32 id, VehiculoTipo *_tipo): Objeto(id){
-  //@todo se debe inicializar un tipo de vehiculo
+
   tipo = _tipo;
+  if(!tipo) {
+    Compositor::obGestorVehiculoTipo()->encontrar("generico");
+  }
   s_objeto = tipo->obSVehiculo();
   ancho = tipo->obAncho();
   alto = tipo->obAlto();
@@ -30,9 +33,13 @@ Vehiculo::Vehiculo(Uint32 id, VehiculoTipo *_tipo): Objeto(id){
   escenario_x = escenario_y = 100;
   pantalla_x = pantalla_y = 0;
 }
+
 Vehiculo::Vehiculo(Uint32 id, VehiculoTipo *_tipo, Uint32 x, Uint32 y, Uint32 _angulo): Objeto(id){
-  //@todo se debe inicializar un tipo de vehiculo
+  
   tipo = _tipo;
+  if(!tipo) {
+    Compositor::obGestorVehiculoTipo()->encontrar("generico");
+  }
   s_objeto = tipo->obSVehiculo();
   ancho = tipo->obAncho();
   alto = tipo->obAlto();
@@ -84,8 +91,6 @@ void Vehiculo::actualizar(std::vector<Objeto*>&objetos) {
     }
 
 
-  //std::cerr << "accel:" << accel << " vel:" << vel << std::endl;
-
   si(vel != 0) 
     {
       si(izquierdaP)
@@ -112,9 +117,17 @@ void Vehiculo::actualizar(std::vector<Objeto*>&objetos) {
   int nx = obX() + tx;
   int ny = obY() + ty;
   si(Compositor::obColision()->entreObjetos(this, nx, ny, objetos)) {
-    choqueP = true;
+    choqueRetroceder();
   }aunque{
-    actualizarPosicion();
+    calcularPosicionFuturo(tx, ty, vel, angulo);
+    nx = obXCentro() + tx;
+    ny = obYCentro() + ty;
+    if(Compositor::obColision()->conBloque(this, nx, ny)) {
+      std::cout << "Con bloque escenario" << std::endl;
+      choqueRetroceder();
+    }else{
+      actualizarPosicion();
+    }
   }
 
   choqueP = acelerarP = retrocederP = izquierdaP = derechaP = false;
@@ -140,7 +153,10 @@ void Vehiculo::dibujar() {
   //dr.y = pantalla_y - tipo->alto/2; //se centra
 
   dr.w = tipo->obAncho(); dr.w = tipo->obAlto();
-  tmp = rotozoomSurface(s_objeto, angulo, 1, 0);
+  SDL_Surface *tmp2 = rotozoomSurface(s_objeto, angulo, 1, 0);
+  tmp = SDL_DisplayFormatAlpha(tmp2);
+  SDL_FreeSurface(tmp2);
+
   dr.x = pantalla_x - ((tmp->w/2) - (s_objeto->w/2));
   dr.y = pantalla_y - ((tmp->h/2) - (s_objeto->h/2));
   Compositor::obVideo()->blit(tmp, NULL, &dr);
@@ -161,16 +177,10 @@ void Vehiculo::choqueRetroceder() {
     enReversa = true;
   si(!choqueP)
   {
-    vel = abs(vel) * -1;
+    vel = abs(vel) * -0.3;
   }
-  pero
-  {
-    // vel = abs(vel) - (tipo->def_accel * 0.9 * reloj_escala);
-  }
-  si(enReversa)
-    vel *= -1;
+
   actualizarPosicion();
- 
   choqueP = true;
 }
 
@@ -184,4 +194,10 @@ void Vehiculo::actualizarPosicion() {
 void Vehiculo::calcularPosicion(int &x, int &y) {
   x = vel * cos(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
   y = vel * -sin(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
+}
+
+void Vehiculo::calcularPosicionFuturo(int &x, int &y, float& vel, float& angulo)
+{
+ x = vel * cos(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
+ y = vel * -sin(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
 }

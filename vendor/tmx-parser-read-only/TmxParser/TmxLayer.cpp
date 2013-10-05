@@ -221,6 +221,7 @@ namespace Tmx
 			{
 				unsigned gid = out[y * width + x];
 
+
 				// Find the tileset index.
 				const int tilesetIndex = map->FindTilesetIndex(gid);
 				if (tilesetIndex != -1)

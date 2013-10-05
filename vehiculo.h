@@ -56,5 +56,6 @@ class Vehiculo : public Objeto
  private:
   void actualizarPosicion();
   void calcularPosicion(int &x, int &y);
+  inline void calcularPosicionFuturo(int &x, int &y, float& vel, float& angulo);
 };
 #endif

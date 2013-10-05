@@ -39,3 +39,10 @@ Ya hay soporte para tmx, pero la colision con Objetos entre Objetos es muy cara,
 muros tambien son objetos y un escenario demasiado grande son demasiados objetos por verificar.
 He mirado en Flare-engine como hace la colision de los mapas, y este lo hace muy sencillo atraves
 de multiple arreglo x 2 de enteros.
+
+
+4 OCTUBRE 2013
+http://gamedev.stackexchange.com/questions/32253/sdl-parallax-scrolling-along-two-axis
+huu mero efecto dandole alpha al fondo
+ejemplo carro:
+http://www.freeactionscript.com/2010/06/as3-car-movement-acceleration-turning-braking/
