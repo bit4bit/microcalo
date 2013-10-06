@@ -54,7 +54,7 @@ EscenarioCarrera::EscenarioCarrera(const char *archivo_tmx) : Escenario(ID_ESCEN
   Vehiculo *vehiculo = NULL;
   
   vehiculo = new Vehiculo(2, Compositor::obGestorVehiculoTipo()->encontrar(std::string("rapido")), 330, 300, 0);
-  vehiculo->asignarColisionCircular(vehiculo->obAncho()/2, vehiculo->obAncho()/2, vehiculo->obAncho()/2);
+  vehiculo->asignarColisionCircular(0, 0, vehiculo->obAncho()/2);
   vehiculo->depurar = true;
   vehiculo->asignarLimites(tmxRender->obAncho(), tmxRender->obAlto());
   Jugador *jg1 = new Jugador("jugador 1", new ControlTeclado(SDLK_w, SDLK_m, SDLK_a, SDLK_o), vehiculo);
@@ -193,8 +193,8 @@ void EscenarioCarrera::dibujar() {
 
   //Compositor::obVideo()->blit(fondo, &sr, NULL);
   // tmxRender->blit("fondo", &sr, Compositor::obVideo()->obSurface(), NULL);
-  tmxRender->blit("fondo", &sr, Compositor::obVideo()->obSurface(), NULL, SDL_ALPHA_OPAQUE);
-  tmxRender->blit("objetos", &sr, Compositor::obVideo()->obSurface(), NULL, SDL_ALPHA_OPAQUE);
+  tmxRender->blit("fondo", &sr, Compositor::obVideo()->obSurface(), NULL);
+  tmxRender->blit("objetos", &sr, Compositor::obVideo()->obSurface(), NULL);
 
   for(std::vector<Objeto*>::iterator it = objetos.begin(); it != objetos.end(); ++it){
     (*it)->dibujar();
@@ -204,7 +204,7 @@ void EscenarioCarrera::dibujar() {
     (*it)->dibujar();
   }
 
-  tmxRender->blit("techo", &sr, Compositor::obVideo()->obSurface(), NULL, 125);
+  tmxRender->blit("techo", &sr, Compositor::obVideo()->obSurface(), NULL);
 
 }
 

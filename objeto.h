@@ -26,8 +26,8 @@ class Objeto : public Cosa
 
   Sint32 obX() { return escenario_x; }
   Sint32 obY() { return escenario_y; }
-  Sint32 obXCentro() { return escenario_x + ancho/2;}
-  Sint32 obYCentro() { return escenario_y + alto/2;}
+  float obXCentro() { return escenario_x + ancho/2;}
+  float obYCentro() { return escenario_y + alto/2;}
   Sint32 obXPantalla();
   Sint32 obYPantalla();
   Uint32 obAncho() { return ancho; }
@@ -55,8 +55,8 @@ class Objeto : public Cosa
   Uint32 ancho;
   Uint32 alto;
 
-  Sint32 escenario_x; //ezquina arriba izquerda
-  Sint32 escenario_y; //ezquina arriba izquierda
+  float escenario_x; //ezquina arriba izquerda
+  float escenario_y; //ezquina arriba izquierda
   Sint32 pantalla_x;
   Sint32 pantalla_y;
   Sint32 dpantalla_x; //desplaza spot para dibujado

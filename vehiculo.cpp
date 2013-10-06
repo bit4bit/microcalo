@@ -10,6 +10,7 @@
 #include <cmath>
 #include <vector>
 
+#include <vmath.h>
 #include <SDL/SDL.h>
 
 #include "compositor.h"
@@ -32,6 +33,7 @@ Vehiculo::Vehiculo(Uint32 id, VehiculoTipo *_tipo): Objeto(id){
   choqueP = false;
   escenario_x = escenario_y = 100;
   pantalla_x = pantalla_y = 0;
+  
 }
 
 Vehiculo::Vehiculo(Uint32 id, VehiculoTipo *_tipo, Uint32 x, Uint32 y, Uint32 _angulo): Objeto(id){
@@ -52,87 +54,85 @@ Vehiculo::Vehiculo(Uint32 id, VehiculoTipo *_tipo, Uint32 x, Uint32 y, Uint32 _a
   escenario_x = x;
   escenario_y = y;
   pantalla_x = pantalla_y = 0;
+
+  //
+  carLocation.x = escenario_x;
+  carLocation.y = escenario_y;
+  carSpeed = 0;
+  carHeading = 0;
+  carDriftHeading = 0;
 }
 
 Vehiculo::~Vehiculo(){
 }
 
+void Vehiculo::actualizar(std::vector<Objeto*>& objetos) {
+  
+  //basado en: http://engineeringdotnet.blogspot.com/2010/04/simple-2d-car-physics-in-games.html
+  float steerAngle = 0;
+  float wheelBase = 2;
 
-void Vehiculo::actualizar(std::vector<Objeto*>&objetos) {
   double reloj_escala = Compositor::obReloj()->escala();
   float giro = tipo->obDefGiro();
-  accel = 0;
-
-  si(choqueP)
-  {
-    //se permite dar reversa cuando colisione
-    si(!retrocederP)
-    {
-      choqueP = acelerarP = retrocederP = izquierdaP = derechaP = false;
-      return;
-    }
-
+  float accel = 0;
+  
+  si(acelerarP) {
+    carSpeed += tipo->obDefAccel();;
+    si(carSpeed > tipo->obMaxVel()) carSpeed = tipo->obMaxVel();
+  }aunque si(retrocederP) {
+    carSpeed += tipo->obDefRetro();
+    si(carSpeed < tipo->obMinVel()) carSpeed = tipo->obMinVel();
   }
-
-  si(acelerarP == true)
-    accel = tipo->obDefAccel();
- 
-
-  si(accel) 
-    {
-      vel += accel * reloj_escala;
-    }
-  //desacelera si no esta acelerando
   aunque si(!retrocederP && choqueP == false )
-    {
-      vel -= tipo->obDefAccel() * reloj_escala;
-      //giro = tipo->def_giro_frenando;
-      si(vel < 0) vel = 0;
-    }
-
-
-  si(vel != 0) 
-    {
-      si(izquierdaP)
-	angulo += giro  * reloj_escala;
-      si(derechaP)
-	angulo -= giro * reloj_escala;
-      si(angulo < 0) angulo += 360;
-      si(angulo >= 360) angulo -= 360;
-    }
-
-  //frena.. como retroceder??
-  //si(retrocederP)
-  //vel *= 0.9;
-  si(retrocederP)
   {
-    vel = -abs(tipo->obDefRetro());
+    carSpeed -= tipo->obDefAccel() * reloj_escala;
+    si(carSpeed < 0) carSpeed = 0;
   }
-  si(vel > tipo->obMaxVel()) vel = tipo->obMaxVel();
+
+  si(izquierdaP)
+    steerAngle = -giro * M_PI/180;
+  si(derechaP)
+    steerAngle = giro * M_PI/180;
 
 
-  //antes de mover verifica colisiocn
-  int tx=0, ty=0;
-  calcularPosicion(tx, ty);
-  int nx = obX() + tx;
-  int ny = obY() + ty;
-  si(Compositor::obColision()->entreObjetos(this, nx, ny, objetos)) {
+  Vector2f tcarLocation = carLocation;
+  Vector2f vt =  Vector2f(cos(carHeading), sin(carHeading));
+  Vector2f vtt =  Vector2f(cos(carHeading+steerAngle), sin(carHeading+steerAngle));
+  Vector2f frontWheel = tcarLocation + vt * (wheelBase/2);
+  frontWheel += vtt * carSpeed * reloj_escala;
+  Vector2f backWheel = tcarLocation - vt * (wheelBase/2);
+  backWheel +=  vt * carSpeed * reloj_escala ;
+
+  tcarLocation = (frontWheel + backWheel) / 2;
+  carHeading = atan2(frontWheel.y - backWheel.y, frontWheel.x - backWheel.x);
+  carDriftHeading = carHeading + (steerAngle * (carSpeed/tipo->obMaxVel())) * 15;
+
+  si(Compositor::obColision()->entreObjetos(this, tcarLocation.x, tcarLocation.y, objetos)) {
     choqueRetroceder();
   }aunque{
-    calcularPosicionFuturo(tx, ty, vel, angulo);
-    nx = obXCentro() + tx;
-    ny = obYCentro() + ty;
-    if(Compositor::obColision()->conBloque(this, nx, ny)) {
-      std::cout << "Con bloque escenario" << std::endl;
-      choqueRetroceder();
+    
+    if(Compositor::obColision()->conBloque(this, tcarLocation.x, tcarLocation.y)) {
+      if(!retrocederP)
+	choqueRetroceder();
     }else{
-      actualizarPosicion();
+      carLocation = tcarLocation;
+      escenario_x = carLocation.x;
+      escenario_y = carLocation.y;
     }
+
   }
+
+  if(carHeading > M_PI/4 && carHeading < M_PI/4) {
+    angulo = -carHeading * 180/M_PI;
+  }else{
+    angulo = -carDriftHeading * 180/M_PI;
+  }
+
 
   choqueP = acelerarP = retrocederP = izquierdaP = derechaP = false;
   regularALimites();
 }
+
 
 
 
@@ -142,26 +142,20 @@ void Vehiculo::dibujar() {
   pantalla_x = escenario_x - Compositor::obCamara()->x;
   pantalla_y = escenario_y - Compositor::obCamara()->y;
   
+  //int nangulo = angulo;
   int nangulo = angulo;
   si(nangulo < 0)  angulo = 360;
   
-  //antiguo metodo de renderizado
-  //sr.x = tipo->ancho * (nangulo / 4);
-  //sr.y = 0;
-  //sr.w = tipo->ancho; sr.h = tipo->alto;
-  //dr.x = pantalla_x - tipo->ancho/2; //se centra
-  //dr.y = pantalla_y - tipo->alto/2; //se centra
 
   dr.w = tipo->obAncho(); dr.w = tipo->obAlto();
-  SDL_Surface *tmp2 = rotozoomSurface(s_objeto, angulo, 1, 0);
+  SDL_Surface *tmp2 = rotozoomSurface(s_objeto, nangulo, 1, 0);
   tmp = SDL_DisplayFormatAlpha(tmp2);
   SDL_FreeSurface(tmp2);
 
-  dr.x = pantalla_x - ((tmp->w/2) - (s_objeto->w/2));
-  dr.y = pantalla_y - ((tmp->h/2) - (s_objeto->h/2));
+  dr.x = pantalla_x - tmp->w/2;
+  dr.y = pantalla_y - tmp->h/2;
   Compositor::obVideo()->blit(tmp, NULL, &dr);
   SDL_FreeSurface(tmp);
-  //Compositor::obVideo()->blit(s_objeto, &sr, &dr);
   dibujarDepurar();
 }
 
@@ -173,31 +167,13 @@ void Vehiculo::choque() {
 void Vehiculo::choqueRetroceder() {
   double reloj_escala = Compositor::obReloj()->escala();
   bool enReversa = false;
-  si(vel < 0)
+  si(carSpeed < 0)
     enReversa = true;
   si(!choqueP)
   {
-    vel = abs(vel) * -0.3;
+    carSpeed = abs(carSpeed) * -0.7;
   }
 
-  actualizarPosicion();
   choqueP = true;
 }
 
-void Vehiculo::actualizarPosicion() {
-  int ix, iy;
-  calcularPosicion(ix, iy);
-  escenario_x += ix;
-  escenario_y += iy;
-}
-
-void Vehiculo::calcularPosicion(int &x, int &y) {
-  x = vel * cos(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
-  y = vel * -sin(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
-}
-
-void Vehiculo::calcularPosicionFuturo(int &x, int &y, float& vel, float& angulo)
-{
- x = vel * cos(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
- y = vel * -sin(angulo * M_PI/180.0) * Compositor::obReloj()->escala();
-}

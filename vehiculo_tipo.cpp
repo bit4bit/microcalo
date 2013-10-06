@@ -50,14 +50,14 @@ void VehiculoTipo::bindingScript(mrb_state *mrb)
   b.bind_instance_method("VehiculoTipo", "min_vel", &VehiculoTipo::obMinVel);
   b.bind_instance_method("VehiculoTipo", "min_vel=", &VehiculoTipo::asignarMinVel);
 
-  b.bind_instance_method("VehiculoTipo", "def_accel", &VehiculoTipo::obDefAccel);
-  b.bind_instance_method("VehiculoTipo", "def_accel=", &VehiculoTipo::asignarDefAccel);
+  b.bind_instance_method("VehiculoTipo", "accel", &VehiculoTipo::obDefAccel);
+  b.bind_instance_method("VehiculoTipo", "accel=", &VehiculoTipo::asignarDefAccel);
 
-  b.bind_instance_method("VehiculoTipo", "def_retro", &VehiculoTipo::obDefRetro);
-  b.bind_instance_method("VehiculoTipo", "def_retro=", &VehiculoTipo::asignarDefRetro);
+  b.bind_instance_method("VehiculoTipo", "retro", &VehiculoTipo::obDefRetro);
+  b.bind_instance_method("VehiculoTipo", "retro=", &VehiculoTipo::asignarDefRetro);
 
-  b.bind_instance_method("VehiculoTipo", "def_giro", &VehiculoTipo::obDefGiro);
-  b.bind_instance_method("VehiculoTipo", "def_giro=", &VehiculoTipo::asignarDefGiro);
+  b.bind_instance_method("VehiculoTipo", "giro", &VehiculoTipo::obDefGiro);
+  b.bind_instance_method("VehiculoTipo", "giro=", &VehiculoTipo::asignarDefGiro);
 
   b.bind_instance_method("VehiculoTipo", "imagen=", &VehiculoTipo::asignarSVehiculoDesdeArchivo);
 }

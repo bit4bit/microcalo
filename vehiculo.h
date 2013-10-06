@@ -6,6 +6,7 @@
 #include "vehiculo_tipo.h"
 #include <iostream>
 #include <vector>
+#include <vmath.h>
 
 /**
  *El vehiculo para el jugador
@@ -52,10 +53,12 @@ class Vehiculo : public Objeto
   float vel;
   float accel;
   float angulo;
-  
- private:
-  void actualizarPosicion();
-  void calcularPosicion(int &x, int &y);
-  inline void calcularPosicionFuturo(int &x, int &y, float& vel, float& angulo);
+
+
+  Vector2f carLocation;
+  float carSpeed;
+  float carHeading;
+  float carDriftHeading;
+
 };
 #endif

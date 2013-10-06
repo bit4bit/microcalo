@@ -25,18 +25,18 @@ class TmxRender
    *Imprime srect desde capa desde tmx a 
    *superficie *dst
    */
-  void blit(const char * capa, SDL_Rect *srect, SDL_Surface *dst, SDL_Rect *drect, int alpha);
+  void blit(const char * capa, SDL_Rect *srect, SDL_Surface *dst, SDL_Rect *drect = NULL, int alpha = -1);
 
 
  private:
   /**
    *Imprime cuadro a cuadro
    */
-  void blitTile(const char * capa, SDL_Rect *srect, SDL_Surface *dst, SDL_Rect *drect, int alpha);
+  void blitTile(const char * capa, SDL_Rect *srect, SDL_Surface *dst, SDL_Rect *drect = NULL, int alpha = -1);
   /**
    *cachea cuadro a imagen y renderiza
    */
-  void blitImage(const char * capa, SDL_Rect *srect, SDL_Surface *dst, SDL_Rect *drect, int alpha);
+  void blitImage(const char * capa, SDL_Rect *srect, SDL_Surface *dst, SDL_Rect *drect = NULL, int alpha = -1);
   std::map<int,SDL_Surface *> s_tileset;
 
   Tmx::Map *tmx;

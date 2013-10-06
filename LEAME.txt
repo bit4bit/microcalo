@@ -46,3 +46,8 @@ http://gamedev.stackexchange.com/questions/32253/sdl-parallax-scrolling-along-tw
 huu mero efecto dandole alpha al fondo
 ejemplo carro:
 http://www.freeactionscript.com/2010/06/as3-car-movement-acceleration-turning-braking/
+
+
+5 OCTUBRE 2013
+leyendo PyRacerz la colisicion de los carro lo hace tomando los cuatro esquians.
+!!COLISIONA CON LA MITAD DEL TILE!! tener presente para los bordes.

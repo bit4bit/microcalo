@@ -5,7 +5,11 @@
 puts "Creando tipos vehiculos"
 
 carro = VehiculoTipo.new("rapido")
-carro.max_vel = 20;
+carro.max_vel = 12;
+carro.min_vel = -5;
+carro.accel = 0.5;
+carro.retro = -0.1
+carro.giro = 1
 carro.imagen = "data/rapido.png"
 carro.ancho = 32
 carro.alto = 32
