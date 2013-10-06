@@ -72,8 +72,8 @@ namespace Tmx
 	}
 
 	void Tileset::Parse(const TiXmlNode *tilesetNode) 
-	{
-		const TiXmlElement *tilesetElem = tilesetNode->ToElement();
+	{		  
+	        const TiXmlElement *tilesetElem = tilesetNode->ToElement();
 
 		// Read all the attributes into local variables.
 		tilesetElem->Attribute("firstgid", &first_gid);

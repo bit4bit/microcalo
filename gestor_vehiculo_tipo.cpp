@@ -1,6 +1,9 @@
 #include "gestor_vehiculo_tipo.h"
 #include "compositor.h"
 #include <mruby.h>
+#include <mruby/compile.h>
+#include <mrubybind.h>
+
 GestorVehiculoTipo* GestorVehiculoTipo::_self = 0;
 
 GestorVehiculoTipo* GestorVehiculoTipo::instancia() {
@@ -9,6 +12,7 @@ GestorVehiculoTipo* GestorVehiculoTipo::instancia() {
 
   return _self;
 }
+
 
 void GestorVehiculoTipo::cerrar() {
   delete _self;

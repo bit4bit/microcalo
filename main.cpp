@@ -36,7 +36,7 @@ int main(int argc, char **argv)
   EscenarioIntro escenario_intro= EscenarioIntro();
   //Escenario *escenario = (Escenario*)&escenario_intro;
   //script_cargar_escenario_intro(&escenario_intro, "escenario-intro");
-  EscenarioCarrera escenarioC = EscenarioCarrera("data/mapa1.tmx");
+  EscenarioCarrera escenarioC = EscenarioCarrera("data/bosque.tmx");
   Escenario *escenario = (Escenario*)&escenarioC;
 
   Colision *colision = Compositor::obColision();

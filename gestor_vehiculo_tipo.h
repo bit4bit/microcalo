@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include "vehiculo_tipo.h"
+#include <mruby.h>
 
 class GestorVehiculoTipo
 {
@@ -22,6 +23,7 @@ class GestorVehiculoTipo
 
   VehiculoTipo* crear(std::string);
   VehiculoTipo* encontrar(std::string);
+  void agregar(VehiculoTipo*);
 };
 
 #endif

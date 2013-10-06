@@ -18,24 +18,29 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="49" name="objetos" tilewidth="32" tileheight="32">
-  <image source="objetos.png" width="128" height="32"/>
-  <tile id="0">
-   <properties>
-    <property name="tipo" value="obstaculo"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="tipo" value="obstaculo"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="tipo" value="jugador"/>
-   </properties>
-  </tile>
- </tileset>
+<tileset  firstgid="49" name="patron_juego" tilewidth="32" tileheight="32">
+ <image source="patron_juego.png" width="129" height="32"/>
+ <tile id="0">
+  <properties>
+   <property name="tipo" value="obstaculo"/>
+  </properties>
+ </tile>
+ <tile id="1">
+  <properties>
+   <property name="tipo" value="obstaculo"/>
+  </properties>
+ </tile>
+ <tile id="2">
+  <properties>
+   <property name="tipo" value="finaliza"/>
+  </properties>
+ </tile>
+ <tile id="3">
+  <properties>
+   <property name="tipo" value="inicio"/>
+  </properties>
+ </tile>
+</tileset>
  <tileset firstgid="53" name="items_by_reidyaro-d47dn3h_0_3_1" tilewidth="32" tileheight="32">
   <properties>
    <property name="alpha" value="disable"/>

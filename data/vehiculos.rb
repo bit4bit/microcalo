@@ -10,6 +10,6 @@ carro.min_vel = -5;
 carro.accel = 0.5;
 carro.retro = -0.1
 carro.giro = 1
-carro.imagen = "data/rapido.png"
+carro.imagen = "data/carro1.png"
 carro.ancho = 32
 carro.alto = 32

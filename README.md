@@ -4,4 +4,5 @@ El juego esta pensado para computadoras de requerimientos minimos o clientes lig
 
 
 =BUGS
-Si el mapa en tmx es exportado a XML, tmx-parser lee algunos valores incorrectos.
+  * Si el mapa en tmx es exportado a XML, tmx-parser lee algunos valores incorrectos.
+  * TmxParser, no lee patrones externos

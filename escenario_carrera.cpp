@@ -34,31 +34,36 @@ EscenarioCarrera::EscenarioCarrera(const char *archivo_tmx) : Escenario(ID_ESCEN
   for(int i=0; i < tmxRender->obMap()->GetNumLayers(); i++) {
     const Tmx::Layer *layer = tmxRender->obMap()->GetLayer(i);
     if(layer->GetName() != "colision") continue;
-    for(int y = 0; y < layer->GetHeight(); ++y) {
-      for(int x = 0; x < layer->GetWidth(); ++x) {
-	int CurTile = layer->GetTileId(x,y);
-	if(CurTile == 0) continue;
-	const Tmx::Tileset *tileset = tmxRender->obMap()->GetTileset(layer->GetTileTilesetIndex(x,y));
-	if(!tileset) continue;
-	const Tmx::Tile* tile = tileset->GetTile(CurTile);
-	if(!tile) continue;
-	if(tile->GetProperties().GetLiteralProperty("tipo") == "obstaculo")
-	  bloques_mapa[x][y] = 1;
-      }
+      for(int y = 0; y < layer->GetHeight(); ++y) {
+	for(int x = 0; x < layer->GetWidth(); ++x) {
+	  int CurTile = layer->GetTileId(x,y);
+	  if(CurTile == 0) continue;
+	  const Tmx::Tileset *tileset = tmxRender->obMap()->GetTileset(layer->GetTileTilesetIndex(x,y));
+	  if(!tileset) continue;
+	  const Tmx::Tile* tile = tileset->GetTile(CurTile);
+	  if(!tile) continue;
+	  if(tile->GetProperties().GetLiteralProperty("tipo") == "obstaculo")
+	    bloques_mapa[x][y] = 1;
+	  if(tile->GetProperties().GetLiteralProperty("tipo") == "inicio")
+	    {
+	      std::cout << "nueva ubicicacion jugador" << std::endl;
+	      Vehiculo *vehiculo = NULL;
+  
+	      vehiculo = new Vehiculo(2, Compositor::obGestorVehiculoTipo()->encontrar(std::string("rapido")), x * tileset->GetTileWidth(), y * tileset->GetTileHeight(), 0);
+	      vehiculo->asignarColisionCircular(0, 0, vehiculo->obAncho()/2);
+	      vehiculo->depurar = false;
+	      vehiculo->asignarLimites(tmxRender->obAncho(), tmxRender->obAlto());
+	      Jugador *jg1 = new Jugador("jugador 1", new ControlTeclado(SDLK_w, SDLK_m, SDLK_a, SDLK_o), vehiculo);
+	      agregarJugador(jg1);
+	    }
+	}
     }
     break;
   }
   Compositor::obColision()->asignarBloqueMapa(bloques_mapa, tmxRender->obColumnas(), tmxRender->obFilas());
 
 
-  Vehiculo *vehiculo = NULL;
-  
-  vehiculo = new Vehiculo(2, Compositor::obGestorVehiculoTipo()->encontrar(std::string("rapido")), 330, 300, 0);
-  vehiculo->asignarColisionCircular(0, 0, vehiculo->obAncho()/2);
-  vehiculo->depurar = true;
-  vehiculo->asignarLimites(tmxRender->obAncho(), tmxRender->obAlto());
-  Jugador *jg1 = new Jugador("jugador 1", new ControlTeclado(SDLK_w, SDLK_m, SDLK_a, SDLK_o), vehiculo);
-  agregarJugador(jg1);
+ 
 
   /*
   vehiculo = new Vehiculo(2, 100,  300, 0);

@@ -39,8 +39,10 @@ end
 #Clase que contiene acceso
 #a clases de juego
 class Juego
+
   #Configuracion por claves
   def self.conf
     Configuracion.instance
   end
+  
 end
