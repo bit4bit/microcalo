@@ -59,7 +59,7 @@ Vehiculo::Vehiculo(Uint32 id, VehiculoTipo *_tipo, Uint32 x, Uint32 y, Uint32 _a
   carLocation.x = escenario_x;
   carLocation.y = escenario_y;
   carSpeed = 0;
-  carHeading = 0;
+  carHeading = angulo * M_PI/180;
   carDriftHeading = 0;
 }
 

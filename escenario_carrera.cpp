@@ -44,26 +44,34 @@ EscenarioCarrera::EscenarioCarrera(const char *archivo_tmx) : Escenario(ID_ESCEN
 	  if(!tile) continue;
 	  if(tile->GetProperties().GetLiteralProperty("tipo") == "obstaculo")
 	    bloques_mapa[x][y] = 1;
-	  if(tile->GetProperties().GetLiteralProperty("tipo") == "inicio")
-	    {
-	      std::cout << "nueva ubicicacion jugador" << std::endl;
-	      Vehiculo *vehiculo = NULL;
-  
-	      vehiculo = new Vehiculo(2, Compositor::obGestorVehiculoTipo()->encontrar(std::string("rapido")), x * tileset->GetTileWidth(), y * tileset->GetTileHeight(), 0);
-	      vehiculo->asignarColisionCircular(0, 0, vehiculo->obAncho()/2);
-	      vehiculo->depurar = false;
-	      vehiculo->asignarLimites(tmxRender->obAncho(), tmxRender->obAlto());
-	      Jugador *jg1 = new Jugador("jugador 1", new ControlTeclado(SDLK_w, SDLK_m, SDLK_a, SDLK_o), vehiculo);
-	      agregarJugador(jg1);
-	    }
 	}
     }
     break;
   }
   Compositor::obColision()->asignarBloqueMapa(bloques_mapa, tmxRender->obColumnas(), tmxRender->obFilas());
 
+  //UBICA JUGADORX
+  for(int i = 0; i < tmxRender->obMap()->GetNumObjectGroups(); ++i) {
+    const Tmx::ObjectGroup *objectGroup = tmxRender->obMap()->GetObjectGroup(i);
+    for(int j = 0; j < objectGroup->GetNumObjects(); ++j) {
+      const Tmx::Object *object =  objectGroup->GetObject(j);
+      //se agregan automaticamente los carros
+      if(object->GetName() == "partida") {
+	  Vehiculo *vehiculo = NULL;
+	  vehiculo = new Vehiculo(2, Compositor::obGestorVehiculoTipo()->encontrar(std::string("rapido")), object->GetX()+object->GetWidth()/2, object->GetY() + object->GetHeight()/2, object->GetProperties().GetNumericProperty("angulo"));
+	vehiculo->asignarColisionCircular(0, 0, vehiculo->obAncho()/2);
+	vehiculo->depurar = false;
+	vehiculo->asignarLimites(tmxRender->obAncho(), tmxRender->obAlto());
+	Jugador *jg1 = new Jugador("jugador 1", new ControlTeclado(SDLK_w, SDLK_m, SDLK_a, SDLK_o), vehiculo);
+	agregarJugador(jg1);
+      }
+    }
+  }
 
- 
+  std::cout << "nueva ubicicacion jugador" << std::endl;
+
+  
+
 
   /*
   vehiculo = new Vehiculo(2, 100,  300, 0);

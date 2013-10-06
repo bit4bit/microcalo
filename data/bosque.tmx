@@ -3,32 +3,30 @@
  <tileset firstgid="1" name="complementos" tilewidth="32" tileheight="32">
   <image source="complementos.png" width="256" height="256"/>
  </tileset>
-
-
-<tileset firstgid="66" name="patron_juego" tilewidth="32" tileheight="32">
- <image source="patron_juego.png" width="129" height="32"/>
- <tile id="0">
-  <properties>
-   <property name="tipo" value="obstaculo"/>
-  </properties>
- </tile>
- <tile id="1">
-  <properties>
-   <property name="tipo" value="obstaculo"/>
-  </properties>
- </tile>
- <tile id="2">
-  <properties>
-   <property name="tipo" value="finaliza"/>
-  </properties>
- </tile>
- <tile id="3">
-  <properties>
-   <property name="tipo" value="inicio"/>
-  </properties>
- </tile>
-</tileset>
- <tileset firstgid="70" name="complementos" tilewidth="32" tileheight="32">
+ <tileset firstgid="65" name="patron_juego" tilewidth="32" tileheight="32">
+  <image source="patron_juego.png" width="129" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="tipo" value="obstaculo"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="tipo" value="obstaculo"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="tipo" value="finaliza"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="tipo" value="inicio"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="69" name="complementos" tilewidth="32" tileheight="32">
   <image source="complementos.png" width="256" height="256"/>
  </tileset>
  <layer name="fondo" width="60" height="60">
@@ -38,7 +36,7 @@
  </layer>
  <layer name="objetos" width="60" height="60">
   <data encoding="base64" compression="zlib">
-   eJzdW+Fq3jAMDBv9szEGHf2zQd+lL/Y9e2OY2SEs+06Sk48dmLaJI+UsWZLt9Dh0fDnb17O9D9rvs/1x7jH3u+yG17P9CrxfFfq7fDvb9006UHYfm4Yo98yY9Xd5Dz7/+NsYoJ0bkLuHETfmuRmiXBsUvqwPIUePW8TGH0eOa4PC9zj+zWkLtD1jv4iNs1wbVL6eXs/2dg5EoXCNcFo948Xy1j7gd4wv9h6D/kzlu1c9o4DlEfHhZ+TbwHD5n/g2rPhUxKhnwsynlZxlYwPGiwP+7jJtP+/6KC6hPKxr1dhkweYsRb4nc3SdGe9RXppxXsWsXXOcQbR2ntVFFfP3ijnO+BrWGnfwRZvgPNwFW2uMMNPP1maejMy6ZOa/Xm1lY6T3rAd2fbLDZqOxwlgcRZV9M3W6Z0t7PbvHsJpPin0z77LKURVrHsYmbA7I2neFCrsycpR6Y+d+FoM357pqi5m//zjbz0Wfjp37jI2rjdNYc7C2WI2Lwje7Z+bhDfRn59Sd+YgBcm3Izqmr8lHDyN8ZmZWx8qp81DDyd0Zmdaxk6+cd+Yi1L+KK8xdvjLO6UebD+Wn57oqLCNyfYHUrtUxEdxSsP6vjWrV3grqzvBUbYN8rxxvvZ31ZsQH2rTyzyu5HKDqx78NpjM6OyJ7cSvYqhis2x74vTmP1Rt6HkVm9TmFtN9Nrbcj6WIRLNnZU1BvWhqyPWZk294767NozQ+xa/zIymT4sjx3nCyoq9osVm0f3n6ty8JXneZn9ZzumUf4MX/U83kPlej/6LdFMtj0rvApVumZ77J5e5Dyys+JXUX9mdKg5eHYehJwtlFgV9efq76FW5ygzviqe4TyUOffr79H9Ro2P+H3BCpVnFbNnGL7db6Lr8Yr6GeUpwGe8nFPpy4qcnedHHqr22TuU+KzUz+q3GJ7OiO4ZlPis+JNSl4/kItdKv1LP1SqaPfda6atcl919xnkHonHvse7ydMis6Ri+2Ofqmn8ENQdnwPC9IudFvwFS7cvginjSdahjWzl/76hlsv93VKH7DlTl2Vn+3Y1PttpOTw==
+   eJzlW12L3DAMXFr60lIKLffSwv7T/e8XQw1CWPaMNHb6MWCOTRwpY8mSbOceDx4frvbxas9B+3m1X8E95H6X3fD9aj8S76dCf5fPV/uySYeV3cemIcu9Mmb9XZ7J51+/GwJr5wbLPcKIG/LcDFmuDQxf1Icsx4hb1sYVrg0M365vpNPaHrFfxsZVrg0s30hvZHs/B7JguGY4rZ6JYvnT3bfxxd9DkLHpDr5V/G98GxAu/xLfhhUfRYz6W8DkLB8bfIzov7tM3y+6PopLVp6tax8PLjZ5oDmLkR/JHF1HxnuUlyqcd81xBJXaOXonxfw9MccRX7O1xh18rU1Gc1qNUa3hMdOP1maRjMq6ZOa/UW2FjOfsPro+2WGz0Vj5WJyByr6VOj2ypb9e3WNY2Z+xb+VdVjlKseZBbILmgKp9V1DYFZHD1Bs797MQvAXXWVvM/P3r1b4t+nTs3GfsXKPaE7XFalwYvtU9swhvRn91Tt2ZjxBYrg3VOXUqHzWM/B2RqYyVp/JRw8jfEZnqWInWzzvyEWpfixPnL9EYV3Vbma/gr+e7Ky5a2P0JVDdTy2R0Z4H6Mzuuqr0Tq7vKm7GB7XtyvO39qi8zNrB9lWdW1f0IRqft+woaorMjsye3kr2K4YzNbd9PQUP1Zt4Hkalep6C2m+n1NkR9LMOlGjsU9Ya3IepjXqbPvaM+u/bMLHatfxGZSB+Ux47zBRaK/WLG5tn9Z1UOPnmeV9l/9mO663sRJV/lej/7LdFMtuJMMAOVrtkee6TX71V5MH6V9WdEB5uDZ+dBM85MrMr6s/p7qNU5ysrGDP6E81Dk3K+/R/cbNj7a7wtWUJ5VzJ5B+Ha/ya7HFfWzlccAeUbpy4ycnedHEVT77B1MfGbqZ0XtZe2qqt2Z+Kz4RgeVa7kq/Yo9V1M0L2ulT7kuu/uM8w5k496JbyHVqMQVhK/tc7rmH4HNwRUgfE/kvOw3QKx9EZyIJ10HO7bK+XtHLVP9vyOF7jugyrOz/Lsb79kCSJA=
   </data>
  </layer>
  <layer name="techo" width="60" height="60" opacity="0.76">
@@ -48,7 +46,15 @@
  </layer>
  <layer name="colision" width="60" height="60" opacity="0.36">
   <data encoding="base64" compression="zlib">
-   eJztmVEOgjAMQL0bev8rGT9ICAHWdn1thTYhGrf19bk5Fny9OqSxAFfVsNQmcarobK1JOoeVnGdq0azZCs6zNWh/o5nOmnnR1nk1JsNZOyeevtv2iD3fu3avMdr8RN+1fzXfleHRjzhzEOvXw7fCPeMojuq6s+8v9rW1r2ycJUdGtK9tnCVHRtzJ13JP+ldfC9PrfBXtS7uO+kf6RriOxkT5Ws+03qwIX4lrFC/bl+BX9aXY7cszJYz2ZXkkc89YNu/3nxE8SxvNb1+WRzIlDNL3fXLd1dfSRvNJX+2zXm++5nNv3ieAecWn2VXW89krxdO20fz2ZXkkU8JoX5ZHMjP52b7RNVTwHbE866jie8W7q+8Zs3198xMcSdCuo3zZ+9WT7kdPOm+Q3Oj/q0a56e9Ykn/0DMR6WWqZDQsjeh/J5kjXBFnDTGScK7LZ3vPhvQaIkPI96sx2XYPai0d7c4ctvnUcYnE=
+   eJztmVEOgjAMQD0bev8zGT9ICAHWdn1thTYhGrf19bk5Fny9OqSxAFfVsNQmcarobK1JOoeVnGdq0azZCs6zNWh/o5nOmnnR1nk1JsNZOyeevtv2iD3fu3avMdr8RN+1fzXfleHRjzhzEOvXw7fCPeMojuq6s+8v9rW1r2ycJUdGtK9tnCVHRtzJ13JP+ldfC9PrfBXtS7uO+kf6RriOxkT5Ws+03qwIX4lrFC/bl+BX9aXY7cszJYz2ZXkkc89YNu/3nxE8SxvNb1+WRzIlDNL3fXLd1dfSRvNJX+2zXm++5nNv3ieAecWn2VXW89krxdO20fz2ZXkkU8JoX5ZHMjP52b7RNVTwHbE866jie8W7q+8Zs3198xMcSdCuo3zZ+9WT7kdPOm+Q3Oj/q0a56e9Ykn/0DMR6WWqZDQsjeh/J5kjXBFnDTGScK7LZ3vPhvQaIkPI96sx2XYPai0d7c4ctvjocYPk=
   </data>
  </layer>
+ <objectgroup name="objetos" width="60" height="60">
+  <object name="partida" type="partida" x="321" y="1123" width="126" height="29">
+   <properties>
+    <property name="angulo" value="90"/>
+   </properties>
+  </object>
+  <object name="termina" type="termina" x="318" y="1021" width="131" height="34"/>
+ </objectgroup>
 </map>
