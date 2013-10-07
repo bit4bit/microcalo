@@ -3,19 +3,22 @@
  <tileset firstgid="1" name="tmwdesert" tilewidth="32" tileheight="32" spacing="1" margin="1">
   <image source="tmwdesert.png" width="265" height="199"/>
  </tileset>
+ <tileset firstgid="49" name="items_by_reidyaro-d47dn3h_0_3_1" tilewidth="32" tileheight="32">
+  <image source="items_by_reidyaro-d47dn3h_0_3_1.png" width="160" height="128"/>
+ </tileset>
  <layer name="fondo" width="1000" height="20">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3dMW7CQBBA0T1HCmdqitz/eGmCFMguxsEwY/YVrzC4GBuv5C9LeGmtLQAAAACQ7AMmlb32AAD4K/seETJlrz8AAAAAAAAgz1eBGQAAAGB2+hwAAADy9fr880f2bAAAADCL6z5fa/Ped1oeAAAAHtPr8y3bo88AANhPFJgBgOdae37+n14HgHcRTRdxn2jHvVaOOjev//237FvVOxzDkTn/t/3u816b9yyDfbKPBQBGosAMAAC3jP6/fdTka70O8GpRYAbYIgrMAADUs8f71fQ6AAAAVUWBGe7h/ecAAACQT58DwHFFgRkAgH3ocwAAAMinz+HSCSaVvfYAAGY36vPs+0TIkr0mAQBmFAVmgGyenwMAAEA+fQ4AAAD5zn3+DYREXvKAOAEA
+  <data encoding="base64" compression="zlib">
+   eJzt3TFuwkAQQNE9Rwpnaorc/3hpghTILsbBMGP2Fa8wuBgbr+QvS3hprS0AAAAAkOwDJpW99gAA+Cv7HhEyZa8/AAAAAAAAIM9XgRkAAABgdvocAAAA8vX6/PNH9mwAAAAwi+s+X2vz3ndaHgAAAB7T6/Mt26PPAADYTxSYAYDnWnt+/p9eB4B3EU0XcZ9ox71Wjjo3r//9t+xb1Tscw5E5/7f97vNem/csg32yjwUARqLADAAAt4z+v33U5Gu9DvBqUWAG2CIKzAAA1LPH+9X0OgAAAFVFgRnu4f3nAAAAkE+fA8BxRYEZAIB96HMAAADIp8/h0gkmlb32AABmN+rz7PtEyJK9JgEAZhQFZoBsnp8DAABAPn0OAAAA+c59/g24WjWL
   </data>
  </layer>
- <layer name="techo" width="1000" height="20">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3BgQAAAADDoPlTH+AKVQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwBtmAymRgDgBAA==
+ <layer name="techo" width="1000" height="20" opacity="0.98">
+  <data encoding="base64" compression="zlib">
+   eJzt2SEOgDAQRcHeCdf7HwxFgkM1D+iMXvHty44BAAAAAAAAAAAAAAD/MesBAAAAsLk59DkAAAC8wdXnR7oCAAAA9nX/n+tzAAAA6OhzAAAA6OlzAAAA6OlzAAAA6OlzAAAA6OlzAAAA6OlzAAAA6OlzAAAA6M3nEwAAAGAxfQ4AAAA9fQ4AAAAAAAAAAAAAAAAAAPBtJ516BWw=
   </data>
  </layer>
  <layer name="objetos" width="1000" height="20">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3BgQAAAADDoPlTH+AKVQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwBtmAymRgDgBAA==
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5Ux/gClUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAbOI8AAQ==
   </data>
  </layer>
  <objectgroup name="Capa de Objetos 1" width="1000" height="20">

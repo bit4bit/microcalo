@@ -48,10 +48,11 @@ bool TmxRender::CargarDesdeArchivo(const char *archivo)
     //@todo data debe ser global
     std::string ruta = std::string("data/") + tileset->GetImage()->GetSource();
     if(tileset->GetProperties().HasProperty("alpha") && tileset->GetProperties().GetLiteralProperty("alpha") == "disable"){
-      tmp = Compositor::obRecurso()->cargarImagen(ruta.c_str(), true);
-    }else
+      tmp = Compositor::obRecurso()->cargarImagen(ruta.c_str(), false);
+    }
+    else
       {
-       tmp = Compositor::obRecurso()->cargarImagen(ruta.c_str(), false);
+	tmp = Compositor::obRecurso()->cargarImagen(ruta.c_str(), true);
       }
 
     if(!tmp) {
@@ -99,8 +100,8 @@ void TmxRender::blitTile(const char * capa, SDL_Rect *srect, SDL_Surface *dest, 
     
 
     layer_alpha = SDL_ALPHA_OPAQUE * layer->GetOpacity();
-
-
+    
+    
     int sy = srect->y  / tmx->GetTileHeight();
     int sx = srect->x / tmx->GetTileWidth();
     //std::cerr << "scols:" << scols << " srows:" << srows << " sy:" << sy << " sx:" << sx << std::endl;
@@ -120,7 +121,7 @@ void TmxRender::blitTile(const char * capa, SDL_Rect *srect, SDL_Surface *dest, 
 	if(tilesetid > 100000) continue;
 	if(tilesetid < 0) continue;
 	//int tilesetid = tile.tilesetId;
-	std::cerr << "tilesetid:" << tilesetid << std::endl;
+	//std::cerr << "tilesetid:" << tilesetid << std::endl;
 	//@todo esto no funciono
 	const Tmx::Tileset *tileset = tmx->GetTileset(tilesetid);
 	//const Tmx::Tileset *tileset = tmx->FindTileset(CurTile);	
@@ -145,7 +146,7 @@ void TmxRender::blitTile(const char * capa, SDL_Rect *srect, SDL_Surface *dest, 
 	  dst.x += drect->x;
 	  dst.y += drect->y;
 	}
-
+	
 	SDL_SetAlpha(s_tileset[tileset->GetFirstGid()], SDL_SRCALPHA, layer_alpha);
 	SDL_BlitSurface(s_tileset[tileset->GetFirstGid()],&src, dest, &dst);
       }
