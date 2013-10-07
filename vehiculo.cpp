@@ -34,6 +34,9 @@ Vehiculo::Vehiculo(Uint32 id, VehiculoTipo *_tipo): Objeto(id){
   escenario_x = escenario_y = 100;
   pantalla_x = pantalla_y = 0;
   
+  //
+  //channelMotor = -1;
+  channelMotor = Compositor::obAudio()->reproducir(tipo->obAudioMotor(),-1);
 }
 
 Vehiculo::Vehiculo(Uint32 id, VehiculoTipo *_tipo, Uint32 x, Uint32 y, Uint32 _angulo): Objeto(id){
@@ -61,13 +64,18 @@ Vehiculo::Vehiculo(Uint32 id, VehiculoTipo *_tipo, Uint32 x, Uint32 y, Uint32 _a
   carSpeed = 0;
   carHeading = angulo * M_PI/180;
   carDriftHeading = 0;
+
+  //audio
+  //channelMotor = -1;
+  channelMotor = Compositor::obAudio()->reproducir(tipo->obAudioMotor(),-1);
 }
 
 Vehiculo::~Vehiculo(){
 }
 
 void Vehiculo::actualizar(std::vector<Objeto*>& objetos) {
-  
+  actualizarEstados();
+
   //basado en: http://engineeringdotnet.blogspot.com/2010/04/simple-2d-car-physics-in-games.html
   float steerAngle = 0;
   float wheelBase = 2;
@@ -127,9 +135,20 @@ void Vehiculo::actualizar(std::vector<Objeto*>& objetos) {
   }else{
     angulo = -carDriftHeading * 180/M_PI;
   }
-
-
-  choqueP = acelerarP = retrocederP = izquierdaP = derechaP = false;
+  
+  //audio-sonidos
+  if(carSpeed > 0) {
+    Mix_Volume(channelMotor, (carSpeed/tipo->obMaxVel()) * MIX_MAX_VOLUME);
+  }
+  if(carSpeed < 0) {
+    Mix_Volume(channelMotor, MIX_MAX_VOLUME/4);
+  }
+  if(carSpeed == 0) {
+    if(channelMotor != -1){
+      Mix_Volume(channelMotor, 10);
+    }
+  }
+  reiniciarEstados();
   regularALimites();
 }
 
@@ -177,3 +196,6 @@ void Vehiculo::choqueRetroceder() {
   choqueP = true;
 }
 
+
+void Vehiculo::actualizarEstados() {
+}

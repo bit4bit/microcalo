@@ -106,6 +106,8 @@ EscenarioCarrera::EscenarioCarrera(const char *archivo_tmx) : Escenario(ID_ESCEN
     objetos.push_back(pp->obObjeto());
     }
   */
+  musica_de_fondo = Mix_LoadMUS("data/fondo1.ogg");
+  Compositor::obAudio()->reproducir(musica_de_fondo, -1);
   std::cerr << "Creado escenario carrera" << std::endl;
 }
 

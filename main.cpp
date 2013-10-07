@@ -19,11 +19,14 @@ int main(int argc, char **argv)
   bool salir = false;
 
   Video* video = Compositor::obVideo(); //se inicializa vide
+  Compositor::obAudio();
   Compositor::obMando();
   Compositor::obTexto();
   Compositor::obConfiguracion();
   Compositor::obScript();
   Compositor::obGestorVehiculoTipo();
+  Compositor::obGestorEscenario();
+  Compositor::obColision();
   //inicializa enlaces a VM
   Configuracion::bindingScript(Compositor::obScript()->obState());
   VehiculoTipo::bindingScript(Compositor::obScript()->obState());
@@ -33,14 +36,13 @@ int main(int argc, char **argv)
   Compositor::obScript()->leerScript("data/vehiculos.rb");
 
 
-  EscenarioIntro escenario_intro= EscenarioIntro();
+  //EscenarioIntro escenario_intro=EscenarioIntro();
   //Escenario *escenario = (Escenario*)&escenario_intro;
   //script_cargar_escenario_intro(&escenario_intro, "escenario-intro");
-  EscenarioCarrera escenarioC = EscenarioCarrera("data/bosque.tmx");
-  Escenario *escenario = (Escenario*)&escenarioC;
-
-  Colision *colision = Compositor::obColision();
-
+  EscenarioCarrera* escenarioC = new EscenarioCarrera("data/bosque.tmx");
+  
+  Compositor::obGestorEscenario()->agregar("carrera", (Escenario*)escenarioC);
+  Compositor::obGestorEscenario()->activar("carrera");
 
   //TmxRender *tmxRender = new TmxRender();
   //tmxRender->CargarDesdeArchivo("data/mapa1.tmx");
@@ -56,12 +58,11 @@ int main(int argc, char **argv)
     if(Compositor::obTeclado()->presionado(SDLK_f))
       Compositor::obVideo()->toggleFullScreen();
 
-    escenario->actualizar();
+    Compositor::obGestorEscenario()->actual()->actualizar();
     Compositor::obVideo()->actualizar();
     
 
-    escenario->dibujar();
-    colision->dibujar();
+    Compositor::obGestorEscenario()->actual()->dibujar();
        
     /*SDL_Rect srect;
     srect.x = 10;

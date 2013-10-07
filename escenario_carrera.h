@@ -7,6 +7,7 @@
  */
 
 #include <SDL/SDL.h>
+#include <SDL/SDL_mixer.h>
 
 #include <vector>
 #include <string>
@@ -39,6 +40,8 @@ class EscenarioCarrera : public Escenario
 
   std::vector<Vehiculo*> vehiculos;
   std::vector<Jugador*> jugadores;
+
+  Mix_Music* musica_de_fondo;
 };
 
 #endif

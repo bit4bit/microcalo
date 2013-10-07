@@ -26,6 +26,9 @@ class Vehiculo : public Objeto
   virtual void actualizar(std::vector<Objeto*>&);
   virtual void dibujar();
 
+  void actualizarEstados();
+  void reiniciarEstados() {  choqueP = acelerarP = retrocederP = izquierdaP = derechaP = false; }
+
   float obVel() { return vel; }
   float obAccel() { return accel; }
   float obAngulo() { return angulo; }
@@ -60,5 +63,8 @@ class Vehiculo : public Objeto
   float carHeading;
   float carDriftHeading;
 
+  //audio
+  int channelMotor;
+  
 };
 #endif

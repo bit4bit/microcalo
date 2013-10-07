@@ -15,8 +15,9 @@ VehiculoTipo::VehiculoTipo()
   def_retro = 5;
   def_giro = 4; //cantidad de grados de la imagen
   def_giro_frenando = 7;
-
+  
   s_vehiculo = NULL;
+  audio_motor = NULL;
 }
  
 void VehiculoTipo::asignarSVehiculoDesdeArchivo(std::string ruta) 
@@ -60,6 +61,7 @@ void VehiculoTipo::bindingScript(mrb_state *mrb)
   b.bind_instance_method("VehiculoTipo", "giro=", &VehiculoTipo::asignarDefGiro);
 
   b.bind_instance_method("VehiculoTipo", "imagen=", &VehiculoTipo::asignarSVehiculoDesdeArchivo);
+  b.bind_instance_method("VehiculoTipo", "audio_motor=", &VehiculoTipo::asignarAudioMotor);
 }
 
 

@@ -16,6 +16,7 @@
 #include "configuracion.h"
 #include "script.h"
 #include "gestor_vehiculo_tipo.h"
+#include "gestor_escenario.h"
 
 class Compositor
 {
@@ -28,6 +29,7 @@ class Compositor
     std::cout << "Finalizando compositor" << std::endl;
     obScript()->cerrar();
     obGestorVehiculoTipo()->cerrar();
+    obGestorEscenario()->cerrar();
   }
   static Video *obVideo() { return Video::instancia(); }
   static Audio *obAudio() { return Audio::instancia(); }
@@ -41,6 +43,7 @@ class Compositor
   static Configuracion* obConfiguracion() { return Configuracion::instancia(); }
   static Script* obScript() { return Script::instancia();}
   static GestorVehiculoTipo* obGestorVehiculoTipo() { return GestorVehiculoTipo::instancia();}
+  static GestorEscenario* obGestorEscenario() { return GestorEscenario::instancia(); }
 };
 
 #endif

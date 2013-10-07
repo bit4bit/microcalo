@@ -2,6 +2,7 @@
 #define VEHICULO_TIPO_H
 
 #include <SDL/SDL.h>
+#include <SDL/SDL_mixer.h>
 #include <string>
 #include <map>
 #include <mruby.h>
@@ -29,7 +30,7 @@ class VehiculoTipo
   float def_giro_frenando;
 
   SDL_Surface* s_vehiculo;
-  
+  Mix_Chunk* audio_motor; //cuando esta en motor
  public:
   VehiculoTipo();
   static void bindingScript(mrb_state *mrb);
@@ -62,6 +63,13 @@ class VehiculoTipo
   void asignarSVehiculo(SDL_Surface *t){ s_vehiculo = t;}
   void asignarSVehiculoDesdeArchivo(std::string);
   std::string toString() { return std::string("VehiculoTipo:").append(nombre);}
+
+  Mix_Chunk* obAudioMotor() { return audio_motor; }
+  void asignarAudioMotor(std::string archivo) {
+    audio_motor = Mix_LoadWAV(archivo.c_str());
+  }
+
+  void correr(void *block);
 };
 
 #endif

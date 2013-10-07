@@ -2,9 +2,9 @@ BASEDIR=.
 CC=g++
 CFLAGS=`sdl-config --cflags` -lSDL_image  -ggdb
 CPPFLAGS_MRUBY=-I$(BASEDIR)/vendor/mruby/include -I$(BASEDIR)/vendor/mrubybind/
-LIBS=`sdl-config --libs` -lSDL_gfx -lSDL_ttf -lSDL_gfx -lSDL_image -lSGE -lz -lm -ggdb
+LIBS=`sdl-config --libs` -lSDL_mixer -lSDL_gfx -lSDL_ttf -lSDL_gfx -lSDL_image -lSGE -lz -lm -ggdb
 CPPFLAGS=-Ivendor/tinyxml-git -Ivendor/tmx-parser-read-only $(CPPFLAGS_MRUBY) -Ivendor/vmath/src
-OBJECTS = mando.o jugador.o control_mando.o control_teclado.o punto_paso_gestor.o punto_paso.o colision.o objeto.o video.o audio.o reloj.o teclado.o recurso.o cosa.o escenario.o escenario_carrera.o vehiculo.o vehiculo_tipo.o camara.o main.o escenario_intro.o texto.o util.o tmx_render.o configuracion.o script.o gestor_vehiculo_tipo.o
+OBJECTS = mando.o jugador.o control_mando.o control_teclado.o punto_paso_gestor.o punto_paso.o colision.o objeto.o video.o audio.o reloj.o teclado.o recurso.o cosa.o escenario.o escenario_carrera.o vehiculo.o vehiculo_tipo.o camara.o main.o escenario_intro.o texto.o util.o tmx_render.o configuracion.o script.o gestor_vehiculo_tipo.o gestor_escenario.o
 OBJECTS_MRUBY=$(shell find $(BASEDIR)/vendor/mruby/build/host -type f -name '*.a') $(BASEDIR)/mrubybind.o
 
 TINYXML_OBJECTS=vendor/tinyxml-git/tinyxml.o vendor/tinyxml-git/tinyxmlparser.o vendor/tinyxml-git/tinyxmlerror.o vendor/tinyxml-git/tinystr.o
