@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="1000" height="20" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tmwdesert" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="tmwdesert.png" width="265" height="199"/>
+ </tileset>
+ <layer name="fondo" width="1000" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3dMW7CQBBA0T1HCmdqitz/eGmCFMguxsEwY/YVrzC4GBuv5C9LeGmtLQAAAACQ7AMmlb32AAD4K/seETJlrz8AAAAAAAAgz1eBGQAAAGB2+hwAAADy9fr880f2bAAAADCL6z5fa/Ped1oeAAAAHtPr8y3bo88AANhPFJgBgOdae37+n14HgHcRTRdxn2jHvVaOOjev//237FvVOxzDkTn/t/3u816b9yyDfbKPBQBGosAMAAC3jP6/fdTka70O8GpRYAbYIgrMAADUs8f71fQ6AAAAVUWBGe7h/ecAAACQT58DwHFFgRkAgH3ocwAAAMinz+HSCSaVvfYAAGY36vPs+0TIkr0mAQBmFAVmgGyenwMAAEA+fQ4AAAD5zn3+DYREXvKAOAEA
+  </data>
+ </layer>
+ <layer name="techo" width="1000" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3BgQAAAADDoPlTH+AKVQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwBtmAymRgDgBAA==
+  </data>
+ </layer>
+ <layer name="objetos" width="1000" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3BgQAAAADDoPlTH+AKVQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwBtmAymRgDgBAA==
+  </data>
+ </layer>
+ <objectgroup name="Capa de Objetos 1" width="1000" height="20">
+  <object name="partida" type="partida" x="168" y="127" width="31" height="131">
+   <properties>
+    <property name="angulo" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

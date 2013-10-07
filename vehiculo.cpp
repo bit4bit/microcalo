@@ -148,7 +148,7 @@ void Vehiculo::actualizar(std::vector<Objeto*>& objetos) {
       Mix_Volume(channelMotor, 10);
     }
   }
-  reiniciarEstados();
+
   regularALimites();
 }
 
@@ -165,6 +165,13 @@ void Vehiculo::dibujar() {
   int nangulo = angulo;
   si(nangulo < 0)  angulo = 360;
   
+  if(izquierdaP) {
+    s_objeto = tipo->obSVehiculoIzq();
+  }else if(derechaP) {
+    s_objeto = tipo->obSVehiculoDer();
+  }else{
+    s_objeto = tipo->obSVehiculo();
+  }
 
   dr.w = tipo->obAncho(); dr.w = tipo->obAlto();
   SDL_Surface *tmp2 = rotozoomSurface(s_objeto, nangulo, 1, 0);
@@ -176,6 +183,7 @@ void Vehiculo::dibujar() {
   Compositor::obVideo()->blit(tmp, NULL, &dr);
   SDL_FreeSurface(tmp);
   dibujarDepurar();
+  reiniciarEstados();
 }
 
 void Vehiculo::choque() {

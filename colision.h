@@ -8,6 +8,8 @@
 #include <vector>
 #include "colision_util.h"
 
+#define MAX_MAPA_COLISION 1001
+
 class Colision
 {
  protected:
@@ -17,7 +19,7 @@ class Colision
  private:
   static Colision* _self;
   std::map<Objeto*, sge_cdata*> colision_map; //colision por pixel usando SGE
-  int bloques_mapa[255][255];
+  unsigned char bloques_mapa[MAX_MAPA_COLISION][MAX_MAPA_COLISION];
  public:
   static Colision* instancia();
   
@@ -31,7 +33,7 @@ class Colision
   void crearMapaColision(Objeto *obj);
   void crearMapaColisionImagen(Objeto *obj, SDL_Surface *s);
 
-  void asignarBloqueMapa(int [255][255], int, int);
+  void asignarBloqueMapa(unsigned char [MAX_MAPA_COLISION][MAX_MAPA_COLISION], int, int);
   bool conBloque(Objeto *obja); 
   bool conBloque(Objeto *obja, int nx, int ny); 
 

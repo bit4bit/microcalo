@@ -23,7 +23,7 @@ class Configuracion
   void asignarFlotante(std::string, float);
   void asignarArregloCadena(std::string, std::string);
   CArrayString* crearArregloCadena();
-  const char *obtenerLiteral(std::string);
+  std::string obtenerLiteral(std::string);
   int obtenerEntero(std::string);
   float obtenerFlotante(std::string);
   CArrayString* obtenerArregloCadena(std::string);

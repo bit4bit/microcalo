@@ -136,9 +136,9 @@ void Colision::dibujar()
 }
 
 
-void Colision::asignarBloqueMapa(int col[255][255], int ancho, int alto)
+void Colision::asignarBloqueMapa(unsigned char col[MAX_MAPA_COLISION][MAX_MAPA_COLISION], int ancho, int alto)
 {
-  assert(ancho < 255 && alto < 255);
+  assert(ancho < MAX_MAPA_COLISION && alto < MAX_MAPA_COLISION);
   for(int i=0; i < ancho; i++)
     for(int j=0; j < alto; j++)
       bloques_mapa[i][j] = col[i][j];

@@ -43,7 +43,7 @@ int main(int argc, char **argv)
   //EscenarioIntro escenario_intro=EscenarioIntro();
   //Escenario *escenario = (Escenario*)&escenario_intro;
   //script_cargar_escenario_intro(&escenario_intro, "escenario-intro");
-  EscenarioCarrera* escenarioC = new EscenarioCarrera("data/bosque.tmx");
+  EscenarioCarrera* escenarioC = new EscenarioCarrera(Compositor::obConfiguracion()->obtenerLiteral("data_path").append("/").append(ar->front()).c_str());
   
   Compositor::obGestorEscenario()->agregar("carrera", (Escenario*)escenarioC);
   Compositor::obGestorEscenario()->activar("carrera");

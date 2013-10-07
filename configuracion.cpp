@@ -50,10 +50,10 @@ void Configuracion::asignarArregloCadena(std::string n, std::string v) {
   confArreglo[n]->push_back(v);
 }
 
-const char *Configuracion::obtenerLiteral(std::string n)
+std::string Configuracion::obtenerLiteral(std::string n)
 {
   assert(confLiteral.count(n) > 0);
-  return confLiteral[n].c_str();;
+  return confLiteral[n];
 }
 
 int Configuracion::obtenerEntero(std::string n)

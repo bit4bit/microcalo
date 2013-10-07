@@ -116,8 +116,11 @@ void TmxRender::blitTile(const char * capa, SDL_Rect *srect, SDL_Surface *dest, 
 	//	const Tmx::MapTile& tile = layer->GetTile(dx,dy);
 	
 	int tilesetid = layer->GetTileTilesetIndex(dx,dy);
+	//@bug con los mapas muy grandes
+	if(tilesetid > 100000) continue;
+	if(tilesetid < 0) continue;
 	//int tilesetid = tile.tilesetId;
-	//std::cerr << "tilesetid:" << tilesetid << std::endl;
+	std::cerr << "tilesetid:" << tilesetid << std::endl;
 	//@todo esto no funciono
 	const Tmx::Tileset *tileset = tmx->GetTileset(tilesetid);
 	//const Tmx::Tileset *tileset = tmx->FindTileset(CurTile);	

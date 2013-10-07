@@ -17,12 +17,25 @@ VehiculoTipo::VehiculoTipo()
   def_giro_frenando = 7;
   
   s_vehiculo = NULL;
+  s_vehiculo_columnas = 1;
+  s_vehiculo_der = NULL;
+  s_vehiculo_izq = NULL;
   audio_motor = NULL;
 }
  
 void VehiculoTipo::asignarSVehiculoDesdeArchivo(std::string ruta) 
 {
   s_vehiculo = Compositor::obRecurso()->cargarImagen(ruta.c_str(), true);
+}
+
+void VehiculoTipo::asignarSVehiculoDerDesdeArchivo(std::string ruta) 
+{
+  s_vehiculo_der = Compositor::obRecurso()->cargarImagen(ruta.c_str(), true);
+}
+
+void VehiculoTipo::asignarSVehiculoIzqDesdeArchivo(std::string ruta) 
+{
+  s_vehiculo_izq = Compositor::obRecurso()->cargarImagen(ruta.c_str(), true);
 }
 
 static VehiculoTipo* vehiculo_tipo_new(std::string nombre)
@@ -61,6 +74,9 @@ void VehiculoTipo::bindingScript(mrb_state *mrb)
   b.bind_instance_method("VehiculoTipo", "giro=", &VehiculoTipo::asignarDefGiro);
 
   b.bind_instance_method("VehiculoTipo", "imagen=", &VehiculoTipo::asignarSVehiculoDesdeArchivo);
+  b.bind_instance_method("VehiculoTipo", "imagen_columnas=", &VehiculoTipo::asignarSVehiculoColumnas);
+  b.bind_instance_method("VehiculoTipo", "imagen_der=", &VehiculoTipo::asignarSVehiculoDerDesdeArchivo);
+  b.bind_instance_method("VehiculoTipo", "imagen_izq=", &VehiculoTipo::asignarSVehiculoIzqDesdeArchivo);
   b.bind_instance_method("VehiculoTipo", "audio_motor=", &VehiculoTipo::asignarAudioMotor);
 }
 

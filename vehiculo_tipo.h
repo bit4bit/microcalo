@@ -30,12 +30,17 @@ class VehiculoTipo
   float def_giro_frenando;
 
   SDL_Surface* s_vehiculo;
+  int s_vehiculo_columnas; //colunmas para sacar imagenes de s_vehiculo
+  SDL_Surface* s_vehiculo_izq;
+  SDL_Surface* s_vehiculo_der;
   Mix_Chunk* audio_motor; //cuando esta en motor
  public:
   VehiculoTipo();
   static void bindingScript(mrb_state *mrb);
   const std::string& obNombre() { return nombre;}
   void asignarNombre(std::string n) { nombre = n;}
+  int obSVehiculoColumnas() { return s_vehiculo_columnas;}
+  void asignarSVehiculoColumnas(int v) { s_vehiculo_columnas = v; }
 
   int obAncho() { return ancho;}
   int obAlto() { return alto;}
@@ -60,8 +65,14 @@ class VehiculoTipo
   void asignarDefGiroFrenando(float v) {  def_giro_frenando = v;}
 
   SDL_Surface* obSVehiculo() { return s_vehiculo;}
+  SDL_Surface* obSVehiculoDer() { return s_vehiculo_der;}
+  SDL_Surface* obSVehiculoIzq() { return s_vehiculo_izq;}
   void asignarSVehiculo(SDL_Surface *t){ s_vehiculo = t;}
+  void asignarSVehiculoDer(SDL_Surface *t){ s_vehiculo_der = t;}
+  void asignarSVehiculoIzq(SDL_Surface *t){ s_vehiculo_izq = t;}
   void asignarSVehiculoDesdeArchivo(std::string);
+  void asignarSVehiculoDerDesdeArchivo(std::string);
+  void asignarSVehiculoIzqDesdeArchivo(std::string);
   std::string toString() { return std::string("VehiculoTipo:").append(nombre);}
 
   Mix_Chunk* obAudioMotor() { return audio_motor; }

@@ -30,11 +30,14 @@ EscenarioCarrera::EscenarioCarrera(const char *archivo_tmx) : Escenario(ID_ESCEN
 
   //se crea mapa de colision con bloques para facilitar
   //la colision en el escenario
-  int bloques_mapa[255][255];
+  unsigned char bloques_mapa[MAX_MAPA_COLISION][MAX_MAPA_COLISION];
+  memset(bloques_mapa, 0, sizeof(bloques_mapa));
+  bool hay_capa_colision = false;
   for(int i=0; i < tmxRender->obMap()->GetNumLayers(); i++) {
     const Tmx::Layer *layer = tmxRender->obMap()->GetLayer(i);
     if(layer->GetName() != "colision") continue;
-      for(int y = 0; y < layer->GetHeight(); ++y) {
+    hay_capa_colision = true;
+    for(int y = 0; y < layer->GetHeight(); ++y) {
 	for(int x = 0; x < layer->GetWidth(); ++x) {
 	  int CurTile = layer->GetTileId(x,y);
 	  if(CurTile == 0) continue;
@@ -48,6 +51,7 @@ EscenarioCarrera::EscenarioCarrera(const char *archivo_tmx) : Escenario(ID_ESCEN
     }
     break;
   }
+  if(hay_capa_colision);
   Compositor::obColision()->asignarBloqueMapa(bloques_mapa, tmxRender->obColumnas(), tmxRender->obFilas());
 
   //UBICA JUGADORX
