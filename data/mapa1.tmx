@@ -18,29 +18,29 @@
    </properties>
   </tile>
  </tileset>
-<tileset  firstgid="49" name="patron_juego" tilewidth="32" tileheight="32">
- <image source="patron_juego.png" width="129" height="32"/>
- <tile id="0">
-  <properties>
-   <property name="tipo" value="obstaculo"/>
-  </properties>
- </tile>
- <tile id="1">
-  <properties>
-   <property name="tipo" value="obstaculo"/>
-  </properties>
- </tile>
- <tile id="2">
-  <properties>
-   <property name="tipo" value="finaliza"/>
-  </properties>
- </tile>
- <tile id="3">
-  <properties>
-   <property name="tipo" value="inicio"/>
-  </properties>
- </tile>
-</tileset>
+ <tileset firstgid="49" name="patron_juego" tilewidth="32" tileheight="32">
+  <image source="patron_juego.png" width="129" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="tipo" value="obstaculo"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="tipo" value="obstaculo"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="tipo" value="finaliza"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="tipo" value="inicio"/>
+   </properties>
+  </tile>
+ </tileset>
  <tileset firstgid="53" name="items_by_reidyaro-d47dn3h_0_3_1" tilewidth="32" tileheight="32">
   <properties>
    <property name="alpha" value="disable"/>
@@ -76,4 +76,11 @@
    H4sIAAAAAAAAA+3bYY6CMBgEUE+yh3Dvf7f99SUbV1kq0NbOewmJCQ3NdBQJ6P12u92DtjRnZt67hqPWOrXf1vf3q/H6nY9+16bftb3K/M5a6Hc+rq/W9jvz95N975y3zxp3Nv3+3affz6bftW31+86xzui35f3UIr3fo74a5jyj35ax7k8e17vfK747VvNf5pY1GdHvXsn9tlxHbY0dcX5umU+/beMf6Xc+Cf3umXNVn3x91UK/x83W7/3hdWq/W+fovZ21jN1a66s6SO53xJy959Vvv2Potx+f37X1yHzkO/1M+u1z7Md+e627fvvw+e1Hv2tLypyUtSRlTspakjInZS1JmZOylmf3n6/cRho9/wgzZO7V/QxZe0vKnJS1JGVOylqSMidlLaMyj7hW0+8crvwNR5oZM+v3PDNm1u95Zss84nn0ymbKfPV9jpmy9pKUOSlrScqclLUkZk6S1G9S1uK5zdqS1j4pa0nMnES/a0vqNylrScycJKnfpKwlMXMS/a4tqd+krCUxc5KkfpOylsTMSXr//2j0BgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADCbH4VbSFgA4QAA
   </data>
  </layer>
+ <objectgroup name="Capa de Objetos 1" width="120" height="120">
+  <object name="partida" type="partida" x="389" y="289" width="28" height="87">
+   <properties>
+    <property name="angulo" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

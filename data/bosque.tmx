@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="60" height="60" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="thumbnail" value="bosque_thum.png"/>
+  <property name="tipo" value="carrera"/>
+ </properties>
  <tileset firstgid="1" name="complementos" tilewidth="32" tileheight="32">
   <image source="complementos.png" width="256" height="256"/>
  </tileset>

@@ -18,6 +18,12 @@ class Configuracion
       when String
         asignarLiteral name.to_s, args.first
         @claves[name] = :string
+      when Array
+        args.first.each do |v|
+          asignarArregloCadena name.to_s, v
+        end
+
+        @claves[name] = :array
       end
     else
       name = name.to_s
@@ -29,6 +35,9 @@ class Configuracion
           obtenerFlotante name
         when :string
           obtenerLiteral name
+        when :array
+          obtenerArregloCadena(name).split(",")
+
         end
       end
     end
@@ -46,3 +55,5 @@ class Juego
   end
   
 end
+
+

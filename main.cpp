@@ -10,8 +10,8 @@
 #include "escenario_carrera.h"
 #include "vehiculo.h"
 #include "tmx_render.h"
-
-
+#include "carray.h"
+#include <string>
 
 int main(int argc, char **argv)
 {
@@ -30,11 +30,15 @@ int main(int argc, char **argv)
   //inicializa enlaces a VM
   Configuracion::bindingScript(Compositor::obScript()->obState());
   VehiculoTipo::bindingScript(Compositor::obScript()->obState());
-
+  CArray<std::string>::bindingScript(Compositor::obScript()->obState());
   Compositor::obScript()->leerScript("data/util.rb");
   Compositor::obScript()->leerScript("data/configuracion.rb");
   Compositor::obScript()->leerScript("data/vehiculos.rb");
 
+  CArrayString* ar = Compositor::obConfiguracion()->obtenerArregloCadena("mapas");
+  for(CArrayString::iterator it = ar->begin(); it != ar->end(); ++it) {
+    std::cout << "Mapas desde configuracion:" << (*it) << std::endl;
+  }
 
   //EscenarioIntro escenario_intro=EscenarioIntro();
   //Escenario *escenario = (Escenario*)&escenario_intro;
