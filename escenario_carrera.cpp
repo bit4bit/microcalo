@@ -52,7 +52,7 @@ EscenarioCarrera::EscenarioCarrera(const char *archivo_tmx) : Escenario(ID_ESCEN
     break;
   }
   if(hay_capa_colision);
-  Compositor::obColision()->asignarBloqueMapa(bloques_mapa, tmxRender->obColumnas(), tmxRender->obFilas());
+  Compositor::obColision()->asignarBloqueMapa(bloques_mapa, tmxRender->obColumnas(), tmxRender->obFilas(), tmxRender->obTileAncho());
 
   //UBICA JUGADORX
   for(int i = 0; i < tmxRender->obMap()->GetNumObjectGroups(); ++i) {

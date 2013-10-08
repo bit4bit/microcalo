@@ -8,6 +8,7 @@ Colision* Colision::_self = 0;
 
 Colision::Colision() {
   memset(bloques_mapa, 0, sizeof(bloques_mapa));
+  bloque_tamano = 0;
 }
 
 Colision::~Colision() {
@@ -136,18 +137,19 @@ void Colision::dibujar()
 }
 
 
-void Colision::asignarBloqueMapa(unsigned char col[MAX_MAPA_COLISION][MAX_MAPA_COLISION], int ancho, int alto)
+void Colision::asignarBloqueMapa(unsigned char col[MAX_MAPA_COLISION][MAX_MAPA_COLISION], int ancho, int alto, int btamano)
 {
   assert(ancho < MAX_MAPA_COLISION && alto < MAX_MAPA_COLISION);
   for(int i=0; i < ancho; i++)
     for(int j=0; j < alto; j++)
       bloques_mapa[i][j] = col[i][j];
+  bloque_tamano = btamano;
 }
 
 bool Colision::conBloque(Objeto *obja) 
 {
-  int x = obja->obX() / 32;
-  int y = obja->obY() / 32;
+  int x = obja->obX() / bloque_tamano;
+  int y = obja->obY() / bloque_tamano;
   if(bloques_mapa[x][y])
     return true;
   return false;
@@ -155,8 +157,8 @@ bool Colision::conBloque(Objeto *obja)
 
 bool Colision::conBloque(Objeto *obja, int nx, int ny) 
 {
-  int x = nx / 32;
-  int y = ny / 32;
+  int x = nx / bloque_tamano;
+  int y = ny / bloque_tamano;
   if(bloques_mapa[x][y])
     return true;
   return false;

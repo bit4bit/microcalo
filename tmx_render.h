@@ -21,6 +21,8 @@ class TmxRender
   int obAncho() { return tmx->GetWidth() * tmx->GetTileWidth();}
   int obColumnas() { return tmx->GetWidth();}
   int obFilas() { return tmx->GetHeight();}
+  int obTileAlto() { return tmx->GetTileHeight();}
+  int obTileAncho() { return tmx->GetTileWidth();}
   /**
    *Imprime srect desde capa desde tmx a 
    *superficie *dst

@@ -20,6 +20,7 @@ class Colision
   static Colision* _self;
   std::map<Objeto*, sge_cdata*> colision_map; //colision por pixel usando SGE
   unsigned char bloques_mapa[MAX_MAPA_COLISION][MAX_MAPA_COLISION];
+  int bloque_tamano;
  public:
   static Colision* instancia();
   
@@ -33,7 +34,7 @@ class Colision
   void crearMapaColision(Objeto *obj);
   void crearMapaColisionImagen(Objeto *obj, SDL_Surface *s);
 
-  void asignarBloqueMapa(unsigned char [MAX_MAPA_COLISION][MAX_MAPA_COLISION], int, int);
+  void asignarBloqueMapa(unsigned char [MAX_MAPA_COLISION][MAX_MAPA_COLISION], int, int, int);
   bool conBloque(Objeto *obja); 
   bool conBloque(Objeto *obja, int nx, int ny); 
 
