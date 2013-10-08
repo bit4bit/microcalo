@@ -1,7 +1,7 @@
 BASEDIR=.
 CC=g++
 CFLAGS=`sdl-config --cflags` -lSDL_image  -ggdb
-CPPFLAGS_MRUBY=-I$(BASEDIR)/vendor/mruby/include -I$(BASEDIR)/vendor/mrubybind/
+CPPFLAGS_MRUBY=-I$(BASEDIR)/vendor/mruby/include -I$(BASEDIR)/vendor/mrubybind/  -Wall
 LIBS=`sdl-config --libs` -lSDL_mixer -lSDL_gfx -lSDL_ttf -lSDL_gfx -lSDL_image -lSGE -lz -lm -ggdb
 CPPFLAGS=-Ivendor/tinyxml-git -Ivendor/tmx-parser-read-only $(CPPFLAGS_MRUBY) -Ivendor/vmath/src
 OBJECTS = mando.o jugador.o control_mando.o control_teclado.o punto_paso_gestor.o punto_paso.o colision.o objeto.o video.o audio.o reloj.o teclado.o recurso.o cosa.o escenario.o escenario_carrera.o vehiculo.o vehiculo_tipo.o camara.o main.o escenario_intro.o texto.o util.o tmx_render.o configuracion.o script.o gestor_vehiculo_tipo.o gestor_escenario.o carray.o
@@ -11,14 +11,14 @@ TINYXML_OBJECTS=vendor/tinyxml-git/tinyxml.o vendor/tinyxml-git/tinyxmlparser.o 
 
 
 microcalo: $(OBJECTS) libtmxparser.a vehiculo.h mruby mrubybind.o vmath.o
-	$(CC) -ggdb -o $@ $(OBJECTS) vendor/tmx-parser-read-only/libtmxparser.a $(TINYXML_OBJECTS) $(CFLAGS) $(CPPFLAGS_MRUBY) $(LIBS) $(OBJECTS_MRUBY)
+	$(CC) -ggdb  -O2 -o  $@ $(OBJECTS) vendor/tmx-parser-read-only/libtmxparser.a $(TINYXML_OBJECTS) $(CFLAGS) $(CPPFLAGS_MRUBY) $(LIBS) $(OBJECTS_MRUBY)
 
 .PHONY : mrubybind.o
 mrubybind.o:
-	$(CC) -c -o $@ $(BASEDIR)/vendor/mrubybind/mrubybind.cc $(CPPFLAGS_MRUBY) $(OBJECTS_MRUBY) -ggdb
+	$(CC) -O2 -c -o $@ $(BASEDIR)/vendor/mrubybind/mrubybind.cc $(CPPFLAGS_MRUBY) $(OBJECTS_MRUBY) -ggdb
 
 vmath.o:
-	$(CC) -c -o $@ $(BASEDIR)/vendor/vmath/src/vmath.cpp -lm -ggdb
+	$(CC) -O2 -c -o $@ $(BASEDIR)/vendor/vmath/src/vmath.cpp -lm -ggdb
 
 .PHONY : mruby
 mruby: 

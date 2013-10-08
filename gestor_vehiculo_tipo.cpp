@@ -44,11 +44,11 @@ VehiculoTipo* GestorVehiculoTipo::encontrar(std::string nombre) {
     vt->asignarNombre("generico");
     vt->asignarAncho(32);
     vt->asignarAlto(32);
-    vt->asignarMaxVel(15);
-    vt->asignarMinVel(15);
-    vt->asignarDefAccel(1);
-    vt->asignarDefRetro(5);
-    vt->asignarDefGiro(4);
+    vt->asignarMaxVel(12);
+    vt->asignarMinVel(-5);
+    vt->asignarDefAccel(0.5);
+    vt->asignarDefRetro(-0.1);
+    vt->asignarDefGiro(1);
     vt->asignarDefGiroFrenando(5);
     vt->asignarSVehiculo(Compositor::obRecurso()->cargarImagen("./data/carro.xpm"));
     vehiculos[vt->obNombre()] = vt;

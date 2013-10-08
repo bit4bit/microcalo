@@ -65,7 +65,7 @@ EscenarioCarrera::EscenarioCarrera(const char *archivo_tmx) : Escenario(ID_ESCEN
 	  vehiculo = new Vehiculo(2, Compositor::obGestorVehiculoTipo()->encontrar(std::string("rapido")), object->GetX()+object->GetWidth()/2, object->GetY() + object->GetHeight()/2, object->GetProperties().GetNumericProperty("angulo"));
 	vehiculo->asignarColisionCircular(0, 0, vehiculo->obAncho()/2);
 	vehiculo->depurar = false;
-	vehiculo->asignarLimites(tmxRender->obAncho(), tmxRender->obAlto());
+	vehiculo->asignarLimites(tmxRender->obAncho()-32, tmxRender->obAlto()-32);
 	Jugador *jg1 = new Jugador("jugador 1", new ControlTeclado(SDLK_w, SDLK_m, SDLK_a, SDLK_o), vehiculo);
 	agregarJugador(jg1);
       }

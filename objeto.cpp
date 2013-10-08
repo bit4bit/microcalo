@@ -104,8 +104,8 @@ void Objeto::regularALimites() {
   si(escenario_x < 0) escenario_x = 0;
   si(escenario_y < 0) escenario_y = 0;
   si(limite_x && limite_y) {
-    si(escenario_x > limite_x + obAncho()) escenario_x = limite_x - obAncho() - 1;
-    si(escenario_y > limite_y + obAlto()) escenario_y = limite_y - obAlto() - 1;
+    si(escenario_x > limite_x + obAncho()) escenario_x -= limite_x - 1;
+    si(escenario_y > limite_y + obAlto()) escenario_y = limite_y  - 1;
   }
 }
 

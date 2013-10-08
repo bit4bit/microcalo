@@ -65,6 +65,8 @@ class Vehiculo : public Objeto
 
   //audio
   int channelMotor;
+  int direccionX; //1 derecha - 1 izqu
+  int direccionY; //1 arriba - 1 abaj
   
 };
 #endif
