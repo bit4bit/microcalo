@@ -4,6 +4,7 @@
 #include "escenario.h"
 #include <map>
 #include <string>
+#include <mruby.h>
 
 /**
  *Maneja las escenas del video juego
@@ -12,10 +13,11 @@
 class GestorEscenario
 {
  public:
+  static void bindingScript(mrb_state*);
   static GestorEscenario* instancia();
   static void cerrar();
   
-  void agregar(std::string, Escenario*);
+  void agregar(Escenario*);
   void activar(std::string);
   Escenario* actual();
 

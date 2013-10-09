@@ -5,8 +5,9 @@
 #include <map>
 #include <mruby.h>
 #include "carray.h"
+#include "exportar_script.h"
 
-class Configuracion
+class Configuracion: public ExportarScript
 {
  protected:
   Configuracion();

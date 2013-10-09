@@ -7,11 +7,14 @@
 #include <vector>
 #include <queue>
 #include "escenario.h"
+#include <mruby.h>
+#include <mruby/data.h>
 
-class EscenarioIntroComando
+
+class EscenarioGuionComando
 {
  public:
-  EscenarioIntroComando(std::string tipo, std::string data);
+  EscenarioGuionComando(std::string tipo, std::string data);
   
   std::string tipo;
   std::string data;
@@ -22,17 +25,19 @@ class EscenarioIntroComando
  *o bien de presentacion.
  *@todo musica y soundfx
  */
-class EscenarioIntro : public Escenario
+class EscenarioGuion : public Escenario
 {
  public:
-  EscenarioIntro();
-  virtual ~EscenarioIntro();
+  static void bindingScript(mrb_state*);
+  EscenarioGuion();
+  virtual ~EscenarioGuion();
   virtual void actualizar();
   virtual void dibujar();
 
-  void agregarComando(EscenarioIntroComando *comando);
+  void agregarComando(EscenarioGuionComando *comando);
+  void agregarComandoS(std::string, std::string);
  private:
-  std::queue<EscenarioIntroComando*> comandos;
+  std::queue<EscenarioGuionComando*> comandos;
   int pausar;
   int pausar_cont;
 };

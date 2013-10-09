@@ -1,6 +1,6 @@
 class Configuracion
 
-  def self.instance
+  def self.instancia
     @instance ||= new
   end
   
@@ -45,15 +45,41 @@ class Configuracion
   private :new
 end
 
+
+class GestorEscenario
+  def self.instancia
+    @instance ||= new
+  end
+  private :new
+end
+
 #Clase que contiene acceso
 #a clases de juego
 class Juego
 
   #Configuracion por claves
   def self.conf
-    Configuracion.instance
+    Configuracion.instancia
   end
   
+  def self.gestor_escenarios
+    GestorEscenario.instancia
+  end
 end
+
+
+#EscenarioGuion
+#Se crean escenarios para presentacion y creditos, o acerca
+#esta es creada en clase C++ -EscenarioGuion-
+class EscenarioGuion
+  def <<(comandos)
+    raise ArgumentError, "Se espera arreglo de arreglos [tipo, data]" unless comandos.kind_of?(Array)
+    comandos.each do |comando|
+      raise RuntimeError, "Comando invalido:" + comando.first.to_s + " se espera tupla." if comando.size != 2
+      agregarComando(comando.first, comando.last)
+    end
+ end
+end
+
 
 

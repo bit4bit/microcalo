@@ -6,7 +6,7 @@
 #include "cspa.h"
 #include "compositor.h"
 #include "escenario.h"
-#include "escenario_intro.h"
+#include "escenario_guion.h"
 #include "escenario_carrera.h"
 #include "vehiculo.h"
 #include "tmx_render.h"
@@ -28,9 +28,13 @@ int main(int argc, char **argv)
   Compositor::obGestorEscenario();
   Compositor::obColision();
   //inicializa enlaces a VM
+  GestorEscenario::bindingScript(Compositor::obScript()->obState());
   Configuracion::bindingScript(Compositor::obScript()->obState());
   VehiculoTipo::bindingScript(Compositor::obScript()->obState());
   CArray<std::string>::bindingScript(Compositor::obScript()->obState());
+  EscenarioGuion::bindingScript(Compositor::obScript()->obState());
+
+
   Compositor::obScript()->leerScript("data/util.rb");
   Compositor::obScript()->leerScript("data/configuracion.rb");
   Compositor::obScript()->leerScript("data/vehiculos.rb");
@@ -40,16 +44,12 @@ int main(int argc, char **argv)
     std::cout << "Mapas desde configuracion:" << (*it) << std::endl;
   }
 
-  //EscenarioIntro escenario_intro=EscenarioIntro();
-  //Escenario *escenario = (Escenario*)&escenario_intro;
-  //script_cargar_escenario_intro(&escenario_intro, "escenario-intro");
   EscenarioCarrera* escenarioC = new EscenarioCarrera(Compositor::obConfiguracion()->obtenerLiteral("data_path").append("/").append(ar->front()).c_str());
   
-  Compositor::obGestorEscenario()->agregar("carrera", (Escenario*)escenarioC);
-  Compositor::obGestorEscenario()->activar("carrera");
+  escenarioC->asignarNombre("carrera");
+  Compositor::obGestorEscenario()->agregar((Escenario*)escenarioC);
+  Compositor::obGestorEscenario()->activar("intro");
 
-  //TmxRender *tmxRender = new TmxRender();
-  //tmxRender->CargarDesdeArchivo("data/mapa1.tmx");
   Compositor::obRecurso();
   hacer {
     Compositor::obReloj()->actualizar();
@@ -68,13 +68,6 @@ int main(int argc, char **argv)
 
     Compositor::obGestorEscenario()->actual()->dibujar();
        
-    /*SDL_Rect srect;
-    srect.x = 10;
-    srect.y = 0;
-    srect.w = 640;
-    srect.h = 480;
-    tmxRender->blit("fondo", &srect, Compositor::obVideo()->obSurface(), NULL);
-    */
     video->dibujar();
     
   }mientras(salir == false);
