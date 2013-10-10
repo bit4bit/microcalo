@@ -8,6 +8,8 @@
 #include "escenario.h"
 #include "escenario_guion.h"
 #include "escenario_carrera.h"
+#include "escenario_menu.h"
+
 #include "vehiculo.h"
 #include "tmx_render.h"
 #include "carray.h"
@@ -32,8 +34,10 @@ int main(int argc, char **argv)
   Configuracion::bindingScript(Compositor::obScript()->obState());
   VehiculoTipo::bindingScript(Compositor::obScript()->obState());
   CArray<std::string>::bindingScript(Compositor::obScript()->obState());
+  Graficador::bindingScript(Compositor::obScript()->obState());
   EscenarioGuion::bindingScript(Compositor::obScript()->obState());
-
+  EscenarioMenu::bindingScript(Compositor::obScript()->obState());
+  RWidget::bindingScript(Compositor::obScript()->obState());
 
   Compositor::obScript()->leerScript("data/util.rb");
   Compositor::obScript()->leerScript("data/configuracion.rb");
@@ -55,6 +59,7 @@ int main(int argc, char **argv)
     Compositor::obReloj()->actualizar();
     SDL_PumpEvents();
 
+    int ai = mrb_gc_arena_save(Compositor::obScript()->obState());
     Compositor::obMando()->actualizar();
     Compositor::obTeclado()->actualizar(SDL_GetKeyState(NULL));
     if(Compositor::obTeclado()->presionado(SDLK_q))
@@ -69,7 +74,7 @@ int main(int argc, char **argv)
     Compositor::obGestorEscenario()->actual()->dibujar();
        
     video->dibujar();
-    
+    mrb_gc_arena_restore(Compositor::obScript()->obState(), ai);
   }mientras(salir == false);
 
 

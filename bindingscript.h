@@ -7,6 +7,7 @@
 #include <mruby/value.h>
 #include <mruby/class.h>
 #include <mruby/string.h>
-
+#include <mruby/variable.h>
+#include <mruby/gc.h>
 
 #endif

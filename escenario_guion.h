@@ -9,7 +9,7 @@
 #include "escenario.h"
 #include <mruby.h>
 #include <mruby/data.h>
-
+#include "exportar_script.h"
 
 class EscenarioGuionComando
 {

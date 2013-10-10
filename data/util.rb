@@ -83,3 +83,26 @@ end
 
 
 
+#RWidget
+#Wdiget para escenario menu
+class RWidget
+  def actualizar
+    ##puts @graficador.class
+    #puts @cantidad.class
+    #puts "actualizando widget"
+    #puts graficador
+    #puts @@cantidad.class
+    #puts @cantidad
+    #g = @graficador
+    #puts @graficador
+    #puts @graficador.respond_to?(:imprimirTexto)
+    
+
+  end
+
+  def dibujar
+    #puts "dibujando widget"
+    @graficador.imprimirTexto 100,100,"hola desde ruby",1
+    1+33
+  end
+end

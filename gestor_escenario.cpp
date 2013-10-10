@@ -61,6 +61,8 @@ static struct mrb_data_type gestor_escenario_type  = {"GestorEscenario", gestor_
 static mrb_value gestor_escenario_new(mrb_state *mrb, mrb_value self) {
   DATA_TYPE(self) = &gestor_escenario_type;
   DATA_PTR(self) = GestorEscenario::instancia();
+  mrb_gc_protect(mrb, self);
+  //mrb_singleton_class(mrb, self);
   return self;
 }
 
@@ -76,6 +78,8 @@ static mrb_value gestor_escenario_agregar(mrb_state *mrb, mrb_value self) {
   e->comoObjetoRuby();
 
   ge->agregar(e);
+
+
   return self;
 }
 

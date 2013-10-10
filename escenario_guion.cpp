@@ -34,6 +34,12 @@ EscenarioGuion::~EscenarioGuion() {
 void EscenarioGuion::dibujar() {
 }
 
+/**
+ *Comandos:
+ * +pausa+ : +int+ pausa n segundos
+ * +imagen+ : +string+ muestra imagen
+ * +texto+ : +string+ muestra texto
+ */
 void EscenarioGuion::actualizar() {
 
   if(comandos.empty()) 
@@ -90,21 +96,32 @@ void EscenarioGuion::agregarComandoS(std::string tipo, std::string data) {
 
 
 //BINDING
-static EscenarioGuion* escenario_guion_new(std::string nombre) {
-  EscenarioGuion* e = new EscenarioGuion();
-  e->asignarNombre(nombre);
-  e->comoObjetoRuby();
-  return e;
+DEF_RFUNC(escenario_guion_new) {
+  mrb_value key;
+  mrb_get_args(mrb, "S", &key);
+  EscenarioGuion* ptr = new EscenarioGuion();
+  DATA_TYPE(self) = &escenario_guion_type;
+  DATA_PTR(self) = ptr;
+  ptr->asignarNombre(mrb_str_to_cstr(mrb, key));
+  mrb_gc_protect(mrb, self);
+  return self;
+}
+
+DEF_RFUNC(escenario_guion_agregar_comando) {
+  mrb_value tipo;
+  mrb_value data;
+  mrb_get_args(mrb, "SS", &tipo, &data);
+  EscenarioGuion* ptr = static_cast<EscenarioGuion*>(DATA_PTR(self));
+  char *ctipo = mrb_str_to_cstr(mrb, tipo);
+  char *cdata = mrb_str_to_cstr(mrb, data);
+  ptr->agregarComandoS(ctipo, cdata);
+  return self;
 }
 
 void EscenarioGuion::bindingScript(mrb_state *mrb) {
-  //RClass* c_escenario_guion = mrb_define_class(mrb, "EscenarioGuion", mrb->object_class);
-  // MRB_SET_INSTANCE_TT(c_escenario_guion, MRB_TT_DATA);
-  // mrb_define_method(mrb, c_escenario_guion, "initialize", escenario_guion_new, MRB_ARGS_REQ(1));
-  // mrb_define_method(mrb, c_escenario_guion, "agregarComando", escenario_guion_agregar_comando, MRB_ARGS_REQ(2));
-  mrubybind::MrubyBind b(mrb);
-  b.bind_class("EscenarioGuion", escenario_guion_new);
-  b.bind_instance_method("EscenarioGuion", "agregarComando", &EscenarioGuion::agregarComandoS);
-  b.bind_instance_method("EscenarioGuion", "obtenerNombre", &EscenarioGuion::obNombre);
-  b.bind_instance_method("EscenarioGuion", "asignarNombre", &EscenarioGuion::asignarNombre);
+  c_escenario_guion = mrb_define_class(mrb, "EscenarioGuion", mrb->object_class);
+  MRB_SET_INSTANCE_TT(c_escenario_guion, MRB_TT_DATA);
+  mrb_define_method(mrb, c_escenario_guion, "initialize", escenario_guion_new, MRB_ARGS_REQ(1));
+  mrb_define_method(mrb, c_escenario_guion, "agregarComando", escenario_guion_agregar_comando, MRB_ARGS_REQ(2));
+
 }
