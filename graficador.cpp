@@ -49,15 +49,9 @@ DEF_RFUNC(graficador_imprimir_texto) {
   mrb_value rtexto;
   mrb_value rcolor;
   mrb_get_args(mrb, "iiSiA", &x, &y, &rtexto, &tamano, &rcolor);
-  if(mrb->exc) {
-    std::cerr << __FUNCTION__ << RSTRING_PTR(mrb_funcall(mrb, mrb_obj_value(mrb->exc), "inspect", 0)) << std::endl;
-    mrb->exc = 0;
-    return mrb_nil_value();
-  }
   Graficador* ptr = reinterpret_cast<Graficador*>(DATA_PTR(self));
   SDL_Color color =  RARY_TO_SDL_COLOR(rcolor);
   ptr->imprimirTexto(x, y, mrb_str_to_cstr(mrb, rtexto), tamano, color);
-  mrb_raise(mrb, E_ARGUMENT_ERROR, "array pailsa");
   return self;
 }
 
