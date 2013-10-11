@@ -26,6 +26,7 @@ void EscenarioMenu::actualizar() {
 }
 
 void EscenarioMenu::dibujar() {
+
   for(iter_widgets = widgets.begin(); iter_widgets != widgets.end(); ++iter_widgets) {
     (*iter_widgets)->dibujar();
   }

@@ -102,7 +102,7 @@ class RWidget
 
   def dibujar
     #puts "dibujando widget"
-    @graficador.imprimirTexto 100,100,"hola desde ruby",1
+    @graficador.imprimirTexto 100,100,"hola desde ruby",1, [255,100, 25], 11
     1+33
   end
 end

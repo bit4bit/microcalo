@@ -74,6 +74,12 @@ int main(int argc, char **argv)
     Compositor::obGestorEscenario()->actual()->dibujar();
        
     video->dibujar();
+   
+    if(Compositor::obScript()->obState()->exc) {
+      mrb_print_error(Compositor::obScript()->obState());
+      Compositor::obScript()->obState()->exc = 0;
+      break;
+    }
     mrb_gc_arena_restore(Compositor::obScript()->obState(), ai);
   }mientras(salir == false);
 

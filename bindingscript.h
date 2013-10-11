@@ -9,5 +9,7 @@
 #include <mruby/string.h>
 #include <mruby/variable.h>
 #include <mruby/gc.h>
+#include <mruby/array.h>
+
 
 #endif

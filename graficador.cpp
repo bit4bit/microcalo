@@ -7,13 +7,9 @@ Graficador::Graficador(SDL_Surface* _s) : s(_s)
 {
 }
 
-void Graficador::imprimirTexto(int x, int y, std::string texto, int tamano) { 
-  //Compositor::obVideo()->clearScreenColor(0);
-  SDL_Surface *stxt = Compositor::obTexto()->renderTextSolid(texto.c_str(), (SDL_Color){255,255,255,0});
-  //Compositor::obVideo()->blit(stxt, NULL, NULL);
-  //std::cout << "Grafico::imprimrTexto > " << texto << " id: " << s << std::endl;
+void Graficador::imprimirTexto(int x, int y, std::string texto, int tamano, SDL_Color color) { 
+  SDL_Surface *stxt = Compositor::obTexto()->renderTextSolid(texto.c_str(), color);
   SDL_Rect p = {x, y, stxt->w, stxt->h};
-  //Compositor::obVideo()->blit(stxt, NULL, &p);
   SDL_BlitSurface(stxt, NULL, s, &p);
 
 }
@@ -21,13 +17,20 @@ void Graficador::imprimirTexto(int x, int y, std::string texto, int tamano) {
 void Graficador::imprimirImagen(int x, int y, std::string ruta) {
 }
 
-void Graficador::imprimirRecuadro(int x, int y, int ancho, int alto, int color) {
+void Graficador::imprimirRecuadro(int x, int y, int ancho, int alto, SDL_Color color) {
+
 }
 
-void Graficador::imprimirBorde(int x, int y, int ancho, int alto, int grosor, int color) {
+void Graficador::imprimirBorde(int x, int y, int ancho, int alto, int grosor, SDL_Color color) {
 }
 
 //BINDING
+//INICIALIZA SDL_Color apartir de arreglo
+#define RARY_TO_SDL_COLOR(ary) {mrb_fixnum(mrb_ary_ref(mrb, ary, 0)), \
+		      mrb_fixnum(mrb_ary_ref(mrb, ary, 1)), \
+		      mrb_fixnum(mrb_ary_ref(mrb, ary, 2)), \
+		      0}
+
 DEF_RFUNC(graficador_new) {
   mrb_value surface;
   mrb_get_args(mrb, "o", &surface);
@@ -39,13 +42,22 @@ DEF_RFUNC(graficador_new) {
   return self;
 }
 
+
+
 DEF_RFUNC(graficador_imprimir_texto) {
   mrb_int x,y,tamano;
   mrb_value rtexto;
-  mrb_get_args(mrb, "iiSi", &x, &y, &rtexto, &tamano);
-  //Graficador* ptr = DATA_GET_PTR(mrb, self, &graficador_type, Graficador);
+  mrb_value rcolor;
+  mrb_get_args(mrb, "iiSiA", &x, &y, &rtexto, &tamano, &rcolor);
+  if(mrb->exc) {
+    std::cerr << __FUNCTION__ << RSTRING_PTR(mrb_funcall(mrb, mrb_obj_value(mrb->exc), "inspect", 0)) << std::endl;
+    mrb->exc = 0;
+    return mrb_nil_value();
+  }
   Graficador* ptr = reinterpret_cast<Graficador*>(DATA_PTR(self));
-  ptr->imprimirTexto(x, y, mrb_str_to_cstr(mrb, rtexto), tamano);
+  SDL_Color color =  RARY_TO_SDL_COLOR(rcolor);
+  ptr->imprimirTexto(x, y, mrb_str_to_cstr(mrb, rtexto), tamano, color);
+  mrb_raise(mrb, E_ARGUMENT_ERROR, "array pailsa");
   return self;
 }
 

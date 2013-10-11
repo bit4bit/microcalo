@@ -1,7 +1,7 @@
 #ifndef SCRIPT_H
 #define SCRIPT_H
 
-#include <mruby.h>
+#include "bindingscript.h"
 
 class Script
 {
@@ -20,6 +20,8 @@ class Script
  private:
   static Script *_self;
   mrb_state *mrb;
+  mrbc_context *mrbc;
+  
 };
 
 #endif
