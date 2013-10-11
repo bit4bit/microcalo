@@ -38,6 +38,7 @@ class EscenarioMenu : public Escenario
   SDL_Surface* s_fondo;
   SDL_Surface* imagen;
   Graficador* graficador;
+  RWidget* widget_activo;
 };
 
 #endif

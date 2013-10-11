@@ -12,13 +12,17 @@ class RWidget : public ExportarScript
 {
  public:
   static void bindingScript(mrb_state *);
-  RWidget(Graficador*, int x, int y);
+  RWidget(int x, int y, int, int);
+  ~RWidget();
   int x;
   int y;
   void actualizar();
+  void actualizarActivo();
   void dibujar();
   void asignarRObjeto(mrb_value v) { robj = v;}
   Graficador* obGraficador() { return graficador;}
+  int obAncho() { return ancho;}
+  int obAlto() { return alto;}
  protected:
 
   
@@ -26,6 +30,7 @@ class RWidget : public ExportarScript
   int alto;
   mrb_value robj;
   Graficador* graficador;
+  SDL_Surface* s;
 };
 
 

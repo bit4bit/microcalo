@@ -15,6 +15,7 @@ class Teclado
  public:
   static Teclado* instancia();
 
+  Uint8* obTeclas() { return teclas;}
   void actualizar(Uint8 *_nteclas);
   bool presionado(Uint8 tecla);
   void presionar(Uint8 tecla);

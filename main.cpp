@@ -15,10 +15,14 @@
 #include "carray.h"
 #include <string>
 
+bool SALIR = false;
+
+static void JuegoBindingScript(mrb_state* mrb);
+
 int main(int argc, char **argv)
 {
   SDL_Event ev;
-  bool salir = false;
+  //variable SALIR
 
   Video* video = Compositor::obVideo(); //se inicializa vide
   Compositor::obAudio();
@@ -30,6 +34,7 @@ int main(int argc, char **argv)
   Compositor::obGestorEscenario();
   Compositor::obColision();
   //inicializa enlaces a VM
+  JuegoBindingScript(Compositor::obScript()->obState());
   GestorEscenario::bindingScript(Compositor::obScript()->obState());
   Configuracion::bindingScript(Compositor::obScript()->obState());
   VehiculoTipo::bindingScript(Compositor::obScript()->obState());
@@ -62,8 +67,7 @@ int main(int argc, char **argv)
     int ai = mrb_gc_arena_save(Compositor::obScript()->obState());
     Compositor::obMando()->actualizar();
     Compositor::obTeclado()->actualizar(SDL_GetKeyState(NULL));
-    if(Compositor::obTeclado()->presionado(SDLK_q))
-      salir = true;
+
     if(Compositor::obTeclado()->presionado(SDLK_f))
       Compositor::obVideo()->toggleFullScreen();
 
@@ -81,10 +85,20 @@ int main(int argc, char **argv)
       break;
     }
     mrb_gc_arena_restore(Compositor::obScript()->obState(), ai);
-  }mientras(salir == false);
+  }mientras(SALIR == false);
 
 
   Compositor::cerrar();
 
   return 0;
+}
+
+DEF_RFUNC(juego_salir){
+  SALIR = 1;
+  return self;
+}
+
+static void JuegoBindingScript(mrb_state* mrb) {
+  c_juego = mrb_define_class(mrb, "Juego", mrb->object_class);
+  mrb_define_class_method(mrb, c_juego, "salir", juego_salir, MRB_ARGS_NONE());
 }

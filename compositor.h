@@ -18,6 +18,9 @@
 #include "gestor_vehiculo_tipo.h"
 #include "gestor_escenario.h"
 
+
+
+
 class Compositor
 {
  protected:
@@ -46,4 +49,5 @@ class Compositor
   static GestorEscenario* obGestorEscenario() { return GestorEscenario::instancia(); }
 };
 
+extern bool SALIR;
 #endif

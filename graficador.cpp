@@ -77,6 +77,7 @@ DEF_RFUNC(graficador_new) {
   Graficador* ptr = new Graficador(reinterpret_cast<SDL_Surface*>(mrb_obj_ptr(surface)));
   DATA_TYPE(self) = &graficador_type;
   DATA_PTR(self) = ptr;
+  
   return self;
 }
 

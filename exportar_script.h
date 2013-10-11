@@ -23,9 +23,11 @@ extern mrb_data_type escenario_menu_type;
 extern mrb_data_type rwidget_type;
 extern mrb_data_type graficador_type;
 extern mrb_data_type escenario_guion_type;
+extern mrb_data_type juego_type;
 
 extern RClass* c_escenario_menu;
 extern RClass* c_rwidget;
 extern RClass* c_graficador;
 extern RClass* c_escenario_guion;
+extern RClass* c_juego;
 #endif

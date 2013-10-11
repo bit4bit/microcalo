@@ -13,8 +13,8 @@ escena_creditos << [
                    ]
 
 escena_menu = EscenarioMenu.new("menu")
-w = RWidget.new(escena_menu, 10, 10)
-escena_menu << w
+#escena_menu << RWidget.new(escena_menu, 10, 10, 100, 100)
+escena_menu << BotonSalir.new(escena_menu, 100, 300)
 Juego.gestor_escenarios << escena_intro
 Juego.gestor_escenarios << escena_creditos 
 Juego.gestor_escenarios << escena_menu

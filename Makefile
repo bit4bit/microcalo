@@ -10,7 +10,7 @@ SDL_GFX=SDL_gfxPrimitives.o SDL_imageFilter.o SDL_rotozoom.o SDL_gfxBlitFunc.o S
 TINYXML_OBJECTS=vendor/tinyxml-git/tinyxml.o vendor/tinyxml-git/tinyxmlparser.o vendor/tinyxml-git/tinyxmlerror.o vendor/tinyxml-git/tinystr.o
 
 
-microcalo: $(OBJECTS) libtmxparser.a vehiculo.h mruby mrubybind.o vmath.o 
+microcalo: $(OBJECTS) libtmxparser.a vehiculo.h mruby mrubybind.o vmath.o SDL_gfx2.o
 	$(CC) -ggdb -O0 -o  $@ $(OBJECTS) vendor/tmx-parser-read-only/libtmxparser.a $(TINYXML_OBJECTS) $(CFLAGS) $(CPPFLAGS_MRUBY) $(LIBS) $(OBJECTS_MRUBY)  $(SDL_GFX)
 
 .PHONY : mrubybind.o
@@ -21,7 +21,7 @@ vmath.o:
 	$(CC)  -c -o $@ $(BASEDIR)/vendor/vmath/src/vmath.cpp -lm
 
 SDL_gfx2.o: 
-	gcc -c  vendor/sdl-gfx/SDL_gfxPrimitives.c vendor/sdl-gfx/SDL_framerate.c vendor/sdl-gfx/SDL_gfxBlitFunc.c vendor/sdl-gfx/SDL_imageFilter.c vendor/sdl-gfx/SDL_rotozoom.c `sdl-config --cflags` 
+	gcc  -c vendor/sdl-gfx/SDL_gfxPrimitives.c vendor/sdl-gfx/SDL_framerate.c vendor/sdl-gfx/SDL_gfxBlitFunc.c vendor/sdl-gfx/SDL_imageFilter.c vendor/sdl-gfx/SDL_rotozoom.c `sdl-config --cflags` 
 
 .PHONY : mruby
 mruby: 
