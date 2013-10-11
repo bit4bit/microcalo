@@ -81,28 +81,43 @@ class EscenarioGuion
  end
 end
 
+#Funciones utiles de graficado
+#para EscenarioMenu
+=begin
+class Graficador
+  #Imprime texdo en +x+ y +y+ con +texto+ de +tamano+ y +color+ el
+  #+color+ es un arreglo de +[R,G,B]+ donde R,G,B va de 0 a 255
+  @graficador.imprimirTexto x,y, texto, tamano, color
+  
+  
+  @graficador.imprimirCuadro x,y,ancho,alto,color,alpha=255
+  
+  @graficador.imprimirBorde x,y,ancho,alto,color,alpha=255
 
+  @graficador.imprimirBordeRedondo x,y,ancho,alto,radio,color,alpha=255
+  @graficador.imprimirLinea x,y,ancho,alto,color,grosor,alpha=255
+
+  #+rellenar+ es boleano
+  @graficador.imprimirPoligono [
+                                [x1, y1],
+                                [x2, y2],
+                                [x3, y3],
+                                .......
+                               ], color, rellenar, alpha=255
+end
+=end
 
 #RWidget
 #Wdiget para escenario menu
 class RWidget
+  #Attributo +graficador+ herramientas de dibujado en la superficie
+  #@graficador
+
   def actualizar
-    ##puts @graficador.class
-    #puts @cantidad.class
-    #puts "actualizando widget"
-    #puts graficador
-    #puts @@cantidad.class
-    #puts @cantidad
-    #g = @graficador
-    #puts @graficador
-    #puts @graficador.respond_to?(:imprimirTexto)
-    
 
   end
 
   def dibujar
-    #puts "dibujando widget"
-    @graficador.imprimirTexto 100,100,"hola desde ruby",1, [255,100, 25]
-    1+33
+    
   end
 end
